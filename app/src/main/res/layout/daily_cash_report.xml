@@ -34,6 +34,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:gravity="center"
             android:padding="5dp"
             android:text="Employee name"
             android:textColor="@color/heading_text"
@@ -43,6 +44,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="0.5"
+            android:gravity="center"
             android:padding="5dp"
             android:text="DCR Date"
             android:textColor="@color/heading_text"
@@ -52,6 +54,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="0.5"
+            android:gravity="center"
             android:padding="5dp"
             android:text="Actions"
             android:textColor="@color/heading_text"
@@ -61,5 +64,5 @@
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recycler_view"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="match_parent" />
 </LinearLayout>

@@ -1,10 +1,12 @@
-package technician.inteq.com.ugshdd;
+package technician.inteq.com.ugshdd.ui.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.FrameLayout;
+
+import technician.inteq.com.ugshdd.R;
 
 /**
  * Created by Nishant Sambyal on 04-Jul-17.
@@ -28,6 +30,7 @@ public class Dashboard extends AppCompatActivity implements View.OnClickListener
         dailyCashReport = (FrameLayout) findViewById(R.id.dailyCashReport);
         technicianRequest = (FrameLayout) findViewById(R.id.technicianRequest);
         pendingCases.setOnClickListener(this);
+        dailyCashReport.setOnClickListener(this);
     }
 
     @Override
@@ -39,7 +42,8 @@ public class Dashboard extends AppCompatActivity implements View.OnClickListener
                 startActivity(iPendingCase);
                 break;
             case R.id.dailyCashReport:
-                Intent idailyCashReport = new Intent(Dashboard.this, PendingCases.class);
+                Intent idailyCashReport = new Intent(Dashboard.this, DailyCashReport.class);
+                startActivity(idailyCashReport);
         }
     }
 }
