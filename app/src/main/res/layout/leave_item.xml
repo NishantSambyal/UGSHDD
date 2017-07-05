@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:id="@+id/header_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/title"
+        android:orientation="horizontal"
+        android:padding="2dp"
+        android:weightSum="6">
+
+        <TextView
+            android:id="@+id/date"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.8"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp"
+            android:text="Date"
+            android:textAlignment="center"
+            android:textColor="@color/heading_text" />
+
+        <TextView
+            android:id="@+id/leave_type"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1.3"
+            android:text="Leave Type"
+            android:textAlignment="center"
+            android:textColor="@color/heading_text" />
+
+        <TextView
+            android:id="@+id/from_date"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1.4"
+            android:text="From Date"
+            android:textAlignment="center"
+            android:textColor="@color/heading_text" />
+
+        <TextView
+            android:id="@+id/to_date"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.9"
+            android:text="To Date"
+            android:textAlignment="center"
+            android:textColor="@color/heading_text" />
+
+
+        <TextView
+            android:id="@+id/status"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.8"
+            android:text="Status"
+            android:textAlignment="center"
+            android:textColor="@color/heading_text" />
+
+        <TextView
+            android:id="@+id/action"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.8"
+            android:text="Action"
+            android:textAlignment="center"
+            android:textColor="@color/heading_text" />
+
+    </LinearLayout>
+
+</LinearLayout>

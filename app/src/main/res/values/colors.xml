@@ -7,5 +7,8 @@
     <color name="blue_dark">#0090ba</color>
     <color name="heading_background">#D9EDF6</color>
     <color name="heading_text">#406673</color>
-
+    <color name="green">#00A65A</color>
+    <color name="green_dark">#009450</color>
+    <color name="textPrimary">#000000</color>
+    <color name="white">#ffffff</color>
 </resources>
