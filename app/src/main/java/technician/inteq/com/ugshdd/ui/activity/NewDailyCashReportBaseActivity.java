@@ -4,10 +4,10 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.support.v7.app.AppCompatActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,12 +16,13 @@ import technician.inteq.com.ugshdd.R;
 import technician.inteq.com.ugshdd.ui.fragment.daily_cash_report.DailyCashReportCashFragment;
 import technician.inteq.com.ugshdd.ui.fragment.daily_cash_report.DailyCashReportChequeFragment;
 import technician.inteq.com.ugshdd.ui.fragment.daily_cash_report.DailyCashReportTotalAmountFragment;
+import technician.inteq.com.ugshdd.util.ToolbarUtil;
 
 /**
  * Created by Nishant Sambyal on 05-Jul-17.
  */
 
-public class DailyCashReportActivity extends AppCompatActivity {
+public class NewDailyCashReportBaseActivity extends FragmentActivity {
 
     private TabLayout tabLayout;
     private ViewPager viewPager;
@@ -29,7 +30,8 @@ public class DailyCashReportActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.daily_cash_report_activity);
+        new ToolbarUtil().initializeDeligate(this, R.layout.activity_stock_management, savedInstanceState, new String[]{"Stock Management", ""});
+        setContentView(R.layout.new_daily_cash_report_base_activity);
         viewPager = (ViewPager) findViewById(R.id.viewpager);
         setupViewPager(viewPager);
 

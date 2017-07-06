@@ -19,9 +19,9 @@
         <activity android:name=".ui.activity.Dashboard" />
         <activity android:name=".ui.activity.PendingCases" />
         <activity android:name=".ui.activity.DailyCashReport" />
-        <activity android:name=".ui.activity.LeaveManagement" />
-        <activity android:name=".ui.activity.StockManagementActivity" />
-        <activity android:name=".ui.activity.DailyCashReportActivity" />
+        <activity android:name=".ui.activity.LeaveManagementBaseActivity" />
+        <activity android:name=".ui.activity.StockManagementBaseActivity" />
+        <activity android:name=".ui.activity.NewDailyCashReportBaseActivity" />
     </application>
 
 </manifest>

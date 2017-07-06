@@ -1,18 +1,19 @@
 package technician.inteq.com.ugshdd.ui.activity;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.FrameLayout;
 
 import technician.inteq.com.ugshdd.R;
+import technician.inteq.com.ugshdd.util.ToolbarUtil;
 
 /**
  * Created by Nishant Sambyal on 04-Jul-17.
  */
 
-public class Dashboard extends AppCompatActivity implements View.OnClickListener {
+public class Dashboard extends Activity implements View.OnClickListener {
 
     FrameLayout pendingCases, materialRequest, dayEndReport, leaveManagement,
             returnMaterial, materialTransfer, dailyCashReport, technicianRequest;
@@ -20,7 +21,7 @@ public class Dashboard extends AppCompatActivity implements View.OnClickListener
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        new ToolbarUtil().initializeDeligate(this, R.layout.activity_main, savedInstanceState, new String[]{"Main Menu", ""});
         pendingCases = (FrameLayout) findViewById(R.id.pendingCases);
         materialRequest = (FrameLayout) findViewById(R.id.materialRequest);
         dayEndReport = (FrameLayout) findViewById(R.id.dayEndReport);
@@ -49,11 +50,11 @@ public class Dashboard extends AppCompatActivity implements View.OnClickListener
                 startActivity(idailyCashReport);
                 break;
             case R.id.materialTransfer:
-                Intent iStockManagement = new Intent(Dashboard.this, StockManagementActivity.class);
+                Intent iStockManagement = new Intent(Dashboard.this, StockManagementBaseActivity.class);
                 startActivity(iStockManagement);
                 break;
             case R.id.leaveManagement:
-                Intent iLeaveManagement = new Intent(Dashboard.this, LeaveManagement.class);
+                Intent iLeaveManagement = new Intent(Dashboard.this, LeaveManagementBaseActivity.class);
                 startActivity(iLeaveManagement);
                 break;
         }
