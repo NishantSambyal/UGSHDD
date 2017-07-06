@@ -108,7 +108,7 @@
         android:layout_margin="@dimen/fab_margin"
         android:tint="@android:color/white"
 
-        app:srcCompat="@drawable/ic_leave__white_48dp" />
+        app:srcCompat="@drawable/ic_shopping_cart" />
 
 </android.support.design.widget.CoordinatorLayout>
 

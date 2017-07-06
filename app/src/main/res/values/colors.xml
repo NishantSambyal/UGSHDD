@@ -11,4 +11,8 @@
     <color name="green_dark">#009450</color>
     <color name="textPrimary">#000000</color>
     <color name="white">#ffffff</color>
+    <color name="orange">#F39C11</color>
+    <color name="orange_dark">#B77100</color>
+    <color name="red">#DD4C39</color>
+    <color name="red_dark">#9e2111</color>
 </resources>

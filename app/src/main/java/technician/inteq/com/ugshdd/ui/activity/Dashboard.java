@@ -4,7 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.FrameLayout;
+import android.widget.LinearLayout;
 
 import technician.inteq.com.ugshdd.R;
 import technician.inteq.com.ugshdd.util.ToolbarUtil;
@@ -15,21 +15,21 @@ import technician.inteq.com.ugshdd.util.ToolbarUtil;
 
 public class Dashboard extends Activity implements View.OnClickListener {
 
-    FrameLayout pendingCases, materialRequest, dayEndReport, leaveManagement,
+    LinearLayout pendingCases, materialRequest, dayEndReport, leaveManagement,
             returnMaterial, materialTransfer, dailyCashReport, technicianRequest;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        new ToolbarUtil().initializeDeligate(this, R.layout.activity_main, savedInstanceState, new String[]{"Main Menu", ""});
-        pendingCases = (FrameLayout) findViewById(R.id.pendingCases);
-        materialRequest = (FrameLayout) findViewById(R.id.materialRequest);
-        dayEndReport = (FrameLayout) findViewById(R.id.dayEndReport);
-        leaveManagement = (FrameLayout) findViewById(R.id.leaveManagement);
-        returnMaterial = (FrameLayout) findViewById(R.id.returnMaterial);
-        materialTransfer = (FrameLayout) findViewById(R.id.materialTransfer);
-        dailyCashReport = (FrameLayout) findViewById(R.id.dailyCashReport);
-        technicianRequest = (FrameLayout) findViewById(R.id.technicianRequest);
+        new ToolbarUtil().initializeDeligate(this, R.layout.dashboard, savedInstanceState, new String[]{"Main Menu", ""});
+        pendingCases = (LinearLayout) findViewById(R.id.pendingCases);
+        materialRequest = (LinearLayout) findViewById(R.id.materialRequest);
+        dayEndReport = (LinearLayout) findViewById(R.id.dayEndReport);
+        leaveManagement = (LinearLayout) findViewById(R.id.leaveManagement);
+        returnMaterial = (LinearLayout) findViewById(R.id.returnMaterial);
+        materialTransfer = (LinearLayout) findViewById(R.id.materialTransfer);
+        dailyCashReport = (LinearLayout) findViewById(R.id.dailyCashReport);
+        technicianRequest = (LinearLayout) findViewById(R.id.technicianRequest);
         pendingCases.setOnClickListener(this);
         dailyCashReport.setOnClickListener(this);
         materialTransfer.setOnClickListener(this);
