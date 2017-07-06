@@ -4,6 +4,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
+import technician.inteq.com.ugshdd.ui.fragment.stock_management.AcceptedItemListFragment;
 import technician.inteq.com.ugshdd.ui.fragment.stock_management.TransferItemFragment;
 
 
@@ -21,7 +22,12 @@ public class MyPagerAdapter extends FragmentStatePagerAdapter {
 
     @Override
     public Fragment getItem(int position) {
-        Fragment fragment = new TransferItemFragment();
+        Fragment fragment = null;
+        if (position == 0) {
+            fragment = new TransferItemFragment();
+        } else if (position == 1) {
+            fragment = new AcceptedItemListFragment();
+        }
         return fragment;
     }
 
@@ -34,6 +40,4 @@ public class MyPagerAdapter extends FragmentStatePagerAdapter {
     public CharSequence getPageTitle(int position) {
         return tabTitles[position];
     }
-
-
 }

@@ -9,6 +9,7 @@ import android.support.v7.widget.Toolbar;
 
 import technician.inteq.com.ugshdd.R;
 import technician.inteq.com.ugshdd.ui.fragment.stock_management.MaterialTransferList;
+import technician.inteq.com.ugshdd.util.ToolbarUtil;
 
 public class StockManagementActivity extends AppCompatActivity implements MaterialTransferList.OnFragmentInteractionListener {
 
@@ -19,9 +20,7 @@ public class StockManagementActivity extends AppCompatActivity implements Materi
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_stock_management);
-        toolbar = (Toolbar) findViewById(R.id.toolbar);
-        toolbar.setTitle("Stock Management");
+        new ToolbarUtil().initializeDeligate(this, R.layout.activity_stock_management, savedInstanceState, new String[]{"Stock Management", ""});
 
         MaterialTransferList transferList = new MaterialTransferList();
         fragmentManager = getSupportFragmentManager();
