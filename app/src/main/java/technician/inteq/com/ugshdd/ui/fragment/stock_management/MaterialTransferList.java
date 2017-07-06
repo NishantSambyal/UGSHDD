@@ -1,4 +1,4 @@
-package technician.inteq.com.ugshdd.ui.fragment;
+package technician.inteq.com.ugshdd.ui.fragment.stock_management;
 
 import android.content.Context;
 import android.net.Uri;

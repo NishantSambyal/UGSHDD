@@ -7,9 +7,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.inteq.ugs_hdd.R;
-
 import java.util.List;
+
+import technician.inteq.com.ugshdd.R;
 
 /**
  * Created by Patyal on 7/3/2017.

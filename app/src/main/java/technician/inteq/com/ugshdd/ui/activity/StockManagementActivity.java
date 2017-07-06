@@ -7,9 +7,8 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 
-import com.inteq.ugs_hdd.R;
-import com.inteq.ugs_hdd.ui.fragments.MaterialTransferList;
-
+import technician.inteq.com.ugshdd.R;
+import technician.inteq.com.ugshdd.ui.fragment.stock_management.MaterialTransferList;
 
 public class StockManagementActivity extends AppCompatActivity implements MaterialTransferList.OnFragmentInteractionListener {
 

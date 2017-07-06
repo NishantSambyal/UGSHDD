@@ -4,7 +4,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
-import technician.inteq.com.ugshdd.ui.fragment.TransferItemFragment;
+import technician.inteq.com.ugshdd.ui.fragment.stock_management.TransferItemFragment;
 
 
 /**

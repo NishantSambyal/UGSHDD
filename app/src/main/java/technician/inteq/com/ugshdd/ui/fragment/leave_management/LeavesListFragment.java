@@ -1,4 +1,4 @@
-package technician.inteq.com.ugshdd.ui.fragment;
+package technician.inteq.com.ugshdd.ui.fragment.leave_management;
 
 import android.content.Context;
 import android.net.Uri;
@@ -21,11 +21,9 @@ import technician.inteq.com.ugshdd.adapters.LeaveRVAdapter;
 
 public class LeavesListFragment extends Fragment {
 
-    private String mParam1;
-    private String mParam2;
     private RecyclerView leavesRV;
     private List<String> leaveList;
-    private FloatingActionButton floatingActionButton;
+    private FloatingActionButton fabButton;
     private OnFragmentInteractionListener mListener;
 
     public LeavesListFragment() {
@@ -34,7 +32,6 @@ public class LeavesListFragment extends Fragment {
     public static LeavesListFragment newInstance(String param1, String param2) {
         LeavesListFragment fragment = new LeavesListFragment();
         Bundle args = new Bundle();
-
         fragment.setArguments(args);
         return fragment;
     }
@@ -60,20 +57,18 @@ public class LeavesListFragment extends Fragment {
         RecyclerView.LayoutManager manager = new LinearLayoutManager(getContext());
         leavesRV.setLayoutManager(manager);
         leavesRV.setAdapter(new LeaveRVAdapter(leaveList, getContext()));
-        floatingActionButton = (FloatingActionButton) view.findViewById(R.id.fab);
-
-        floatingActionButton.setOnClickListener(new View.OnClickListener() {
-                                                    @Override
-                                                    public void onClick(View v) {
-                                                        NewLeaveApplicationFragment newLeaveApplicationFragment = new NewLeaveApplicationFragment();
-                                                        FragmentManager fragmentManager = getFragmentManager();
-                                                        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                                                        fragmentTransaction.addToBackStack(newLeaveApplicationFragment.getTag());
-                                                        fragmentTransaction.replace(R.id.main_layout, newLeaveApplicationFragment);
-                                                        fragmentTransaction.commit();
-                                                    }
-                                                }
-        );
+        fabButton = (FloatingActionButton) view.findViewById(R.id.fab);
+        fabButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                NewLeaveApplicationFragment newLeaveApplicationFragment = new NewLeaveApplicationFragment();
+                FragmentManager fragmentManager = getFragmentManager();
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                fragmentTransaction.addToBackStack(newLeaveApplicationFragment.getTag());
+                fragmentTransaction.replace(R.id.main_layout, newLeaveApplicationFragment);
+                fragmentTransaction.commit();
+            }
+        });
         return view;
     }
 

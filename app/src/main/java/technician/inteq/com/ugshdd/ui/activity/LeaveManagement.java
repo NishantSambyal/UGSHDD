@@ -8,10 +8,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 
 import technician.inteq.com.ugshdd.R;
-import technician.inteq.com.ugshdd.ui.fragment.LeavesListFragment;
-import technician.inteq.com.ugshdd.ui.fragment.NewLeaveApplicationFragment;
+import technician.inteq.com.ugshdd.ui.fragment.leave_management.LeavesListFragment;
+import technician.inteq.com.ugshdd.ui.fragment.leave_management.NewLeaveApplicationFragment;
 
-public class LeaveManagemen extends AppCompatActivity implements
+public class LeaveManagement extends AppCompatActivity implements
         NewLeaveApplicationFragment.OnFragmentInteractionListener,
         LeavesListFragment.OnFragmentInteractionListener {
 

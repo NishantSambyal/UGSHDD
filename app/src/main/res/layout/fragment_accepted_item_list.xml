@@ -6,7 +6,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-
         <LinearLayout
             android:id="@+id/header_layout"
             android:layout_width="match_parent"
@@ -14,7 +13,7 @@
             android:layout_below="@+id/title"
             android:orientation="horizontal"
             android:padding="2dp"
-            android:weightSum="6">
+            android:weightSum="5">
 
             <TextView
                 android:layout_width="0dp"
@@ -27,20 +26,13 @@
                 android:textColor="@color/heading_text"
                 android:textStyle="bold" />
 
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="TM"
-                android:textAlignment="center"
-                android:textColor="@color/heading_text"
-                android:textStyle="bold" />
 
             <TextView
+                android:id="@+id/textView3"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="1.4"
-                android:text="Alternate TM"
+                android:layout_weight="1.2"
+                android:text="From TM"
                 android:textAlignment="center"
                 android:textColor="@color/heading_text"
                 android:textStyle="bold" />
@@ -58,7 +50,7 @@
                 android:id="@+id/textView2"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="0.8"
+                android:layout_weight="0.9"
                 android:text="Status"
                 android:textAlignment="center"
                 android:textColor="@color/heading_text"
@@ -67,7 +59,7 @@
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="0.8"
+                android:layout_weight="0.9"
                 android:text="Action"
                 android:textAlignment="center"
                 android:textColor="@color/heading_text"
@@ -75,9 +67,8 @@
 
         </LinearLayout>
 
-
         <android.support.v7.widget.RecyclerView
-            android:id="@+id/material_transfer_list"
+            android:id="@+id/accepted_item_list"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_below="@+id/header_layout" />

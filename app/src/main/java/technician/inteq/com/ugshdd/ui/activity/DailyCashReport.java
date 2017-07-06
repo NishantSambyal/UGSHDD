@@ -1,9 +1,12 @@
 package technician.inteq.com.ugshdd.ui.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
+import android.widget.Button;
 
 import java.util.ArrayList;
 
@@ -17,6 +20,7 @@ import technician.inteq.com.ugshdd.model.DailyCashReportBean;
 
 public class DailyCashReport extends AppCompatActivity {
 
+    Button newCashReport;
     RecyclerView recyclerView;
     CashReportAdapter adapter;
     ArrayList<DailyCashReportBean> list;
@@ -26,6 +30,7 @@ public class DailyCashReport extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.daily_cash_report);
+        newCashReport = (Button) findViewById(R.id.newCashReport);
         prepareDemoBean();
         recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
         recyclerView.setHasFixedSize(true);
@@ -33,6 +38,13 @@ public class DailyCashReport extends AppCompatActivity {
         recyclerView.setLayoutManager(mLayoutManager);
         adapter = new CashReportAdapter(this, list, categories);
         recyclerView.setAdapter(adapter);
+
+        newCashReport.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(DailyCashReport.this, DailyCashReportActivity.class));
+            }
+        });
     }
 
 

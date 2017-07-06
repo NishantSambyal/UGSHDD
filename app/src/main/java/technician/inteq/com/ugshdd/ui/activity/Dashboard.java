@@ -31,6 +31,9 @@ public class Dashboard extends AppCompatActivity implements View.OnClickListener
         technicianRequest = (FrameLayout) findViewById(R.id.technicianRequest);
         pendingCases.setOnClickListener(this);
         dailyCashReport.setOnClickListener(this);
+        materialTransfer.setOnClickListener(this);
+        leaveManagement.setOnClickListener(this);
+        dailyCashReport.setOnClickListener(this);
     }
 
     @Override
@@ -44,6 +47,15 @@ public class Dashboard extends AppCompatActivity implements View.OnClickListener
             case R.id.dailyCashReport:
                 Intent idailyCashReport = new Intent(Dashboard.this, DailyCashReport.class);
                 startActivity(idailyCashReport);
+                break;
+            case R.id.materialTransfer:
+                Intent iStockManagement = new Intent(Dashboard.this, StockManagementActivity.class);
+                startActivity(iStockManagement);
+                break;
+            case R.id.leaveManagement:
+                Intent iLeaveManagement = new Intent(Dashboard.this, LeaveManagement.class);
+                startActivity(iLeaveManagement);
+                break;
         }
     }
 }
