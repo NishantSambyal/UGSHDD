@@ -15,4 +15,7 @@
     <color name="orange_dark">#B77100</color>
     <color name="red">#DD4C39</color>
     <color name="red_dark">#9e2111</color>
+    <color name="heading">#357AB3</color>
+    <color name="light_green_heading">#DEF0D8</color>
+    <color name="light_yellow_heading">#FDF8E4</color>
 </resources>
