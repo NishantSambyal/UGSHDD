@@ -85,6 +85,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="5dp"
+                        android:gravity="center"
                         android:text="Material Request"
                         android:textSize="20sp"
                         android:typeface="sans" />
@@ -117,7 +118,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="5dp"
-                        android:text="Day End Report"
+                        android:gravity="center"
+                        android:text="Day End\nReport"
                         android:textSize="20sp"
                         android:typeface="sans" />
                 </LinearLayout>
@@ -157,7 +159,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="5dp"
-                        android:text="Leave Management"
+                        android:gravity="center"
+                        android:text="Leave\nManagement"
                         android:textSize="20sp"
                         android:typeface="sans" />
                 </LinearLayout>
@@ -189,6 +192,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="5dp"
+                        android:gravity="center"
                         android:text="Return Material"
                         android:textSize="20sp"
                         android:typeface="sans" />
@@ -229,7 +233,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="5dp"
-                        android:text="Material Transfer"
+                        android:gravity="center"
+                        android:text="Material\nTransfer"
                         android:textSize="20sp"
                         android:typeface="sans" />
                 </LinearLayout>
@@ -261,7 +266,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="5dp"
-                        android:text="Daily Cash Report"
+                        android:gravity="center"
+                        android:text="Daily Cash\nReport"
                         android:textSize="20sp"
                         android:typeface="sans" />
                 </LinearLayout>
