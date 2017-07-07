@@ -1,7 +1,6 @@
 package technician.inteq.com.ugshdd.ui.fragment.stock_management;
 
 import android.content.Context;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -14,7 +13,7 @@ public class NewMaterialTransfer extends Fragment {
 
 
     public NewMaterialTransfer() {
-        // Required empty public constructor
+
     }
 
     public static NewMaterialTransfer newInstance(String param1, String param2) {
@@ -40,9 +39,7 @@ public class NewMaterialTransfer extends Fragment {
         return view;
     }
 
-    public void onButtonPressed(Uri uri) {
 
-    }
 
     @Override
     public void onAttach(Context context) {

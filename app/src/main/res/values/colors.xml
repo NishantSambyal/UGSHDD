@@ -18,4 +18,5 @@
     <color name="heading">#357AB3</color>
     <color name="light_green_heading">#DEF0D8</color>
     <color name="light_yellow_heading">#FDF8E4</color>
+    <color name="light_pink_heading">#F2DEDF</color>
 </resources>

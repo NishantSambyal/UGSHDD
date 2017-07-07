@@ -1,12 +1,8 @@
 package technician.inteq.com.ugshdd.ui.fragment.stock_management;
 
 import android.content.Context;
-import android.net.Uri;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -23,7 +19,7 @@ public class TransferItemFragment extends Fragment {
 
     private RecyclerView materialListRV;
     private List<String> materialTransferList;
-    private FloatingActionButton floatingActionButton;
+//    private FloatingActionButton floatingActionButton;
 
     public TransferItemFragment() {
     }
@@ -49,30 +45,15 @@ public class TransferItemFragment extends Fragment {
         materialListRV = (RecyclerView) view.findViewById(R.id.material_transfer_list);
         materialTransferList = new ArrayList<>();
         for (int i = 0; i <= 9; i++) {
-            materialTransferList.add("item " + i);
+            materialTransferList.add("nishant" + i);
         }
 
         RecyclerView.LayoutManager manager = new LinearLayoutManager(getContext());
         materialListRV.setLayoutManager(manager);
         materialListRV.setAdapter(new LeaveRVAdapter(materialTransferList, getContext()));
-        floatingActionButton = (FloatingActionButton) view.findViewById(R.id.fab);
-        floatingActionButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                FragmentManager fragmentManager = getFragmentManager();
-                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                fragmentTransaction.addToBackStack(null);
-                fragmentTransaction.replace(R.id.main_layout, new NewMaterialTransfer());
-                fragmentTransaction.commit();
-            }
-        });
-
         return view;
     }
 
-    public void onButtonPressed(Uri uri) {
-
-    }
 
     @Override
     public void onAttach(Context context) {
