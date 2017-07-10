@@ -1,44 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fillViewport="true"
     android:scrollbars="none">
 
-    <android.support.design.widget.AppBarLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
-
-        <include layout="@layout/toolbar" />
-    </android.support.design.widget.AppBarLayout>
-
-    <ScrollView
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:gravity="center_vertical"
         android:orientation="vertical">
 
+        <include layout="@layout/toolbar" />
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:gravity="center_vertical"
             android:orientation="vertical">
-
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingLeft="100dp"
-                android:paddingRight="100dp">
+                android:paddingLeft="30dp"
+                android:paddingRight="30dp"
+                android:paddingTop="20dp">
 
                 <LinearLayout
                     android:id="@+id/pendingCases"
@@ -50,15 +33,16 @@
                     android:orientation="vertical">
 
                     <FrameLayout
-                        android:layout_width="120dp"
-                        android:layout_height="120dp"
+                        android:layout_width="80dp"
+                        android:layout_height="80dp"
+                        android:layout_gravity="center"
                         android:background="@drawable/button_round_blue"
                         android:clipToPadding="false"
                         android:elevation="10dp">
 
                         <ImageView
-                            android:layout_width="70dp"
-                            android:layout_height="70dp"
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
                             android:layout_gravity="center"
                             android:background="@drawable/ic_pie_chart" />
                     </FrameLayout>
@@ -66,10 +50,10 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_gravity="center"
                         android:layout_marginTop="5dp"
-                        android:gravity="center"
                         android:text="Pending cases"
-                        android:textSize="20sp"
+                        android:textSize="14sp"
                         android:typeface="sans" />
                 </LinearLayout>
 
@@ -83,15 +67,15 @@
                     android:orientation="vertical">
 
                     <FrameLayout
-                        android:layout_width="120dp"
-                        android:layout_height="120dp"
+                        android:layout_width="80dp"
+                        android:layout_height="80dp"
                         android:background="@drawable/button_round_green"
                         android:clipToPadding="false"
                         android:elevation="10dp">
 
                         <ImageView
-                            android:layout_width="50dp"
-                            android:layout_height="50dp"
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
                             android:layout_gravity="center"
                             android:background="@drawable/ic_shopping_cart" />
                     </FrameLayout>
@@ -100,20 +84,10 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="5dp"
-                        android:gravity="center"
                         android:text="Material Request"
-                        android:textSize="20sp"
+                        android:textSize="14sp"
                         android:typeface="sans" />
                 </LinearLayout>
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingLeft="100dp"
-                android:paddingRight="100dp"
-                android:paddingTop="30dp">
-
 
                 <LinearLayout
                     android:id="@+id/dayEndReport"
@@ -125,15 +99,15 @@
                     android:orientation="vertical">
 
                     <FrameLayout
-                        android:layout_width="120dp"
-                        android:layout_height="120dp"
+                        android:layout_width="80dp"
+                        android:layout_height="80dp"
                         android:background="@drawable/button_round_orange"
                         android:clipToPadding="false"
                         android:elevation="10dp">
 
                         <ImageView
-                            android:layout_width="50dp"
-                            android:layout_height="50dp"
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
                             android:layout_gravity="center"
                             android:background="@drawable/ic_chrome_reader_mode" />
                     </FrameLayout>
@@ -144,7 +118,7 @@
                         android:layout_marginTop="5dp"
                         android:gravity="center"
                         android:text="Day End\nReport"
-                        android:textSize="20sp"
+                        android:textSize="14sp"
                         android:typeface="sans" />
                 </LinearLayout>
 
@@ -158,15 +132,15 @@
                     android:orientation="vertical">
 
                     <FrameLayout
-                        android:layout_width="120dp"
-                        android:layout_height="120dp"
+                        android:layout_width="80dp"
+                        android:layout_height="80dp"
                         android:background="@drawable/button_round_red"
                         android:clipToPadding="false"
                         android:elevation="10dp">
 
                         <ImageView
-                            android:layout_width="70dp"
-                            android:layout_height="70dp"
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
                             android:layout_gravity="center"
                             android:background="@drawable/leave_management" />
                     </FrameLayout>
@@ -177,18 +151,18 @@
                         android:layout_marginTop="5dp"
                         android:gravity="center"
                         android:text="Leave\nManagement"
-                        android:textSize="20sp"
+                        android:textSize="14sp"
                         android:typeface="sans" />
                 </LinearLayout>
+
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingLeft="100dp"
-                android:paddingRight="100dp"
-                android:paddingTop="30dp">
-
+                android:paddingLeft="30dp"
+                android:paddingRight="30dp"
+                android:paddingTop="20dp">
 
                 <LinearLayout
                     android:id="@+id/returnMaterial"
@@ -200,15 +174,15 @@
                     android:orientation="vertical">
 
                     <FrameLayout
-                        android:layout_width="120dp"
-                        android:layout_height="120dp"
+                        android:layout_width="80dp"
+                        android:layout_height="80dp"
                         android:background="@drawable/button_round_green"
                         android:clipToPadding="false"
                         android:elevation="10dp">
 
                         <ImageView
-                            android:layout_width="70dp"
-                            android:layout_height="70dp"
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
                             android:layout_gravity="center"
                             android:background="@drawable/return_material" />
                     </FrameLayout>
@@ -219,7 +193,7 @@
                         android:layout_marginTop="5dp"
                         android:gravity="center"
                         android:text="Return\nMaterial"
-                        android:textSize="20sp"
+                        android:textSize="14sp"
                         android:typeface="sans" />
                 </LinearLayout>
 
@@ -233,15 +207,15 @@
                     android:orientation="vertical">
 
                     <FrameLayout
-                        android:layout_width="120dp"
-                        android:layout_height="120dp"
+                        android:layout_width="80dp"
+                        android:layout_height="80dp"
                         android:background="@drawable/button_round_blue"
                         android:clipToPadding="false"
                         android:elevation="10dp">
 
                         <ImageView
-                            android:layout_width="70dp"
-                            android:layout_height="70dp"
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
                             android:layout_gravity="center"
                             android:background="@drawable/material_transfer" />
                     </FrameLayout>
@@ -252,17 +226,9 @@
                         android:layout_marginTop="5dp"
                         android:gravity="center"
                         android:text="Material\nTransfer"
-                        android:textSize="20sp"
+                        android:textSize="14sp"
                         android:typeface="sans" />
                 </LinearLayout>
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingLeft="100dp"
-                android:paddingRight="100dp"
-                android:paddingTop="30dp">
 
                 <LinearLayout
                     android:id="@+id/dailyCashReport"
@@ -274,15 +240,15 @@
                     android:orientation="vertical">
 
                     <FrameLayout
-                        android:layout_width="120dp"
-                        android:layout_height="120dp"
+                        android:layout_width="80dp"
+                        android:layout_height="80dp"
                         android:background="@drawable/button_round_orange"
                         android:clipToPadding="false"
                         android:elevation="10dp">
 
                         <ImageView
-                            android:layout_width="70dp"
-                            android:layout_height="70dp"
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
                             android:layout_gravity="center"
                             android:background="@drawable/daily_cash_report" />
                     </FrameLayout>
@@ -293,7 +259,7 @@
                         android:layout_marginTop="5dp"
                         android:gravity="center"
                         android:text="Daily Cash\nReport"
-                        android:textSize="20sp"
+                        android:textSize="14sp"
                         android:typeface="sans" />
                 </LinearLayout>
 
@@ -307,17 +273,19 @@
                     android:orientation="vertical">
 
                     <FrameLayout
-                        android:layout_width="120dp"
-                        android:layout_height="120dp"
+                        android:layout_width="80dp"
+                        android:layout_height="80dp"
                         android:layout_gravity="center"
                         android:background="@drawable/button_round_green"
                         android:elevation="10dp">
 
                         <ImageView
-                            android:layout_width="70dp"
-                            android:layout_height="70dp"
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
                             android:layout_gravity="center"
-                            android:background="@drawable/technical_request" />
+                            android:background="@drawable/technical_request"
+                            android:clipToPadding="false"
+                            android:elevation="10dp" />
                     </FrameLayout>
 
                     <TextView
@@ -326,12 +294,10 @@
                         android:layout_gravity="center"
                         android:layout_marginTop="5dp"
                         android:text="Technical\nRequest"
-                        android:textSize="20sp" />
+                        android:textSize="14sp"
+                        android:typeface="sans" />
                 </LinearLayout>
             </LinearLayout>
-
-
         </LinearLayout>
     </LinearLayout>
-    </ScrollView>
-</android.support.design.widget.CoordinatorLayout>
+</ScrollView>

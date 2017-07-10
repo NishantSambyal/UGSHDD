@@ -11,6 +11,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/title"
+            android:background="@color/heading_background"
             android:orientation="horizontal"
             android:padding="2dp"
             android:weightSum="5">
@@ -67,6 +68,12 @@
 
         </LinearLayout>
 
+        <View
+            android:id="@+id/border_view"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_below="@+id/header_layout"
+            android:background="#f45ebedc" />
         <android.support.v7.widget.RecyclerView
             android:id="@+id/accepted_item_list"
             android:layout_width="match_parent"

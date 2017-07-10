@@ -3,10 +3,10 @@ package technician.inteq.com.ugshdd.ui.activity;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.widget.Button;
 
 import java.util.ArrayList;
 
@@ -21,7 +21,7 @@ import technician.inteq.com.ugshdd.util.ToolbarUtil;
 
 public class DailyCashReport extends Activity {
 
-    Button newCashReport;
+    FloatingActionButton newCashReport;
     RecyclerView recyclerView;
     CashReportAdapter adapter;
     ArrayList<DailyCashReportBean> list;
@@ -31,7 +31,7 @@ public class DailyCashReport extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         new ToolbarUtil().initializeDeligate(this, R.layout.daily_cash_report, savedInstanceState, new String[]{"Daily Cash Report", ""});
-        newCashReport = (Button) findViewById(R.id.newCashReport);
+        newCashReport = (FloatingActionButton) findViewById(R.id.newCashReport);
         prepareDemoBean();
         recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
         recyclerView.setHasFixedSize(true);

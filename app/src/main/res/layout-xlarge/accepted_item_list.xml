@@ -5,11 +5,12 @@
     android:orientation="vertical">
 
     <LinearLayout
+        android:id="@+id/header_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:padding="10dp"
-        android:weightSum="6">
+        android:weightSum="5">
 
         <TextView
             android:id="@+id/date"
@@ -24,23 +25,12 @@
             android:textSize="18dp" />
 
         <TextView
-            android:id="@+id/tm"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:hint="tm"
-            android:paddingLeft="5dp"
-            android:paddingRight="5dp"
-            android:textAlignment="center"
-            android:textColor="@color/textPrimary"
-            android:textSize="18dp" />
 
-        <TextView
-            android:id="@+id/alternate_tm"
+            android:id="@+id/from_tm"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:hint="alternate_tm"
+            android:hint="From TM"
             android:paddingLeft="5dp"
             android:paddingRight="5dp"
             android:textAlignment="center"
@@ -52,18 +42,20 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:hint="inv_with"
+            android:hint="INV. With"
             android:paddingLeft="5dp"
+            android:paddingRight="5dp"
             android:textAlignment="center"
             android:textColor="@color/textPrimary"
             android:textSize="18dp" />
 
         <TextView
+
             android:id="@+id/status"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:hint="status"
+            android:hint="Status"
             android:paddingLeft="5dp"
             android:paddingRight="5dp"
             android:textAlignment="center"
@@ -75,12 +67,12 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:hint="action"
+            android:hint="Action"
             android:paddingLeft="5dp"
             android:paddingRight="5dp"
             android:textAlignment="center"
             android:textColor="@color/textPrimary"
             android:textSize="18dp" />
-    </LinearLayout>
 
+    </LinearLayout>
 </LinearLayout>

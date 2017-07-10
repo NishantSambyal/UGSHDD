@@ -12,6 +12,7 @@ import android.view.View;
 import technician.inteq.com.ugshdd.R;
 import technician.inteq.com.ugshdd.adapters.MyPagerAdapter;
 import technician.inteq.com.ugshdd.ui.fragment.stock_management.NewMaterialTransfer;
+import technician.inteq.com.ugshdd.util.ToolbarUtil;
 
 public class StockManagementBaseActivity extends FragmentActivity {
     private TabLayout tabLayout;
@@ -21,8 +22,7 @@ public class StockManagementBaseActivity extends FragmentActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        setContentView(R.layout.activity_stock_management);
+        new ToolbarUtil().initializeDeligate(this, R.layout.activity_stock_management, savedInstanceState, new String[]{"Stock Management", ""});
         fragmentManager = getSupportFragmentManager();
         viewPager = (ViewPager) findViewById(R.id.view_pager);
         viewPager.setAdapter(new MyPagerAdapter(getSupportFragmentManager()));
@@ -32,6 +32,7 @@ public class StockManagementBaseActivity extends FragmentActivity {
 
     public void click(View view) {
         tabLayout.setVisibility(View.GONE);
+        ToolbarUtil.setNames(new String[]{"New Material Transfer", ""});
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.addToBackStack("");
         fragmentTransaction.replace(R.id.main_layout, new NewMaterialTransfer());
@@ -43,6 +44,7 @@ public class StockManagementBaseActivity extends FragmentActivity {
 
         if (fragmentManager.getBackStackEntryCount() == 1) {
             tabLayout.setVisibility(View.VISIBLE);
+            ToolbarUtil.setNames(new String[]{"Stock Management", ""});
             fragmentManager.popBackStack();
         } else
             super.onBackPressed();

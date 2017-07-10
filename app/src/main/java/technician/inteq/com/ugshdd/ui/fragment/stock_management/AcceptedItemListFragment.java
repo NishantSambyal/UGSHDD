@@ -47,8 +47,8 @@ public class AcceptedItemListFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_accepted_item_list, container, false);
         acceptedItemRV = (RecyclerView) view.findViewById(R.id.accepted_item_list);
         acceptedItemList = new ArrayList<>();
-        for (int i = 0; i <= 9; i++) {
-            acceptedItemList.add("item " + i);
+        for (int i = 0; i <= 30; i++) {
+            acceptedItemList.add("item ");
         }
         RecyclerView.LayoutManager manager = new LinearLayoutManager(getContext());
         acceptedItemRV.setLayoutManager(manager);

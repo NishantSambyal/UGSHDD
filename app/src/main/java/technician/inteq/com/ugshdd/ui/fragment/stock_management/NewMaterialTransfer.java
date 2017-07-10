@@ -33,12 +33,11 @@ public class NewMaterialTransfer extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_new_material_transfer, container, false);
+
         return view;
     }
-
 
 
     @Override

@@ -13,13 +13,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import technician.inteq.com.ugshdd.R;
-import technician.inteq.com.ugshdd.adapters.LeaveRVAdapter;
+import technician.inteq.com.ugshdd.adapters.MaterialListRVAdapter;
 
 public class TransferItemFragment extends Fragment {
 
     private RecyclerView materialListRV;
     private List<String> materialTransferList;
-//    private FloatingActionButton floatingActionButton;
 
     public TransferItemFragment() {
     }
@@ -44,13 +43,13 @@ public class TransferItemFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_transfer_item, container, false);
         materialListRV = (RecyclerView) view.findViewById(R.id.material_transfer_list);
         materialTransferList = new ArrayList<>();
-        for (int i = 0; i <= 9; i++) {
-            materialTransferList.add("nishant" + i);
+        for (int i = 0; i <= 30; i++) {
+            materialTransferList.add("item");
         }
 
         RecyclerView.LayoutManager manager = new LinearLayoutManager(getContext());
         materialListRV.setLayoutManager(manager);
-        materialListRV.setAdapter(new LeaveRVAdapter(materialTransferList, getContext()));
+        materialListRV.setAdapter(new MaterialListRVAdapter(materialTransferList, getContext()));
         return view;
     }
 
@@ -63,6 +62,5 @@ public class TransferItemFragment extends Fragment {
     @Override
     public void onDetach() {
         super.onDetach();
-
     }
 }
