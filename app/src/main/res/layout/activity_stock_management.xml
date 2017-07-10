@@ -29,7 +29,7 @@
             app:tabMode="fixed"
             app:tabSelectedTextColor="@color/white"
             app:tabTextAppearance="@style/Base.TextAppearance.AppCompat.SearchResult.Title"
-            app:tabTextColor="#c3ffffff" />
+            app:tabTextColor="@color/tab_text_color" />
 
     </android.support.design.widget.AppBarLayout>
 
