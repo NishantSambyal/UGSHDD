@@ -7,6 +7,7 @@
     <uses-permission android:name="android.permission.SEND_SMS" />
 
     <application
+        android:name=".util.UGSApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -33,6 +34,7 @@
         <activity android:name=".ui.activity.StockManagementBaseActivity" />
         <activity android:name=".ui.activity.NewDailyCashReportBaseActivity" />
         <activity android:name=".ui.activity.TechnicalRequestBaseActivity" />
+        <activity android:name=".util.AndroidDatabaseManager" />
     </application>
 
 </manifest>

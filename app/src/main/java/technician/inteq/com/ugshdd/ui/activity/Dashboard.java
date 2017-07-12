@@ -3,10 +3,12 @@ package technician.inteq.com.ugshdd.ui.activity;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
 import android.view.View;
 import android.widget.LinearLayout;
 
 import technician.inteq.com.ugshdd.R;
+import technician.inteq.com.ugshdd.util.AndroidDatabaseManager;
 import technician.inteq.com.ugshdd.util.ToolbarUtil;
 
 /**
@@ -63,5 +65,31 @@ public class Dashboard extends Activity implements View.OnClickListener {
                 startActivity(itechnicianRequest);
                 break;
         }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu, menu);
+        menu.findItem(R.id.logout).setVisible(false);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(android.view.MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+        switch (id) {
+            case R.id.database:
+                startActivity(new Intent(Dashboard.this, AndroidDatabaseManager.class));
+                break;
+            case R.id.logout:
+                startActivity(new Intent(Dashboard.this, MainActivity.class));
+                finish();
+                break;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }
