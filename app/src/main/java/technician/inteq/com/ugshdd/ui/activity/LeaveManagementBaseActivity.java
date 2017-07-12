@@ -1,6 +1,7 @@
 package technician.inteq.com.ugshdd.ui.activity;
 
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -21,6 +22,7 @@ public class LeaveManagementBaseActivity extends FragmentActivity {
 
     FragmentManager fragmentManager;
     FragmentTransaction fragmentTransaction;
+    FloatingActionButton floatingActionButton;
     private RecyclerView leavesRV;
     private List<Leave> leaveList;
 
@@ -28,6 +30,7 @@ public class LeaveManagementBaseActivity extends FragmentActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         new ToolbarUtil().initializeDeligate(this, R.layout.leave_management, savedInstanceState, new String[]{"Leave Management", ""});
+        floatingActionButton = (FloatingActionButton) findViewById(R.id.fab);
         fragmentManager = getSupportFragmentManager();
         fragmentTransaction = fragmentManager.beginTransaction();
         leaveList = new ArrayList<>();
@@ -61,6 +64,7 @@ public class LeaveManagementBaseActivity extends FragmentActivity {
         leaveList.add(new Leave("02/07/2017", "casual leave", "01/07/2017", "02/07/2017", "pending", "done"));
 
         leavesRV = (RecyclerView) findViewById(R.id.leave_app_list);
+        leavesRV.addOnScrollListener(ToolbarUtil.addFabBehaviour(floatingActionButton));
         RecyclerView.LayoutManager manager = new LinearLayoutManager(this);
         leavesRV.setLayoutManager(manager);
         leavesRV.setAdapter(new LeaveRVAdapter(leaveList, this));
