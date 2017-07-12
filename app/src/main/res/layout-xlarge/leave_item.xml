@@ -5,84 +5,85 @@
     android:orientation="vertical">
 
 
-        <LinearLayout
-            android:layout_width="match_parent"
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:orientation="horizontal"
+        android:padding="2dp"
+        android:weightSum="6">
+
+        <TextView
+            android:id="@+id/date"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            android:orientation="horizontal"
-            android:padding="2dp"
-            android:weightSum="6">
+            android:layout_weight="1"
+            android:hint="date"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp"
+            android:textAlignment="center"
+            android:textColor="@color/textPrimary"
+            android:textSize="18dp" />
 
-            <TextView
-                android:id="@+id/date"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:hint="date"
-                android:paddingLeft="5dp"
-                android:paddingRight="5dp"
-                android:textAlignment="center"
-                android:textColor="@color/textPrimary"
-                android:textSize="18dp" />
+        <TextView
+            android:id="@+id/leave_type"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:hint="leave_type"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp"
+            android:textAlignment="center"
+            android:textColor="@color/textPrimary"
+            android:textSize="18dp" />
 
-            <TextView
-                android:id="@+id/leave_type"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:hint="leave_type"
-                android:paddingLeft="5dp"
-                android:paddingRight="5dp"
-                android:textAlignment="center"
-                android:textColor="@color/textPrimary"
-                android:textSize="18dp" />
+        <TextView
+            android:id="@+id/from_date"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:hint="from_date"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp"
+            android:textAlignment="center"
+            android:textColor="@color/textPrimary"
+            android:textSize="18dp" />
 
-            <TextView
-                android:id="@+id/from_date"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:hint="from_date"
-                android:paddingLeft="5dp"
-                android:paddingRight="5dp"
-                android:textAlignment="center"
-                android:textColor="@color/textPrimary"
-                android:textSize="18dp" />
+        <TextView
+            android:id="@+id/to_date"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:hint="to_date"
+            android:paddingLeft="5dp"
+            android:textAlignment="center"
+            android:textColor="@color/textPrimary"
+            android:textSize="18dp" />
 
-            <TextView
-                android:id="@+id/to_date"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:hint="to_date"
-                android:paddingLeft="5dp"
-                android:textAlignment="center"
-                android:textColor="@color/textPrimary"
-                android:textSize="18dp" />
+        <TextView
+            android:id="@+id/status"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:hint="status"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp"
+            android:textAlignment="center"
+            android:textColor="@color/textPrimary"
+            android:textSize="18dp"
+            android:textStyle="bold" />
 
-            <TextView
-                android:id="@+id/status"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:hint="status"
-                android:paddingLeft="5dp"
-                android:paddingRight="5dp"
-                android:textAlignment="center"
-                android:textColor="@color/textPrimary"
-                android:textSize="18dp" />
-
-            <TextView
-                android:id="@+id/action"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:hint="action"
-                android:paddingLeft="5dp"
-                android:paddingRight="5dp"
-                android:textAlignment="center"
-                android:textColor="@color/textPrimary"
-                android:textSize="18dp" />
-        </LinearLayout>
+        <TextView
+            android:id="@+id/action"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:hint="action"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp"
+            android:textAlignment="center"
+            android:textColor="@color/textPrimary"
+            android:textSize="18dp" />
+    </LinearLayout>
 
 </LinearLayout>

@@ -14,11 +14,12 @@ import java.util.List;
 
 import technician.inteq.com.ugshdd.R;
 import technician.inteq.com.ugshdd.adapters.MaterialListRVAdapter;
+import technician.inteq.com.ugshdd.model.TransferItem;
 
 public class TransferItemFragment extends Fragment {
 
     private RecyclerView materialListRV;
-    private List<String> materialTransferList;
+    private List<TransferItem> materialTransferList;
 
     public TransferItemFragment() {
     }
@@ -43,10 +44,37 @@ public class TransferItemFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_transfer_item, container, false);
         materialListRV = (RecyclerView) view.findViewById(R.id.material_transfer_list);
         materialTransferList = new ArrayList<>();
-        for (int i = 0; i <= 30; i++) {
-            materialTransferList.add("item");
-        }
 
+        materialTransferList.add(new TransferItem("01/07/2017", "master", "sasi", "02/07/2017", "done", "done"));
+        materialTransferList.add(new TransferItem("02/07/2017", "master", "abby", "02/07/2017", "pending", "done"));
+        materialTransferList.add(new TransferItem("05/07/2017", "sasi", "master", "02/07/2017", "status", "done"));
+        materialTransferList.add(new TransferItem("01/07/2017", "abby", "sasi", "02/07/2017", "pending", "done"));
+        materialTransferList.add(new TransferItem("08/07/2017", "transfer", "master", "02/07/2017", "done", "done"));
+        materialTransferList.add(new TransferItem("07/07/2017", "master", "abby", "02/07/2017", "pending", "done"));
+        materialTransferList.add(new TransferItem("01/07/2017", "abby", "sasi", "02/07/2017", "done", "done"));
+        materialTransferList.add(new TransferItem("04/07/2017", "master", "abby", "02/07/2017", "done", "done"));
+        materialTransferList.add(new TransferItem("03/07/2017", "sasi", "sasi", "02/07/2017", "done", "done"));
+        materialTransferList.add(new TransferItem("02/07/2017", "abby", "master", "02/07/2017", "pending", "done"));
+        materialTransferList.add(new TransferItem("01/07/2017", "master", "sasi", "02/07/2017", "done", "done"));
+        materialTransferList.add(new TransferItem("02/07/2017", "master", "abby", "02/07/2017", "pending", "done"));
+        materialTransferList.add(new TransferItem("05/07/2017", "sasi", "master", "02/07/2017", "status", "done"));
+        materialTransferList.add(new TransferItem("01/07/2017", "abby", "sasi", "02/07/2017", "pending", "done"));
+        materialTransferList.add(new TransferItem("08/07/2017", "transfer", "master", "02/07/2017", "done", "done"));
+        materialTransferList.add(new TransferItem("07/07/2017", "master", "abby", "02/07/2017", "pending", "done"));
+        materialTransferList.add(new TransferItem("01/07/2017", "abby", "sasi", "02/07/2017", "done", "done"));
+        materialTransferList.add(new TransferItem("04/07/2017", "master", "abby", "02/07/2017", "done", "done"));
+        materialTransferList.add(new TransferItem("03/07/2017", "sasi", "sasi", "02/07/2017", "done", "done"));
+        materialTransferList.add(new TransferItem("02/07/2017", "abby", "master", "02/07/2017", "pending", "done"));
+        materialTransferList.add(new TransferItem("01/07/2017", "master", "sasi", "02/07/2017", "done", "done"));
+        materialTransferList.add(new TransferItem("02/07/2017", "master", "abby", "02/07/2017", "pending", "done"));
+        materialTransferList.add(new TransferItem("05/07/2017", "sasi", "master", "02/07/2017", "status", "done"));
+        materialTransferList.add(new TransferItem("01/07/2017", "abby", "sasi", "02/07/2017", "pending", "done"));
+        materialTransferList.add(new TransferItem("08/07/2017", "transfer", "master", "02/07/2017", "done", "done"));
+        materialTransferList.add(new TransferItem("07/07/2017", "master", "abby", "02/07/2017", "pending", "done"));
+        materialTransferList.add(new TransferItem("01/07/2017", "abby", "sasi", "02/07/2017", "done", "done"));
+        materialTransferList.add(new TransferItem("04/07/2017", "master", "abby", "02/07/2017", "done", "done"));
+        materialTransferList.add(new TransferItem("03/07/2017", "sasi", "sasi", "02/07/2017", "done", "done"));
+        materialTransferList.add(new TransferItem("02/07/2017", "abby", "master", "02/07/2017", "pending", "done"));
         RecyclerView.LayoutManager manager = new LinearLayoutManager(getContext());
         materialListRV.setLayoutManager(manager);
         materialListRV.setAdapter(new MaterialListRVAdapter(materialTransferList, getContext()));

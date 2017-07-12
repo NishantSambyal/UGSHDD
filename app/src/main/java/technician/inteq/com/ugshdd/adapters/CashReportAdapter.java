@@ -44,7 +44,7 @@ public class CashReportAdapter extends RecyclerView.Adapter<CashReportAdapter.My
         DailyCashReportBean bean = list.get(position);
         holder.employeeName.setText(bean.getEmployeeName());
         holder.DCR_date.setText(bean.getDCR_date());
-        holder.action.setAdapter(dataAdapter);
+//        holder.action.setAdapter(dataAdapter);
     }
 
     @Override
@@ -60,7 +60,7 @@ public class CashReportAdapter extends RecyclerView.Adapter<CashReportAdapter.My
             super(itemView);
             employeeName = (TextView) itemView.findViewById(R.id.employeeName);
             DCR_date = (TextView) itemView.findViewById(R.id.DCR_date);
-            action = (Spinner) itemView.findViewById(R.id.actionSpinner);
+//            action = (Spinner) itemView.findViewById(R.id.actionSpinner);
 //            dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         }
 

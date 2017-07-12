@@ -22,6 +22,7 @@
         <activity android:name=".ui.activity.LeaveManagementBaseActivity" />
         <activity android:name=".ui.activity.StockManagementBaseActivity" />
         <activity android:name=".ui.activity.NewDailyCashReportBaseActivity" />
+        <activity android:name=".ui.activity.TechnicalRequestBaseActivity" />
     </application>
 
 </manifest>

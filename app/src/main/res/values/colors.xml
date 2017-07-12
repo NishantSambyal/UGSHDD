@@ -20,4 +20,5 @@
     <color name="light_yellow_heading">#FDF8E4</color>
     <color name="light_pink_heading">#F2DEDF</color>
     <color name="tab_text_color">#c3ffffff</color>
+    <color name="list_item_background">#f8e8f2f7</color>
 </resources>

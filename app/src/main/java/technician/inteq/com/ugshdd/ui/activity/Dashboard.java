@@ -35,6 +35,7 @@ public class Dashboard extends Activity implements View.OnClickListener {
         materialTransfer.setOnClickListener(this);
         leaveManagement.setOnClickListener(this);
         dailyCashReport.setOnClickListener(this);
+        technicianRequest.setOnClickListener(this);
     }
 
     @Override
@@ -56,6 +57,10 @@ public class Dashboard extends Activity implements View.OnClickListener {
             case R.id.leaveManagement:
                 Intent iLeaveManagement = new Intent(Dashboard.this, LeaveManagementBaseActivity.class);
                 startActivity(iLeaveManagement);
+                break;
+            case R.id.technicianRequest:
+                Intent itechnicianRequest = new Intent(Dashboard.this, TechnicalRequestBaseActivity.class);
+                startActivity(itechnicianRequest);
                 break;
         }
     }

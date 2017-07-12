@@ -7,10 +7,12 @@ import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.Nullable;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatCallback;
 import android.support.v7.app.AppCompatDelegate;
 import android.support.v7.view.ActionMode;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.TextView;
@@ -70,6 +72,28 @@ public class ToolbarUtil {
         SharedPreferences.Editor editor = context.getSharedPreferences(TECH_LOGIN, Context.MODE_PRIVATE).edit();
         editor.putBoolean(LOGGED_IN, false);
         editor.apply();
+    }
+
+    public static RecyclerView.OnScrollListener addFabBehaviour(final FloatingActionButton newCashReport) {
+        RecyclerView.OnScrollListener scrollBehaviour = new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+
+                if (dy > 0) {
+                    // Scroll Down
+                    if (newCashReport.isShown()) {
+                        newCashReport.hide();
+                    }
+                } else if (dy < 0) {
+                    // Scroll Up
+                    if (!newCashReport.isShown()) {
+                        newCashReport.show();
+                    }
+                }
+            }
+        };
+        return scrollBehaviour;
     }
 
     public AppCompatDelegate initializeDeligate(Activity activity, @LayoutRes int resId, Bundle savedInstanceState, String[] string) {

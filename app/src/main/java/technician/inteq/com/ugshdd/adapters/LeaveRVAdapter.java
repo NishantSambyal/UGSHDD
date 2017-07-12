@@ -1,6 +1,7 @@
 package technician.inteq.com.ugshdd.adapters;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,6 +11,7 @@ import android.widget.TextView;
 import java.util.List;
 
 import technician.inteq.com.ugshdd.R;
+import technician.inteq.com.ugshdd.model.Leave;
 
 /**
  * Created by Patyal on 7/3/2017.
@@ -17,10 +19,10 @@ import technician.inteq.com.ugshdd.R;
 
 public class LeaveRVAdapter extends RecyclerView.Adapter<LeaveRVAdapter.LeaveRVViewholder> {
 
-    List<String> strings;
+    List<Leave> strings;
     Context context;
 
-    public LeaveRVAdapter(List<String> strings, Context context) {
+    public LeaveRVAdapter(List<Leave> strings, Context context) {
         this.strings = strings;
         this.context = context;
     }
@@ -32,12 +34,22 @@ public class LeaveRVAdapter extends RecyclerView.Adapter<LeaveRVAdapter.LeaveRVV
 
     @Override
     public void onBindViewHolder(LeaveRVViewholder holder, int position) {
-        holder.date.setText(strings.get(position));
-        holder.leaveType.setText(strings.get(position));
-        holder.fromDate.setText(strings.get(position));
-        holder.toDate.setText(strings.get(position));
-        holder.status.setText(strings.get(position));
-        holder.action.setText(strings.get(position));
+        Leave leave = strings.get(position);
+
+        holder.date.setText(leave.getDate());
+        holder.leaveType.setText(leave.getLeaveType());
+        holder.fromDate.setText(leave.getFromDate());
+        holder.toDate.setText(leave.getToDate());
+        holder.status.setText(leave.getStatus());
+        holder.action.setText(leave.getAction());
+
+        if (leave.getStatus().equals("done")) {
+            holder.status.setTextColor(Color.parseColor("#6EC274"));
+        } else if (leave.getStatus().equals("pending")) {
+            holder.status.setTextColor(Color.parseColor("#FF9641"));
+        } else {
+            holder.status.setTextColor(Color.parseColor("#9e2111"));
+        }
     }
 
     @Override
@@ -47,9 +59,12 @@ public class LeaveRVAdapter extends RecyclerView.Adapter<LeaveRVAdapter.LeaveRVV
 
     class LeaveRVViewholder extends RecyclerView.ViewHolder {
         TextView toDate, fromDate, leaveType, status, action, date;
+        View view;
+
 
         public LeaveRVViewholder(View itemView) {
             super(itemView);
+            view = itemView;
             date = (TextView) itemView.findViewById(R.id.date);
             leaveType = (TextView) itemView.findViewById(R.id.leave_type);
             fromDate = (TextView) itemView.findViewById(R.id.from_date);
