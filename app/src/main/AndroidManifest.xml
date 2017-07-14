@@ -34,6 +34,7 @@
         <activity android:name=".ui.activity.NewDailyCashReportBaseActivity" />
         <activity android:name=".ui.activity.TechnicalRequestBaseActivity" />
         <activity android:name=".util.AndroidDatabaseManager" />
+        <activity android:name=".ui.activity.PendingCasesExpandable" />
     </application>
 
 </manifest>

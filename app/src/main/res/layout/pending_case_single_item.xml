@@ -22,16 +22,24 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                android:padding="10dp">
+                android:paddingLeft="10dp">
 
                 <TableRow>
+
+                    <ImageView
+                        android:layout_width="35dp"
+                        android:layout_height="30dp"
+                        android:layout_gravity="center_vertical"
+                        android:background="@drawable/ic_label" />
 
                     <TextView
                         android:id="@+id/textView4"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:paddingLeft="10dp"
                         android:text="Outlet:"
-                        android:textColor="@color/heading_text"
+                        android:textColor="@color/textPrimary"
                         android:textSize="18sp"
                         android:textStyle="bold" />
 
@@ -39,77 +47,25 @@
                         android:id="@+id/outlet"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
                         android:layout_weight="1"
                         android:paddingLeft="10dp"
                         android:text="0002-0BCC"
-                        android:textColor="@color/heading_text"
+                        android:textColor="@color/textPrimary"
                         android:textSize="18sp"
                         android:textStyle="bold" />
 
-
-                </TableRow>
-
-                <TableRow>
-
-                    <TextView
+                    <ImageView
+                        android:id="@+id/arrowImage"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Job number:"
-                        android:textColor="@color/textPrimary"
-                        android:textSize="16sp" />
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginRight="10dp"
+                        android:background="@drawable/ic_keyboard_arrow_down"
+                        android:paddingRight="20dp" />
 
-                    <TextView
-                        android:id="@+id/job_no"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:paddingLeft="10dp"
-                        android:text="32767"
-                        android:textColor="@color/textPrimary"
-                        android:textSize="16sp" />
+
                 </TableRow>
-
-                <TableRow>
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Unit number/Food:"
-                        android:textColor="@color/textPrimary"
-                        android:textSize="16sp" />
-
-                    <TextView
-                        android:id="@+id/unit_food"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:paddingLeft="10dp"
-                        android:text="Chicken Rice"
-                        android:textColor="@color/textPrimary"
-                        android:textSize="16sp" />
-                </TableRow>
-
-                <TableRow>
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Acknowledge/Action:"
-                        android:textColor="@color/textPrimary"
-                        android:textSize="16sp" />
-
-                    <TextView
-                        android:id="@+id/action"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:paddingLeft="10dp"
-                        android:text="Done"
-                        android:textColor="@color/textPrimary"
-                        android:textSize="16sp"
-                        android:textStyle="bold" />
-                </TableRow>
-
 
             </TableLayout>
 

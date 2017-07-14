@@ -20,4 +20,8 @@ public class TaskModel implements DatabaseValues {
         return db.insert(TABLE_TASKS, null, values) != -1;
     }
 
+    /*public static Outlets getOutletDetails(){
+        Out
+    }*/
+
 }

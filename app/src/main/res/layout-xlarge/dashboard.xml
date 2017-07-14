@@ -72,7 +72,7 @@
                             android:text="Pending\nCases"
                             android:textColor="@color/textPrimary"
                             android:textSize="22sp"
-                            android:textStyle="bold|italic"
+                            android:textStyle="bold"
                             android:typeface="sans" />
                     </LinearLayout>
 
@@ -107,7 +107,7 @@
                             android:text="Material\nRequest"
                             android:textColor="@color/textPrimary"
                             android:textSize="22sp"
-                            android:textStyle="bold|italic"
+                            android:textStyle="bold"
                             android:typeface="sans" />
                     </LinearLayout>
                 </LinearLayout>
@@ -151,7 +151,7 @@
                             android:text="Day End\nReport"
                             android:textColor="@color/textPrimary"
                             android:textSize="22sp"
-                            android:textStyle="bold|italic"
+                            android:textStyle="bold"
                             android:typeface="sans" />
                     </LinearLayout>
 
@@ -186,7 +186,7 @@
                             android:text="Leave\nManagement"
                             android:textColor="@color/textPrimary"
                             android:textSize="22sp"
-                            android:textStyle="bold|italic"
+                            android:textStyle="bold"
                             android:typeface="sans" />
                     </LinearLayout>
                 </LinearLayout>
@@ -230,7 +230,7 @@
                             android:text="Return\nMaterial"
                             android:textColor="@color/textPrimary"
                             android:textSize="22sp"
-                            android:textStyle="bold|italic"
+                            android:textStyle="bold"
                             android:typeface="sans" />
                     </LinearLayout>
 
@@ -265,7 +265,7 @@
                             android:text="Material\nTransfer"
                             android:textColor="@color/textPrimary"
                             android:textSize="22sp"
-                            android:textStyle="bold|italic"
+                            android:textStyle="bold"
                             android:typeface="sans" />
                     </LinearLayout>
                 </LinearLayout>
@@ -308,7 +308,7 @@
                             android:text="Daily Cash\nReport"
                             android:textColor="@color/textPrimary"
                             android:textSize="22sp"
-                            android:textStyle="bold|italic"
+                            android:textStyle="bold"
                             android:typeface="sans" />
                     </LinearLayout>
 
@@ -343,7 +343,7 @@
                             android:text="Technical\nRequest"
                             android:textColor="@color/textPrimary"
                             android:textSize="22sp"
-                            android:textStyle="bold|italic" />
+                            android:textStyle="bold" />
                     </LinearLayout>
                 </LinearLayout>
 

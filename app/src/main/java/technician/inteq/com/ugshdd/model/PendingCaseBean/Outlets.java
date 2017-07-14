@@ -4,25 +4,24 @@ import com.bignerdranch.expandablerecyclerview.model.Parent;
 
 import java.util.List;
 
-import technician.inteq.com.ugshdd.model.PendingCasesBean;
-
 /**
  * Created by Nishant Sambyal on 13-Jul-17.
  */
 
-public class Outlets implements Parent<PendingCasesBean> {
+public class Outlets implements Parent<OutletDetail> {
 
-    private List<PendingCasesBean> casesBeanList;
-    private String mName;
 
-    public Outlets(String name, List<PendingCasesBean> ingredients) {
-        this.casesBeanList = ingredients;
-        this.mName = name;
+    String outletName;
+    List<OutletDetail> outletDetailsList;
+
+    public Outlets(String outletName, List<OutletDetail> outletDetailsList) {
+        this.outletName = outletName;
+        this.outletDetailsList = outletDetailsList;
     }
 
     @Override
-    public List<PendingCasesBean> getChildList() {
-        return casesBeanList;
+    public List<OutletDetail> getChildList() {
+        return outletDetailsList;
     }
 
     @Override
@@ -30,11 +29,8 @@ public class Outlets implements Parent<PendingCasesBean> {
         return false;
     }
 
-    public String getmName() {
-        return mName;
+    public String getOutletName() {
+        return outletName;
     }
 
-    public List<PendingCasesBean> getCasesBeanList() {
-        return casesBeanList;
-    }
 }

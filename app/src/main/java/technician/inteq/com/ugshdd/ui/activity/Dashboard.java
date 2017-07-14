@@ -45,7 +45,7 @@ public class Dashboard extends Activity implements View.OnClickListener {
         int id = v.getId();
         switch (id) {
             case R.id.pendingCases:
-                Intent iPendingCase = new Intent(Dashboard.this, PendingCases.class);
+                Intent iPendingCase = new Intent(Dashboard.this, PendingCasesExpandable.class);
                 startActivity(iPendingCase);
                 break;
             case R.id.dailyCashReport:
