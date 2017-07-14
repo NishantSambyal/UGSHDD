@@ -17,9 +17,10 @@ public interface DatabaseValues {
     String COL_ID = "id";
     String COL_OUTLET = "outlet";
     String COL_JOB_NO = "job_no";
+    String COL_UNIT_NO = "unit_no";
 
     //Queries to execute
     String SQL_CREATE_TABLE_TASKS = "CREATE TABLE " + TABLE_TASKS + "( " + COL_ID + TYPE_INTEGER + " PRIMARY KEY " + TYPE_COMMA_SEP
-            + COL_OUTLET + TYPE_TEXT + TYPE_COMMA_SEP + COL_JOB_NO + TYPE_TEXT + ")";
+            + COL_OUTLET + TYPE_TEXT + TYPE_COMMA_SEP + COL_JOB_NO + TYPE_TEXT + TYPE_COMMA_SEP + COL_UNIT_NO + TYPE_TEXT + ")";
 
 }

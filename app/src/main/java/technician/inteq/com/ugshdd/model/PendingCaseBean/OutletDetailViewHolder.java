@@ -22,12 +22,10 @@ public class OutletDetailViewHolder extends ChildViewHolder {
         super(itemView);
         jobNumber = (TextView) itemView.findViewById(R.id.job_no);
         unitNumber = (TextView) itemView.findViewById(R.id.unitNumber);
-        action = (TextView) itemView.findViewById(R.id.action);
     }
 
     public void bind(@NonNull OutletDetail outletDetail) {
         jobNumber.setText(outletDetail.getJobNumber());
         unitNumber.setText(outletDetail.getUnitNumber());
-        action.setText(outletDetail.getAction());
     }
 }

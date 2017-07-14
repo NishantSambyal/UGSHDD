@@ -8,12 +8,10 @@ public class OutletDetail {
 
     String jobNumber;
     String unitNumber;
-    String action;
 
-    public OutletDetail(String jobNumber, String unitNumber, String action) {
+    public OutletDetail(String jobNumber, String unitNumber) {
         this.jobNumber = jobNumber;
         this.unitNumber = unitNumber;
-        this.action = action;
     }
 
     public String getJobNumber() {
@@ -32,11 +30,5 @@ public class OutletDetail {
         this.unitNumber = unitNumber;
     }
 
-    public String getAction() {
-        return action;
-    }
 
-    public void setAction(String action) {
-        this.action = action;
-    }
 }

@@ -10,7 +10,6 @@ import java.util.List;
 
 public class Outlets implements Parent<OutletDetail> {
 
-
     String outletName;
     List<OutletDetail> outletDetailsList;
 
