@@ -50,10 +50,12 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center"
                         android:layout_marginTop="5dp"
-                        android:text="Pending cases"
-                        android:textSize="14sp"
+                        android:gravity="center"
+                        android:text="Pending\nCases"
+                        android:textColor="@color/textPrimary"
+                        android:textSize="15sp"
+                        android:textStyle="bold|italic"
                         android:typeface="sans" />
                 </LinearLayout>
 
@@ -84,8 +86,11 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="5dp"
-                        android:text="Material Request"
-                        android:textSize="14sp"
+                        android:gravity="center"
+                        android:text="Material\nRequest"
+                        android:textColor="@color/textPrimary"
+                        android:textSize="15sp"
+                        android:textStyle="bold|italic"
                         android:typeface="sans" />
                 </LinearLayout>
 
@@ -127,7 +132,9 @@
                         android:layout_marginTop="5dp"
                         android:gravity="center"
                         android:text="Day End\nReport"
-                        android:textSize="14sp"
+                        android:textColor="@color/textPrimary"
+                        android:textSize="15sp"
+                        android:textStyle="bold|italic"
                         android:typeface="sans" />
                 </LinearLayout>
                 <LinearLayout
@@ -159,7 +166,9 @@
                         android:layout_marginTop="5dp"
                         android:gravity="center"
                         android:text="Leave\nManagement"
-                        android:textSize="14sp"
+                        android:textColor="@color/textPrimary"
+                        android:textSize="15sp"
+                        android:textStyle="bold|italic"
                         android:typeface="sans" />
                 </LinearLayout>
 
@@ -201,7 +210,9 @@
                         android:layout_marginTop="5dp"
                         android:gravity="center"
                         android:text="Return\nMaterial"
-                        android:textSize="14sp"
+                        android:textColor="@color/textPrimary"
+                        android:textSize="15sp"
+                        android:textStyle="bold|italic"
                         android:typeface="sans" />
                 </LinearLayout>
                 <LinearLayout
@@ -233,7 +244,9 @@
                         android:layout_marginTop="5dp"
                         android:gravity="center"
                         android:text="Material\nTransfer"
-                        android:textSize="14sp"
+                        android:textColor="@color/textPrimary"
+                        android:textSize="15sp"
+                        android:textStyle="bold|italic"
                         android:typeface="sans" />
                 </LinearLayout>
 
@@ -276,7 +289,9 @@
                         android:layout_marginTop="5dp"
                         android:gravity="center"
                         android:text="Daily Cash\nReport"
-                        android:textSize="14sp"
+                        android:textColor="@color/textPrimary"
+                        android:textSize="15sp"
+                        android:textStyle="bold|italic"
                         android:typeface="sans" />
                 </LinearLayout>
             <LinearLayout
@@ -307,10 +322,12 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center"
                     android:layout_marginTop="5dp"
+                    android:gravity="center"
                     android:text="Technical\nRequest"
-                    android:textSize="14sp"
+                    android:textColor="@color/textPrimary"
+                    android:textSize="15sp"
+                    android:textStyle="bold|italic"
                     android:typeface="sans" />
             </LinearLayout>
             </LinearLayout>
