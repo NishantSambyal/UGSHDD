@@ -7,7 +7,6 @@ import android.view.Menu;
 import android.view.View;
 import android.widget.LinearLayout;
 
-import technician.inteq.com.ugshdd.Controller.TaskModel;
 import technician.inteq.com.ugshdd.R;
 import technician.inteq.com.ugshdd.util.AndroidDatabaseManager;
 import technician.inteq.com.ugshdd.util.ToolbarUtil;
@@ -25,7 +24,6 @@ public class Dashboard extends Activity implements View.OnClickListener {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         new ToolbarUtil().initializeDeligate(this, R.layout.dashboard, savedInstanceState, new String[]{"Main Menu", ""});
-        TaskModel.insertTasks("0005-0BCC", "12345");
         pendingCases = (LinearLayout) findViewById(R.id.pendingCases);
         materialRequest = (LinearLayout) findViewById(R.id.materialRequest);
         dayEndReport = (LinearLayout) findViewById(R.id.dayEndReport);

@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 
 import com.bignerdranch.expandablerecyclerview.ExpandableRecyclerAdapter;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import technician.inteq.com.ugshdd.R;
@@ -28,12 +29,15 @@ public class ExpandablePendingCaseAdapter extends ExpandableRecyclerAdapter<Outl
 
     private LayoutInflater mInflater;
     private List<Outlets> outletsList;
+    private List<Outlets> searchList;
 
 
     public ExpandablePendingCaseAdapter(Context context, @NonNull List<Outlets> parentList) {
         super(parentList);
         outletsList = parentList;
         mInflater = LayoutInflater.from(context);
+        this.searchList = new ArrayList<>();
+        this.searchList.addAll(parentList);
     }
 
     @NonNull
@@ -97,5 +101,4 @@ public class ExpandablePendingCaseAdapter extends ExpandableRecyclerAdapter<Outl
     public boolean isParentViewType(int viewType) {
         return viewType == PARENT_VEGETARIAN || viewType == PARENT_NORMAL;
     }
-
 }

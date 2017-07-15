@@ -3,4 +3,5 @@
     <dimen name="titleHeading">20dp</dimen>
     <dimen name="fab_margin">16dp</dimen>
     <dimen name="mobile_label_font_size">15dp</dimen>
+    <dimen name="search_view_minus">15dp</dimen>
 </resources>
