@@ -2,10 +2,11 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:layout_margin="2dp"
     android:elevation="5dp"
     android:orientation="horizontal"
     android:padding="10dp"
-    app:cardCornerRadius="4dp">
+    app:cardCornerRadius="2dp">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -16,7 +17,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="3"
-            android:minHeight="70dp">
+            android:minHeight="50dp">
 
             <TableLayout
                 android:layout_width="match_parent"
@@ -32,7 +33,7 @@
                         android:layout_gravity="center_vertical"
                         android:background="@drawable/ic_label" />
 
-                    <TextView
+                    <!--<TextView
                         android:id="@+id/textView4"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -41,7 +42,7 @@
                         android:text="Outlet:"
                         android:textColor="@color/textPrimary"
                         android:textSize="18sp"
-                        android:textStyle="bold" />
+                        android:textStyle="bold" />-->
 
                     <TextView
                         android:id="@+id/outlet"
@@ -49,7 +50,7 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
                         android:layout_weight="1"
-                        android:paddingLeft="10dp"
+                        android:paddingLeft="20dp"
                         android:text="0002-0BCC"
                         android:textColor="@color/textPrimary"
                         android:textSize="18sp"

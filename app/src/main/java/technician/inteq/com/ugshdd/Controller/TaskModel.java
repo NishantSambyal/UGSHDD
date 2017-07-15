@@ -34,17 +34,15 @@ public class TaskModel implements DatabaseValues {
         Outlets outlets;
         OutletDetail outletDetail;
         Cursor cursor = db.query(TABLE_TASKS, null, null, null, null, null, null);
-        int size = cursor.getColumnCount();
         try {
             if (cursor.moveToFirst()) {
-                while (cursor.moveToNext()) {
+                do {
                     outletDetail = new OutletDetail(cursor.getString(cursor.getColumnIndex(DatabaseValues.COL_JOB_NO)),
                             cursor.getString(cursor.getColumnIndex(DatabaseValues.COL_UNIT_NO)));
                     outlets = new Outlets(cursor.getString(cursor.getColumnIndex(DatabaseValues.COL_OUTLET)), Arrays.asList(outletDetail));
                     outletList.add(outlets);
                 }
-            } else {
-                System.out.println("no");
+                while (cursor.moveToNext());
             }
         } catch (Exception e) {
             e.printStackTrace();
