@@ -11,7 +11,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/title"
-            android:background="@color/heading_background"
+            android:background="@color/colorPrimary"
             android:orientation="horizontal"
             android:paddingBottom="10dp"
             android:paddingTop="15dp"
@@ -25,7 +25,7 @@
                 android:paddingRight="5dp"
                 android:text="Date"
                 android:textAlignment="center"
-                android:textColor="@color/heading_text"
+                android:textColor="@color/white"
                 android:textSize="@dimen/titleHeading"
                 android:textStyle="bold" />
 
@@ -38,7 +38,7 @@
                 android:paddingRight="5dp"
                 android:text="From TM"
                 android:textAlignment="center"
-                android:textColor="@color/heading_text"
+                android:textColor="@color/white"
                 android:textSize="@dimen/titleHeading"
                 android:textStyle="bold" />
 
@@ -50,7 +50,7 @@
                 android:paddingRight="5dp"
                 android:text="INV. With"
                 android:textAlignment="center"
-                android:textColor="@color/heading_text"
+                android:textColor="@color/white"
                 android:textSize="@dimen/titleHeading"
                 android:textStyle="bold" />
 
@@ -62,7 +62,7 @@
                 android:paddingRight="5dp"
                 android:text="Status"
                 android:textAlignment="center"
-                android:textColor="@color/heading_text"
+                android:textColor="@color/white"
                 android:textSize="@dimen/titleHeading"
                 android:textStyle="bold" />
 
@@ -74,7 +74,7 @@
                 android:paddingRight="5dp"
                 android:text="Action"
                 android:textAlignment="center"
-                android:textColor="@color/heading_text"
+                android:textColor="@color/white"
                 android:textSize="@dimen/titleHeading"
                 android:textStyle="bold" />
 
@@ -91,7 +91,8 @@
             android:id="@+id/accepted_item_list"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_below="@+id/header_layout" />
+            android:layout_below="@+id/header_layout"
+            android:tag="xlarge" />
     </RelativeLayout>
 
 </FrameLayout>

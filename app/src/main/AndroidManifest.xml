@@ -27,7 +27,6 @@
             </intent-filter>
         </receiver>
         <activity android:name=".ui.activity.Dashboard" />
-        <activity android:name=".ui.activity.PendingCases" />
         <activity android:name=".ui.activity.DailyCashReport" />
         <activity android:name=".ui.activity.LeaveManagementBaseActivity" />
         <activity android:name=".ui.activity.StockManagementBaseActivity" />

@@ -10,6 +10,7 @@ import android.widget.TextView;
 import java.util.List;
 
 import technician.inteq.com.ugshdd.R;
+import technician.inteq.com.ugshdd.model.technicalRequestBean.TechnicalRequestsDetails;
 
 /**
  * Created by Patyal on 7/10/2017.
@@ -17,11 +18,11 @@ import technician.inteq.com.ugshdd.R;
 
 public class TechnicalRequestRVAdapter extends RecyclerView.Adapter<TechnicalRequestRVAdapter.TechnicalRequestItemViewHolder> {
 
-    private List<String> accptedItemList;
+    private List<TechnicalRequestsDetails> technicalRequestsDetails;
     private Context context;
 
-    public TechnicalRequestRVAdapter(List<String> accptedItemList, Context context) {
-        this.accptedItemList = accptedItemList;
+    public TechnicalRequestRVAdapter(List<TechnicalRequestsDetails> technicalRequestsDetails, Context context) {
+        this.technicalRequestsDetails = technicalRequestsDetails;
         this.context = context;
     }
 
@@ -33,35 +34,30 @@ public class TechnicalRequestRVAdapter extends RecyclerView.Adapter<TechnicalReq
     @Override
     public void onBindViewHolder(TechnicalRequestItemViewHolder holder, int position) {
 
-        if (position % 2 != 0) {
-            holder.view.setBackgroundColor(context.getResources().getColor(R.color.list_item_background));
-        }
-
-        holder.date.setText(accptedItemList.get(position));
-        holder.fromTm.setText(accptedItemList.get(position));
-        holder.invWith.setText(accptedItemList.get(position));
-        holder.status.setText(accptedItemList.get(position));
-        holder.action.setText(accptedItemList.get(position));
-
+        holder.id.setText(technicalRequestsDetails.get(position).getId());
+        holder.requested_date.setText(technicalRequestsDetails.get(position).getRequestDate());
+        holder.view.setText(technicalRequestsDetails.get(position).getView());
+        holder.edit.setText(technicalRequestsDetails.get(position).getEdit());
+        holder.del.setText(technicalRequestsDetails.get(position).getDel());
     }
 
     @Override
     public int getItemCount() {
-        return accptedItemList.size();
+        return technicalRequestsDetails.size();
     }
 
     class TechnicalRequestItemViewHolder extends RecyclerView.ViewHolder {
-        TextView date, fromTm, invWith, status, action;
-        View view;
+        TextView id, requested_date, view, edit, del;
+
 
         public TechnicalRequestItemViewHolder(View itemView) {
             super(itemView);
-            view = itemView;
-            date = (TextView) itemView.findViewById(R.id.id);
-            fromTm = (TextView) itemView.findViewById(R.id.requested_date);
-            invWith = (TextView) itemView.findViewById(R.id.view);
-            status = (TextView) itemView.findViewById(R.id.edit);
-            action = (TextView) itemView.findViewById(R.id.del);
+
+            id = (TextView) itemView.findViewById(R.id.id);
+            requested_date = (TextView) itemView.findViewById(R.id.requested_date);
+            view = (TextView) itemView.findViewById(R.id.view);
+            edit = (TextView) itemView.findViewById(R.id.edit);
+            del = (TextView) itemView.findViewById(R.id.del);
 
         }
     }

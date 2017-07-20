@@ -11,7 +11,7 @@ import android.widget.TextView;
 import java.util.List;
 
 import technician.inteq.com.ugshdd.R;
-import technician.inteq.com.ugshdd.model.TransferItem;
+import technician.inteq.com.ugshdd.model.TransferItemxllayout;
 
 
 /**
@@ -20,10 +20,10 @@ import technician.inteq.com.ugshdd.model.TransferItem;
 
 public class MaterialListRVAdapter extends RecyclerView.Adapter<MaterialListRVAdapter.MaterialListViewHolder> {
 
-    private List<TransferItem> materialList;
+    private List<TransferItemxllayout> materialList;
     private Context context;
 
-    public MaterialListRVAdapter(List<TransferItem> materialList, Context context) {
+    public MaterialListRVAdapter(List<TransferItemxllayout> materialList, Context context) {
         this.materialList = materialList;
         this.context = context;
     }
@@ -38,7 +38,7 @@ public class MaterialListRVAdapter extends RecyclerView.Adapter<MaterialListRVAd
        /* if (position % 2 != 0) {
             holder.view.setBackgroundColor(context.getResources().getColor(R.color.list_item_background));
         }*/
-        TransferItem transferItem = materialList.get(position);
+        TransferItemxllayout transferItem = materialList.get(position);
         holder.date.setText(transferItem.getDate());
         holder.tm.setText(transferItem.getTm());
         holder.alternateTm.setText(transferItem.getAlternateTm());

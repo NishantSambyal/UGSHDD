@@ -1,12 +1,22 @@
 package technician.inteq.com.ugshdd.ui.activity;
 
+import android.Manifest;
+import android.annotation.TargetApi;
 import android.app.Activity;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AlertDialog;
 import android.view.Menu;
 import android.view.View;
 import android.widget.LinearLayout;
 
+import technician.inteq.com.ugshdd.Controller.TaskModel;
 import technician.inteq.com.ugshdd.R;
 import technician.inteq.com.ugshdd.util.AndroidDatabaseManager;
 import technician.inteq.com.ugshdd.util.ToolbarUtil;
@@ -19,11 +29,13 @@ public class Dashboard extends Activity implements View.OnClickListener {
 
     LinearLayout pendingCases, materialRequest, dayEndReport, leaveManagement,
             returnMaterial, materialTransfer, dailyCashReport, technicianRequest;
+    Context context;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         new ToolbarUtil().initializeDeligate(this, R.layout.dashboard, savedInstanceState, new String[]{"Main Menu", ""});
+        TaskModel.insertTasks("0002-0BCC", "23445");
         pendingCases = (LinearLayout) findViewById(R.id.pendingCases);
         materialRequest = (LinearLayout) findViewById(R.id.materialRequest);
         dayEndReport = (LinearLayout) findViewById(R.id.dayEndReport);
@@ -38,6 +50,8 @@ public class Dashboard extends Activity implements View.OnClickListener {
         leaveManagement.setOnClickListener(this);
         dailyCashReport.setOnClickListener(this);
         technicianRequest.setOnClickListener(this);
+        context = this;
+        boolean result = checkPermission();
     }
 
     @Override
@@ -48,6 +62,7 @@ public class Dashboard extends Activity implements View.OnClickListener {
                 Intent iPendingCase = new Intent(Dashboard.this, PendingCasesExpandable.class);
                 startActivity(iPendingCase);
                 break;
+
             case R.id.dailyCashReport:
                 Intent idailyCashReport = new Intent(Dashboard.this, DailyCashReport.class);
                 startActivity(idailyCashReport);
@@ -88,5 +103,45 @@ public class Dashboard extends Activity implements View.OnClickListener {
                 break;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    public boolean checkPermission() {
+        int currentAPIVersion = Build.VERSION.SDK_INT;
+        if (currentAPIVersion >= android.os.Build.VERSION_CODES.M) {
+            if (ContextCompat.checkSelfPermission(context, Manifest.permission.WRITE_CALENDAR) != PackageManager.PERMISSION_GRANTED) {
+                if (ActivityCompat.shouldShowRequestPermissionRationale((Activity) context, Manifest.permission.WRITE_CALENDAR)) {
+                    AlertDialog.Builder alertBuilder = new AlertDialog.Builder(context);
+                    alertBuilder.setCancelable(true);
+                    alertBuilder.setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                        @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
+                        public void onClick(DialogInterface dialog, int which) {
+                            ActivityCompat.requestPermissions((Activity) context, new String[]{Manifest.permission.RECEIVE_SMS}, 1);
+                        }
+                    });
+                    AlertDialog alert = alertBuilder.create();
+                    alert.show();
+                } else {
+                    ActivityCompat.requestPermissions((Activity) context, new String[]{Manifest.permission.RECEIVE_SMS}, 1);
+                }
+                return false;
+            } else {
+                return true;
+            }
+        } else {
+            return true;
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+        switch (requestCode) {
+            case 1:
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    //writeCalendarEvent();
+                } else {
+                    //code for deny
+                }
+                break;
+        }
     }
 }

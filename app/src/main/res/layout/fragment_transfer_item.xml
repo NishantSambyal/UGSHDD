@@ -9,87 +9,18 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-
-        <LinearLayout
-            android:id="@+id/header_layout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/title"
-            android:background="@color/heading_background"
-            android:orientation="horizontal"
-            android:padding="2dp"
-            android:weightSum="6">
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="0.8"
-                android:paddingLeft="5dp"
-                android:paddingRight="5dp"
-                android:text="Date"
-                android:textAlignment="center"
-                android:textColor="@color/heading_text"
-                android:textStyle="bold" />
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="0.8"
-                android:text="TM"
-                android:textAlignment="center"
-                android:textColor="@color/heading_text"
-                android:textStyle="bold" />
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1.4"
-                android:text="Alternate TM"
-                android:textAlignment="center"
-                android:textColor="@color/heading_text"
-                android:textStyle="bold" />
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1.3"
-                android:text="INV. With"
-                android:textAlignment="center"
-                android:textColor="@color/heading_text"
-                android:textStyle="bold" />
-
-            <TextView
-                android:id="@+id/textView2"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="0.9"
-                android:text="Status"
-                android:textAlignment="center"
-                android:textColor="@color/heading_text"
-                android:textStyle="bold" />
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="0.8"
-                android:text="Action"
-                android:textAlignment="center"
-                android:textColor="@color/heading_text"
-                android:textStyle="bold" />
-
-        </LinearLayout>
-
         <View
             android:id="@+id/border_view"
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:layout_below="@+id/header_layout"
             android:background="#f45ebedc" />
+
         <android.support.v7.widget.RecyclerView
             android:id="@+id/material_transfer_list"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_below="@+id/header_layout" />
+            android:layout_below="@+id/border_view"
+            android:tag="small" />
     </RelativeLayout>
 
     <android.support.design.widget.FloatingActionButton

@@ -24,7 +24,6 @@ import technician.inteq.com.ugshdd.model.PendingCaseBean.Outlets;
 public class ExpandablePendingCaseAdapter extends ExpandableRecyclerAdapter<Outlets, OutletDetail, OutletViewHolder, OutletDetailViewHolder> {
     private static final int PARENT_VEGETARIAN = 0;
     private static final int PARENT_NORMAL = 1;
-    private static final int CHILD_VEGETARIAN = 2;
     private static final int CHILD_NORMAL = 3;
 
     private LayoutInflater mInflater;

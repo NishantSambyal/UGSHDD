@@ -84,5 +84,4 @@ public class LeaveManagementBaseActivity extends FragmentActivity {
             fragmentManager.popBackStack();
         } else super.onBackPressed();
     }
-
 }

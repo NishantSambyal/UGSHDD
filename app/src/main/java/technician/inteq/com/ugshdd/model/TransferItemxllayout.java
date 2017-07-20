@@ -4,7 +4,7 @@ package technician.inteq.com.ugshdd.model;
  * Created by Patyal on 7/11/2017.
  */
 
-public class TransferItem {
+public class TransferItemxllayout {
     private String date;
     private String tm;
     private String alternateTm;
@@ -12,7 +12,7 @@ public class TransferItem {
     private String status;
     private String action;
 
-    public TransferItem(String date, String tm, String alternateTm, String invWith, String status, String action) {
+    public TransferItemxllayout(String date, String tm, String alternateTm, String invWith, String status, String action) {
         this.date = date;
         this.tm = tm;
         this.alternateTm = alternateTm;

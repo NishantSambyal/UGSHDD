@@ -1,16 +1,17 @@
 package technician.inteq.com.ugshdd.adapters;
 
-import android.graphics.Color;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import technician.inteq.com.ugshdd.R;
-import technician.inteq.com.ugshdd.model.PendingCasesBean;
+import technician.inteq.com.ugshdd.model.PendingCaseBean.Outlets;
 
 /**
  * Created by Nishant Sambyal on 11-Jul-17.
@@ -18,11 +19,13 @@ import technician.inteq.com.ugshdd.model.PendingCasesBean;
 
 public class PendingCasesListAdapter extends RecyclerView.Adapter<PendingCasesListAdapter.PendingCaseViewHolder> {
 
-    ArrayList<PendingCasesBean> list;
+    List<Outlets> list;
 
-    public PendingCasesListAdapter(ArrayList<PendingCasesBean> list) {
+
+    public PendingCasesListAdapter(List<Outlets> list) {
         this.list = list;
     }
+
 
     @Override
     public PendingCaseViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -30,20 +33,16 @@ public class PendingCasesListAdapter extends RecyclerView.Adapter<PendingCasesLi
     }
 
     @Override
-    public void onBindViewHolder(PendingCaseViewHolder holder, int position) {
-        PendingCasesBean item = list.get(position);
-        holder.outlet.setText(item.getOutlet());
-        holder.job_no.setText(item.getJobNo());
-        holder.unit_food.setText(item.getUnit_food());
-        String action = item.getAction();
-        if (action.equals("Done")) {
-            holder.action.setTextColor(Color.parseColor("#6EC274"));
-        } else if (action.equals("Pending")) {
-            holder.action.setTextColor(Color.parseColor("#FF9641"));
-        } else {
-            holder.action.setTextColor(Color.parseColor("#9e2111"));
-        }
-        holder.action.setText(action);
+    public void onBindViewHolder(PendingCaseViewHolder holder, final int position) {
+        holder.outlet.setText(list.get(position).getOutletName());
+        holder.job_no.setText(list.get(position).getChildList().get(0).getJobNumber());
+        holder.unit_food.setText(list.get(position).getChildList().get(0).getUnitNumber());
+        holder.ack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.e("Clicked", list.get(position).getOutletName() + " is clicked");
+            }
+        });
     }
 
     @Override
@@ -53,16 +52,14 @@ public class PendingCasesListAdapter extends RecyclerView.Adapter<PendingCasesLi
 
     class PendingCaseViewHolder extends RecyclerView.ViewHolder {
 
-        TextView outlet, job_no, unit_food, action;
-        View view;
-
+        TextView outlet, job_no, unit_food;
+        Button ack;
         public PendingCaseViewHolder(View itemView) {
             super(itemView);
             outlet = (TextView) itemView.findViewById(R.id.outlet);
             job_no = (TextView) itemView.findViewById(R.id.job_no);
             unit_food = (TextView) itemView.findViewById(R.id.unit_food);
-            action = (TextView) itemView.findViewById(R.id.action);
-            view = itemView;
+            ack = (Button) itemView.findViewById(R.id.ack);
         }
     }
 }

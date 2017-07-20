@@ -1,5 +1,7 @@
 package technician.inteq.com.ugshdd.ui.activity;
 
+import android.app.PendingIntent;
+import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
@@ -8,10 +10,13 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
+import android.telephony.SmsManager;
 import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -21,6 +26,7 @@ import java.util.Locale;
 import technician.inteq.com.ugshdd.Controller.TaskModel;
 import technician.inteq.com.ugshdd.R;
 import technician.inteq.com.ugshdd.adapters.ExpandablePendingCaseAdapter;
+import technician.inteq.com.ugshdd.adapters.PendingCasesListAdapter;
 import technician.inteq.com.ugshdd.model.PendingCaseBean.Outlets;
 
 /**
@@ -35,12 +41,15 @@ public class PendingCasesExpandable extends AppCompatActivity {
     List<Outlets> listPass;
     TextView toolbarTitle;
     TextView toolbarSubtitle;
+    LinearLayout empty;
+    PendingCasesListAdapter tabletAdapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.pending_case);
 //        new ToolbarUtil().initializeDeligate(this, R.layout.pending_case, savedInstanceState, new String[]{"Pending cases", ""});
         prepareList();
+        empty = (LinearLayout) findViewById(R.id.empty);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbarTitle = (TextView) toolbar.findViewById(R.id.toolbar_title);
         toolbarSubtitle = (TextView) toolbar.findViewById(R.id.toolbar_subtitle);
@@ -51,13 +60,25 @@ public class PendingCasesExpandable extends AppCompatActivity {
         getSupportActionBar().setDisplayUseLogoEnabled(true);
         Drawable drawable = ContextCompat.getDrawable(this, R.drawable.option_menu);
         toolbar.setOverflowIcon(drawable);
+        toolbarTitle.setText("Pending cases");
 
         recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
         recyclerView.setHasFixedSize(true);
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
         recyclerView.setLayoutManager(mLayoutManager);
-        adapter = new ExpandablePendingCaseAdapter(this, list);
-        recyclerView.setAdapter(adapter);
+        if (list.size() > 0) {
+            if (recyclerView.getTag().equals("xlarge")) {
+                tabletAdapter = new PendingCasesListAdapter(list);
+                recyclerView.setAdapter(tabletAdapter);
+            } else {
+                adapter = new ExpandablePendingCaseAdapter(this, list);
+                recyclerView.setAdapter(adapter);
+            }
+        } else {
+            empty.setVisibility(View.VISIBLE);
+            recyclerView.setVisibility(View.GONE);
+        }
+
     }
 
     private void prepareList() {
@@ -84,12 +105,25 @@ public class PendingCasesExpandable extends AppCompatActivity {
 
             @Override
             public boolean onQueryTextChange(String newText) {
-                if (TextUtils.isEmpty(newText)) {
-                    recyclerView.setAdapter(new ExpandablePendingCaseAdapter(PendingCasesExpandable.this, list));
-                } else {
-                    filter(newText);
-                    recyclerView.setAdapter(new ExpandablePendingCaseAdapter(PendingCasesExpandable.this, filter(newText)));
+                if (list.size() > 0) {
+                    if (recyclerView.getAdapter() instanceof ExpandablePendingCaseAdapter) {
+                        if (TextUtils.isEmpty(newText)) {
+                            recyclerView.setAdapter(new ExpandablePendingCaseAdapter(PendingCasesExpandable.this, list));
+                        } else {
+                            filter(newText);
+                            recyclerView.setAdapter(new ExpandablePendingCaseAdapter(PendingCasesExpandable.this, filter(newText)));
+                        }
+                    } else {
+                        if (TextUtils.isEmpty(newText)) {
+                            recyclerView.setAdapter(new PendingCasesListAdapter(list));
+                        } else {
+                            filter(newText);
+                            recyclerView.setAdapter(new PendingCasesListAdapter(filter(newText)));
+                        }
+                    }
                 }
+
+
                 return true;
             }
         });
@@ -110,5 +144,14 @@ public class PendingCasesExpandable extends AppCompatActivity {
             }
         }
         return listPass;
+    }
+
+    public void sendSMS(String no, String msg) {
+        Intent intent = new Intent(getApplicationContext(), PendingCasesExpandable.class);
+        PendingIntent pi = PendingIntent.getActivity(getApplicationContext(), 0, intent, 0);
+
+        //Get the SmsManager instance and call the sendTextMessage method to send message
+        SmsManager sms = SmsManager.getDefault();
+        sms.sendTextMessage(no, null, msg, pi, null);
     }
 }

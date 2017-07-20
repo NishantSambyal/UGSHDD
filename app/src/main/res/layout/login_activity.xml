@@ -15,7 +15,6 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#f7f7f7"
         android:fillViewport="true"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
@@ -31,7 +30,8 @@
             <android.support.v7.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:cardCornerRadius="2dp"
+                app:cardCornerRadius="5dp"
+
                 app:cardElevation="5dp">
 
                 <LinearLayout
@@ -50,7 +50,7 @@
                             android:id="@+id/username"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:drawableLeft="@drawable/ic_person_black_24dp"
+                            android:drawableLeft="@drawable/ic_person_brown_24dp"
                             android:drawablePadding="10dp"
                             android:hint="@string/hint_name"
                             android:singleLine="true"
@@ -66,7 +66,7 @@
                             android:id="@+id/password"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:drawableLeft="@drawable/ic_vpn_key_black_24dp"
+                            android:drawableLeft="@drawable/ic_vpn_key_brown_24dp"
                             android:drawablePadding="10dp"
                             android:hint="@string/password"
                             android:inputType="textPassword"
@@ -99,7 +99,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginTop="10dp"
                             android:text="forgot password ?"
-                            android:textColor="#059bc7" />
+                            android:textColor="@color/colorPrimaryDark" />
                     </LinearLayout>
                 </LinearLayout>
             </android.support.v7.widget.CardView>

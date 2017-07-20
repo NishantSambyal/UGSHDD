@@ -45,25 +45,19 @@
             android:textColor="@color/textPrimary"
             android:textSize="20sp" />
 
-        <TextView
-            android:id="@+id/action"
+        <Button
+            android:id="@+id/ack"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
             android:layout_weight="1"
+            android:background="@drawable/button_round"
             android:gravity="center"
             android:paddingLeft="10dp"
             android:text="Done"
-            android:textColor="@color/textPrimary"
+            android:textColor="@color/white"
             android:textSize="20sp"
             android:textStyle="bold" />
-
-        <ImageView
-            android:id="@+id/arrowImage"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:layout_marginRight="10dp"
-            android:background="@drawable/ic_keyboard_arrow_down"
-            android:paddingRight="20dp" />
     </LinearLayout>
 </LinearLayout>

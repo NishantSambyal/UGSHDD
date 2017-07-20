@@ -28,15 +28,15 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:clickable="true"
                     android:gravity="center"
-                    android:orientation="vertical">
+                    android:orientation="vertical"
+                    android:tag="layout">
 
                     <FrameLayout
                         android:layout_width="80dp"
                         android:layout_height="80dp"
                         android:layout_gravity="center"
-                        android:background="@drawable/button_round_blue"
+                        android:background="@drawable/button_round"
                         android:clipToPadding="false"
                         android:elevation="10dp">
 
@@ -71,7 +71,7 @@
                     <FrameLayout
                         android:layout_width="80dp"
                         android:layout_height="80dp"
-                        android:background="@drawable/button_round_green"
+                        android:background="@drawable/button_round"
                         android:clipToPadding="false"
                         android:elevation="10dp">
 
@@ -105,7 +105,7 @@
                     <FrameLayout
                         android:layout_width="80dp"
                         android:layout_height="80dp"
-                        android:background="@drawable/button_round_orange"
+                        android:background="@drawable/button_round"
                         android:clipToPadding="false"
                         android:elevation="10dp">
 
@@ -140,7 +140,7 @@
                     <FrameLayout
                         android:layout_width="80dp"
                         android:layout_height="80dp"
-                        android:background="@drawable/button_round_red"
+                        android:background="@drawable/button_round"
                         android:clipToPadding="false"
                         android:elevation="10dp">
 
@@ -184,7 +184,7 @@
                     <FrameLayout
                         android:layout_width="80dp"
                         android:layout_height="80dp"
-                        android:background="@drawable/button_round_green"
+                        android:background="@drawable/button_round"
                         android:clipToPadding="false"
                         android:elevation="10dp">
 
@@ -219,7 +219,7 @@
                     <FrameLayout
                         android:layout_width="80dp"
                         android:layout_height="80dp"
-                        android:background="@drawable/button_round_blue"
+                        android:background="@drawable/button_round"
                         android:clipToPadding="false"
                         android:elevation="10dp">
 
@@ -254,7 +254,7 @@
                     <FrameLayout
                         android:layout_width="80dp"
                         android:layout_height="80dp"
-                        android:background="@drawable/button_round_orange"
+                        android:background="@drawable/button_round"
                         android:clipToPadding="false"
                         android:elevation="10dp">
 
@@ -290,7 +290,7 @@
                         android:layout_width="80dp"
                         android:layout_height="80dp"
                         android:layout_gravity="center"
-                        android:background="@drawable/button_round_green"
+                        android:background="@drawable/button_round"
                         android:elevation="10dp">
 
                         <ImageView
