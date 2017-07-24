@@ -15,20 +15,25 @@
 
         <include
             layout="@layout/toolbar"
-            android:background="?attr/colorPrimary" />
+            android:background="?attr/colorPrimary"
+            app:layout_scrollFlags="scroll|enterAlways" />
     </android.support.design.widget.AppBarLayout>
 
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recycler_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:tag="layout"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+        android:layout_above="@+id/back"
+        android:tag="layout" />
     <LinearLayout
         android:id="@+id/empty"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_vertical"
+        android:layout_centerVertical="true"
         android:gravity="center"
         android:orientation="vertical"
         android:visibility="gone"
@@ -46,4 +51,16 @@
             android:text="No outlets found"
             android:textColor="#757575" />
     </LinearLayout>
+
+        <Button
+            android:id="@+id/back"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_margin="2dp"
+            android:background="@drawable/button"
+            android:onClick="back"
+            android:text="Back"
+            android:textColor="@color/white" />
+    </RelativeLayout>
 </android.support.design.widget.CoordinatorLayout>

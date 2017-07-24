@@ -22,7 +22,7 @@ public class StockManagementBaseActivity extends FragmentActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        new ToolbarUtil().initializeDeligate(this, R.layout.activity_stock_management, savedInstanceState, new String[]{"Stock Management", ""});
+        new ToolbarUtil().initializeDelegate(this, R.layout.activity_stock_management, savedInstanceState, new String[]{"Stock Management", ""});
         fragmentManager = getSupportFragmentManager();
         viewPager = (ViewPager) findViewById(R.id.view_pager);
         viewPager.setAdapter(new MyPagerAdapter(getSupportFragmentManager()));

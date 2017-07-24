@@ -5,6 +5,7 @@
     <uses-permission android:name="android.permission.RECEIVE_SMS" />
     <uses-permission android:name="android.permission.READ_SMS" />
     <uses-permission android:name="android.permission.SEND_SMS" />
+    <uses-permission android:name="android.permission.CAMERA" />
 
     <application
         android:name=".util.UGSApplication"
@@ -33,7 +34,8 @@
         <activity android:name=".ui.activity.NewDailyCashReportBaseActivity" />
         <activity android:name=".ui.activity.TechnicalRequestBaseActivity" />
         <activity android:name=".util.AndroidDatabaseManager" />
-        <activity android:name=".ui.activity.PendingCasesExpandable" />
+        <activity android:name=".ui.activity.PendingCases" />
+        <activity android:name=".util.QRScanner" />
     </application>
 
 </manifest>

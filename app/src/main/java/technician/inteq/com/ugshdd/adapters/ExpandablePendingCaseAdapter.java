@@ -1,6 +1,7 @@
 package technician.inteq.com.ugshdd.adapters;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.support.annotation.NonNull;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,7 +9,6 @@ import android.view.ViewGroup;
 
 import com.bignerdranch.expandablerecyclerview.ExpandableRecyclerAdapter;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import technician.inteq.com.ugshdd.R;
@@ -25,18 +25,15 @@ public class ExpandablePendingCaseAdapter extends ExpandableRecyclerAdapter<Outl
     private static final int PARENT_VEGETARIAN = 0;
     private static final int PARENT_NORMAL = 1;
     private static final int CHILD_NORMAL = 3;
-
+    private static final int PARENT_NORMAL_WITH_BACKGROUND = 4;
     private LayoutInflater mInflater;
     private List<Outlets> outletsList;
-    private List<Outlets> searchList;
 
 
     public ExpandablePendingCaseAdapter(Context context, @NonNull List<Outlets> parentList) {
         super(parentList);
         outletsList = parentList;
         mInflater = LayoutInflater.from(context);
-        this.searchList = new ArrayList<>();
-        this.searchList.addAll(parentList);
     }
 
     @NonNull
@@ -48,6 +45,12 @@ public class ExpandablePendingCaseAdapter extends ExpandableRecyclerAdapter<Outl
             case PARENT_NORMAL:
                 outletView = mInflater.inflate(R.layout.pending_case_single_item, parentViewGroup, false);
                 break;
+
+            case PARENT_NORMAL_WITH_BACKGROUND:
+                outletView = mInflater.inflate(R.layout.pending_case_single_item, parentViewGroup, false);
+                outletView.setBackgroundColor(Color.parseColor("#596b4739"));
+                break;
+
 
         }
         return new OutletViewHolder(outletView);
@@ -79,15 +82,16 @@ public class ExpandablePendingCaseAdapter extends ExpandableRecyclerAdapter<Outl
 
     @Override
     public int getParentViewType(int parentPosition) {
-        /*if (outletsList.get(parentPosition).isVegetarian()) {
-            return PARENT_VEGETARIAN;
-        } else {*/
+        if (outletsList.get(parentPosition).getChildList().get(0).getIsAcknowledge().equals("1")) {
+            return PARENT_NORMAL_WITH_BACKGROUND;
+        }
         return PARENT_NORMAL;
-//        }
+
     }
 
     @Override
     public int getChildViewType(int parentPosition, int childPosition) {
+
         /*OutletDetail ingredient = mRecipeList.get(parentPosition).getIngredient(childPosition);
         if (ingredient.isVegetarian()) {
             return CHILD_VEGETARIAN;
@@ -98,6 +102,6 @@ public class ExpandablePendingCaseAdapter extends ExpandableRecyclerAdapter<Outl
 
     @Override
     public boolean isParentViewType(int viewType) {
-        return viewType == PARENT_VEGETARIAN || viewType == PARENT_NORMAL;
+        return viewType == PARENT_VEGETARIAN || viewType == PARENT_NORMAL || viewType == PARENT_NORMAL_WITH_BACKGROUND;
     }
 }

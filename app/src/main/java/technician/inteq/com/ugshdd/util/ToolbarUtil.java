@@ -1,11 +1,14 @@
 package technician.inteq.com.ugshdd.util;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.LayoutRes;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.content.ContextCompat;
@@ -14,10 +17,18 @@ import android.support.v7.app.AppCompatDelegate;
 import android.support.v7.view.ActionMode;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import technician.inteq.com.ugshdd.R;
+
+import static android.R.layout.list_content;
 
 /**
  * Created by Nishant Sambyal on 16-Jun-17.
@@ -27,6 +38,7 @@ public class ToolbarUtil {
 
     public static final String LOGGED_IN = "logged_in";
     private static final String TECH_LOGIN = "tech_session";
+    public static AlertDialog alertDialog;
     static TextView[] view;
     private static Context context;
 
@@ -96,7 +108,43 @@ public class ToolbarUtil {
         return scrollBehaviour;
     }
 
-    public AppCompatDelegate initializeDeligate(Activity activity, @LayoutRes int resId, Bundle savedInstanceState, String[] string) {
+    public static void chooseOptions(final Context context, AdapterView.OnItemClickListener clickListener, String... args) {
+        AlertDialog.Builder dialog = new AlertDialog.Builder(context);
+        final ArrayAdapter<String> adapter = new ArrayAdapter<String>(context, android.R.layout.simple_list_item_1, args) {
+            @NonNull
+            @Override
+            public View getView(int position, View convertView, ViewGroup parent) {
+                View view = super.getView(position, convertView, parent);
+                TextView text1 = (TextView) view.findViewById(android.R.id.text1);
+                text1.setTextColor(Color.BLACK);
+                return view;
+            }
+        };
+        ListView listview;
+        try {
+            LayoutInflater inflater = LayoutInflater.from(context);
+            View popup = inflater.inflate(list_content, null);
+            View title = inflater.inflate(R.layout.popup_title, null);
+
+            LinearLayout layout = new LinearLayout(context);
+            layout.setOrientation(LinearLayout.VERTICAL);
+
+            listview = (ListView) popup.findViewById(android.R.id.list);
+            listview.setAdapter(adapter);
+            listview.setOnItemClickListener(clickListener);
+
+            layout.addView(title);
+            layout.addView(popup);
+
+            dialog.setView(layout);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        alertDialog = dialog.create();
+        alertDialog.show();
+    }
+
+    public AppCompatDelegate initializeDelegate(Activity activity, @LayoutRes int resId, Bundle savedInstanceState, String[] string) {
         context = activity;
         AppCompatDelegate appCompatdelegate = null;
         appCompatdelegate = AppCompatDelegate.create(activity, new Deligate());

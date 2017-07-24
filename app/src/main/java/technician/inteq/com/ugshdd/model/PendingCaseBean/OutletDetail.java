@@ -8,10 +8,12 @@ public class OutletDetail {
 
     String jobNumber;
     String unitNumber;
+    String isAcknowledge;
 
-    public OutletDetail(String jobNumber, String unitNumber) {
+    public OutletDetail(String jobNumber, String unitNumber, String isAcknowledge) {
         this.jobNumber = jobNumber;
         this.unitNumber = unitNumber;
+        this.isAcknowledge = isAcknowledge;
     }
 
     public String getJobNumber() {
@@ -30,5 +32,7 @@ public class OutletDetail {
         this.unitNumber = unitNumber;
     }
 
-
+    public String getIsAcknowledge() {
+        return isAcknowledge;
+    }
 }

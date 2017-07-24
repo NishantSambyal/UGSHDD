@@ -30,7 +30,7 @@ public class NewDailyCashReportBaseActivity extends FragmentActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        new ToolbarUtil().initializeDeligate(this, R.layout.new_daily_cash_report_base_activity, savedInstanceState, new String[]{"New Daily Cash Report", ""});
+        new ToolbarUtil().initializeDelegate(this, R.layout.new_daily_cash_report_base_activity, savedInstanceState, new String[]{"New Daily Cash Report", ""});
         viewPager = (ViewPager) findViewById(R.id.viewpager);
         setupViewPager(viewPager);
         tabLayout = (TabLayout) findViewById(R.id.tabs);

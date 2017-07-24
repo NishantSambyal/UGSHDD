@@ -34,8 +34,14 @@ public class Dashboard extends Activity implements View.OnClickListener {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        new ToolbarUtil().initializeDeligate(this, R.layout.dashboard, savedInstanceState, new String[]{"Main Menu", ""});
-        TaskModel.insertTasks("0002-0BCC", "23445");
+        new ToolbarUtil().initializeDelegate(this, R.layout.dashboard, savedInstanceState, new String[]{"Main Menu", ""});
+        if (TaskModel.getOutletDetails().size() < 2) {
+            for (int i = 0; i <= 10; i++) {
+                TaskModel.insertTasks("000" + i + "-0BCC", "1234" + i);
+            }
+        }
+
+
         pendingCases = (LinearLayout) findViewById(R.id.pendingCases);
         materialRequest = (LinearLayout) findViewById(R.id.materialRequest);
         dayEndReport = (LinearLayout) findViewById(R.id.dayEndReport);
@@ -59,7 +65,7 @@ public class Dashboard extends Activity implements View.OnClickListener {
         int id = v.getId();
         switch (id) {
             case R.id.pendingCases:
-                Intent iPendingCase = new Intent(Dashboard.this, PendingCasesExpandable.class);
+                Intent iPendingCase = new Intent(Dashboard.this, PendingCases.class);
                 startActivity(iPendingCase);
                 break;
 
@@ -86,7 +92,7 @@ public class Dashboard extends Activity implements View.OnClickListener {
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu, menu);
-        menu.findItem(R.id.logout).setVisible(false);
+        menu.findItem(R.id.action_search).setVisible(false);
         return true;
     }
 
@@ -101,6 +107,9 @@ public class Dashboard extends Activity implements View.OnClickListener {
                 startActivity(new Intent(Dashboard.this, MainActivity.class));
                 finish();
                 break;
+            case R.id.about:
+                about();
+                break;
         }
         return super.onOptionsItemSelected(item);
     }
@@ -108,8 +117,8 @@ public class Dashboard extends Activity implements View.OnClickListener {
     public boolean checkPermission() {
         int currentAPIVersion = Build.VERSION.SDK_INT;
         if (currentAPIVersion >= android.os.Build.VERSION_CODES.M) {
-            if (ContextCompat.checkSelfPermission(context, Manifest.permission.WRITE_CALENDAR) != PackageManager.PERMISSION_GRANTED) {
-                if (ActivityCompat.shouldShowRequestPermissionRationale((Activity) context, Manifest.permission.WRITE_CALENDAR)) {
+            if (ContextCompat.checkSelfPermission(context, Manifest.permission.RECEIVE_SMS) != PackageManager.PERMISSION_GRANTED) {
+                if (ActivityCompat.shouldShowRequestPermissionRationale((Activity) context, Manifest.permission.RECEIVE_SMS)) {
                     AlertDialog.Builder alertBuilder = new AlertDialog.Builder(context);
                     alertBuilder.setCancelable(true);
                     alertBuilder.setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
@@ -137,11 +146,26 @@ public class Dashboard extends Activity implements View.OnClickListener {
         switch (requestCode) {
             case 1:
                 if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    //writeCalendarEvent();
+                    //writeSMSEvent();
                 } else {
                     //code for deny
                 }
                 break;
         }
+    }
+
+    private void about() {
+        AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
+        alertDialog.setIcon(getResources().getDrawable(R.mipmap.tick));
+        alertDialog.setTitle("About Version !");
+        alertDialog.setCancelable(true);
+        alertDialog.setMessage("Version : 001 \n Release Date : 21th-July-2017");
+        alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.cancel();
+            }
+        });
+        alertDialog.show();
     }
 }

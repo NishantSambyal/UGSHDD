@@ -29,7 +29,7 @@ public class UpdateDailyCashReportBaseActivity extends FragmentActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        new ToolbarUtil().initializeDeligate(this, R.layout.activity_stock_management, savedInstanceState, new String[]{"Stock Management", ""});
+        new ToolbarUtil().initializeDelegate(this, R.layout.activity_stock_management, savedInstanceState, new String[]{"Stock Management", ""});
         setContentView(R.layout.new_daily_cash_report_base_activity);
         viewPager = (ViewPager) findViewById(R.id.viewpager);
         setupViewPager(viewPager);

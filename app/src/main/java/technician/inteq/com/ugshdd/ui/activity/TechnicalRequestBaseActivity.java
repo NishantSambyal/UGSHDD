@@ -34,7 +34,7 @@ public class TechnicalRequestBaseActivity extends FragmentActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        new ToolbarUtil().initializeDeligate(this, R.layout.activity_technical_request_base, savedInstanceState, new String[]{"Technical Request", ""});
+        new ToolbarUtil().initializeDelegate(this, R.layout.activity_technical_request_base, savedInstanceState, new String[]{"Technical Request", ""});
         fragmentManager = getSupportFragmentManager();
         fragmentTransaction = fragmentManager.beginTransaction();
         technicalRequestList = new ArrayList<>();

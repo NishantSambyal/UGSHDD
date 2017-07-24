@@ -29,7 +29,7 @@ public class LeaveManagementBaseActivity extends FragmentActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        new ToolbarUtil().initializeDeligate(this, R.layout.leave_management, savedInstanceState, new String[]{"Leave Management", ""});
+        new ToolbarUtil().initializeDelegate(this, R.layout.leave_management, savedInstanceState, new String[]{"Leave Management", ""});
         floatingActionButton = (FloatingActionButton) findViewById(R.id.fab);
         fragmentManager = getSupportFragmentManager();
         fragmentTransaction = fragmentManager.beginTransaction();

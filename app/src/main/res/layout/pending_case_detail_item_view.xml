@@ -58,10 +58,5 @@
 
         </TableRow>
 
-        <TableRow android:padding="2dp">
-
-            <Button />
-
-        </TableRow>
     </TableLayout>
 </LinearLayout>

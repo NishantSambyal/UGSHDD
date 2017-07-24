@@ -41,7 +41,7 @@ public class DailyCashReport extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        new ToolbarUtil().initializeDeligate(this, R.layout.daily_cash_report, savedInstanceState, new String[]{"Daily Cash Report", ""});
+        new ToolbarUtil().initializeDelegate(this, R.layout.daily_cash_report, savedInstanceState, new String[]{"Daily Cash Report", ""});
         newCashReport = (FloatingActionButton) findViewById(R.id.newCashReport);
         prepareDemoBean();
         recyclerView = (RecyclerView) findViewById(R.id.recycler_view);

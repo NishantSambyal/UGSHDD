@@ -24,21 +24,26 @@ public class TaskModel implements DatabaseValues {
         ContentValues values = new ContentValues();
         values.put(COL_OUTLET, outlet);
         values.put(COL_JOB_NO, jobNumber);
-        values.put(COL_UNIT_NO, "null");
+        values.put(COL_UNIT_NO, "unit_no");
+        values.put(COL_ACKNOWLEDGE, "0");
         return db.insert(TABLE_TASKS, null, values) != -1;
     }
 
-    public static List<Outlets> getOutletDetails() {
+    public static Cursor getAllOutlets() {
         SQLiteDatabase db = UGSApplication.getDb();
+        return db.query(TABLE_TASKS, null, null, null, null, null, null);
+    }
+
+    public static List<Outlets> getOutletDetails() {
         List<Outlets> outletList = new ArrayList<>();
         Outlets outlets;
         OutletDetail outletDetail;
-        Cursor cursor = db.query(TABLE_TASKS, null, null, null, null, null, null);
+        Cursor cursor = getAllOutlets();
         try {
             if (cursor.moveToFirst()) {
                 do {
                     outletDetail = new OutletDetail(cursor.getString(cursor.getColumnIndex(DatabaseValues.COL_JOB_NO)),
-                            cursor.getString(cursor.getColumnIndex(DatabaseValues.COL_UNIT_NO)));
+                            cursor.getString(cursor.getColumnIndex(DatabaseValues.COL_UNIT_NO)), cursor.getString(cursor.getColumnIndex(DatabaseValues.COL_ACKNOWLEDGE)));
                     outlets = new Outlets(cursor.getString(cursor.getColumnIndex(DatabaseValues.COL_OUTLET)), Arrays.asList(outletDetail));
                     outletList.add(outlets);
                 }
@@ -48,6 +53,13 @@ public class TaskModel implements DatabaseValues {
             e.printStackTrace();
         }
         return outletList;
+    }
+
+    public static boolean acknowledgeTask(String outlet) {
+        SQLiteDatabase db = UGSApplication.getDb();
+        ContentValues values = new ContentValues();
+        values.put(COL_ACKNOWLEDGE, "1");
+        return db.update(TABLE_TASKS, values, COL_OUTLET + "= ?", new String[]{outlet}) == 1;
     }
 
 }

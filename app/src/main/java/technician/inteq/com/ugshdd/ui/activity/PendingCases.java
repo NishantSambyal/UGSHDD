@@ -1,6 +1,8 @@
 package technician.inteq.com.ugshdd.ui.activity;
 
+import android.app.AlertDialog;
 import android.app.PendingIntent;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
@@ -15,9 +17,11 @@ import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,13 +31,16 @@ import technician.inteq.com.ugshdd.Controller.TaskModel;
 import technician.inteq.com.ugshdd.R;
 import technician.inteq.com.ugshdd.adapters.ExpandablePendingCaseAdapter;
 import technician.inteq.com.ugshdd.adapters.PendingCasesListAdapter;
+import technician.inteq.com.ugshdd.adapters.RecyclerTouchListener;
 import technician.inteq.com.ugshdd.model.PendingCaseBean.Outlets;
+import technician.inteq.com.ugshdd.util.QRScanner;
+import technician.inteq.com.ugshdd.util.ToolbarUtil;
 
 /**
  * Created by Nishant Sambyal on 14-Jul-17.
  */
 
-public class PendingCasesExpandable extends AppCompatActivity {
+public class PendingCases extends AppCompatActivity {
 
     RecyclerView recyclerView;
     ExpandablePendingCaseAdapter adapter;
@@ -43,11 +50,15 @@ public class PendingCasesExpandable extends AppCompatActivity {
     TextView toolbarSubtitle;
     LinearLayout empty;
     PendingCasesListAdapter tabletAdapter;
+
+    private static void recreateAdapter() {
+
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.pending_case);
-//        new ToolbarUtil().initializeDeligate(this, R.layout.pending_case, savedInstanceState, new String[]{"Pending cases", ""});
         prepareList();
         empty = (LinearLayout) findViewById(R.id.empty);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -73,6 +84,58 @@ public class PendingCasesExpandable extends AppCompatActivity {
             } else {
                 adapter = new ExpandablePendingCaseAdapter(this, list);
                 recyclerView.setAdapter(adapter);
+                recyclerView.addOnItemTouchListener(new RecyclerTouchListener(getApplicationContext(), recyclerView, new RecyclerTouchListener.ClickListener() {
+                    @Override
+                    public void onClick(View view, int position) {
+
+                    }
+
+                    @Override
+                    public void onLongClick(View view, final int positionList) {
+                        String[] popupList;
+                        if (list.get(positionList).getChildList().get(0).getIsAcknowledge().equals("0")) {
+                            popupList = new String[2];
+                            popupList[0] = "Acknowledge";
+                            popupList[1] = "Action";
+                        } else {
+                            popupList = new String[1];
+                            popupList[0] = "Action";
+                        }
+                        ToolbarUtil.chooseOptions(PendingCases.this, new AdapterView.OnItemClickListener() {
+                            @Override
+                            public void onItemClick(AdapterView<?> parent, View view, final int position, long id) {
+                                if (parent.getItemAtPosition(position).equals("Acknowledge")) {
+                                    AlertDialog.Builder dialog = new AlertDialog.Builder(PendingCases.this);
+                                    dialog.setMessage("Are you sure want to acknowledge this task ?");
+                                    dialog.setPositiveButton("yes", new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialog, int which) {
+                                            String outletName = list.get(positionList).getOutletName();
+                                            if (TaskModel.acknowledgeTask(outletName)) {
+                                                Toast.makeText(PendingCases.this, "\t" + outletName + "\nAcknowledge done", Toast.LENGTH_SHORT).show();
+                                                ToolbarUtil.alertDialog.dismiss();
+                                                PendingCases.this.recreate();
+                                            }
+                                        }
+                                    });
+                                    dialog.show();
+                                } else if (parent.getItemAtPosition(position).equals("Action")) {
+                                    ToolbarUtil.alertDialog.dismiss();
+                                    ToolbarUtil.chooseOptions(PendingCases.this, new AdapterView.OnItemClickListener() {
+                                        @Override
+                                        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                                            if (parent.getItemAtPosition(position).equals("Scan with camera")) {
+                                                startActivity(new Intent(PendingCases.this, QRScanner.class));
+                                            } else if (parent.getItemAtPosition(position).equals("Scan with QR scanner")) {
+                                                Toast.makeText(PendingCases.this, "Under Development", Toast.LENGTH_SHORT).show();
+                                            }
+                                        }
+                                    }, "Scan with camera", "Scan with QR scanner");
+                                }
+                            }
+                        }, popupList);
+                    }
+                }));
             }
         } else {
             empty.setVisibility(View.VISIBLE);
@@ -86,10 +149,12 @@ public class PendingCasesExpandable extends AppCompatActivity {
         listPass = new ArrayList<>(list);
     }
 
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu, menu);
+        menu.findItem(R.id.logout).setVisible(false);
+        menu.findItem(R.id.database).setVisible(false);
+        menu.findItem(R.id.about).setVisible(false);
         MenuItem myActionMenuItem = menu.findItem(R.id.action_search);
         final SearchView searchView = (SearchView) myActionMenuItem.getActionView();
 
@@ -108,10 +173,10 @@ public class PendingCasesExpandable extends AppCompatActivity {
                 if (list.size() > 0) {
                     if (recyclerView.getAdapter() instanceof ExpandablePendingCaseAdapter) {
                         if (TextUtils.isEmpty(newText)) {
-                            recyclerView.setAdapter(new ExpandablePendingCaseAdapter(PendingCasesExpandable.this, list));
+                            recyclerView.setAdapter(new ExpandablePendingCaseAdapter(PendingCases.this, list));
                         } else {
                             filter(newText);
-                            recyclerView.setAdapter(new ExpandablePendingCaseAdapter(PendingCasesExpandable.this, filter(newText)));
+                            recyclerView.setAdapter(new ExpandablePendingCaseAdapter(PendingCases.this, filter(newText)));
                         }
                     } else {
                         if (TextUtils.isEmpty(newText)) {
@@ -147,11 +212,15 @@ public class PendingCasesExpandable extends AppCompatActivity {
     }
 
     public void sendSMS(String no, String msg) {
-        Intent intent = new Intent(getApplicationContext(), PendingCasesExpandable.class);
+        Intent intent = new Intent(getApplicationContext(), PendingCases.class);
         PendingIntent pi = PendingIntent.getActivity(getApplicationContext(), 0, intent, 0);
 
         //Get the SmsManager instance and call the sendTextMessage method to send message
         SmsManager sms = SmsManager.getDefault();
         sms.sendTextMessage(no, null, msg, pi, null);
+    }
+
+    public void back(View view) {
+        finish();
     }
 }

@@ -16,7 +16,6 @@ public class OutletDetailViewHolder extends ChildViewHolder {
 
     TextView jobNumber;
     TextView unitNumber;
-    TextView action;
 
     public OutletDetailViewHolder(@NonNull View itemView) {
         super(itemView);
