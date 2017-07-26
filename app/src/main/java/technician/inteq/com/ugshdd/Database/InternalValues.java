@@ -5,6 +5,17 @@ package technician.inteq.com.ugshdd.Database;
  */
 
 public interface InternalValues {
+    enum Acknowledge {
+        ACKNOWLEDGE(1), UNACKNOWLEDGE(0);
+        int isAcknowledge;
 
+        Acknowledge(int i) {
+            this.isAcknowledge = i;
+        }
 
+        @Override
+        public String toString() {
+            return "" + isAcknowledge;
+        }
+    }
 }

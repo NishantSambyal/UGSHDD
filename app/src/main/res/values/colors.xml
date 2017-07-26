@@ -3,6 +3,7 @@
     <color name="colorPrimary">#6B4739</color>
     <color name="colorPrimaryDark">#3d2015</color>
     <color name="colorAccent">#DCA900</color>
+    <color name="colorAccentText">#ffce2c</color>
     <color name="blue">#08BCF1</color>
     <color name="blue_dark">#0090ba</color>
     <color name="heading_background">#2f2f2f</color>
@@ -20,6 +21,8 @@
     <color name="light_yellow_heading">#FDF8E4</color>
     <color name="light_pink_heading">#F2DEDF</color>
     <color name="tab_text_color">#c3ffffff</color>
-    <color name="list_item_background">#596b4739</color>
+    <color name="list_item_background">#dac0b4</color>
+    <color name="white_hint">#dac0b4</color>
+
 
 </resources>

@@ -28,6 +28,7 @@ import java.util.List;
 import java.util.Locale;
 
 import technician.inteq.com.ugshdd.Controller.TaskModel;
+import technician.inteq.com.ugshdd.Database.InternalValues;
 import technician.inteq.com.ugshdd.R;
 import technician.inteq.com.ugshdd.adapters.ExpandablePendingCaseAdapter;
 import technician.inteq.com.ugshdd.adapters.PendingCasesListAdapter;
@@ -40,7 +41,7 @@ import technician.inteq.com.ugshdd.util.ToolbarUtil;
  * Created by Nishant Sambyal on 14-Jul-17.
  */
 
-public class PendingCases extends AppCompatActivity {
+public class PendingCases extends AppCompatActivity implements InternalValues {
 
     RecyclerView recyclerView;
     ExpandablePendingCaseAdapter adapter;
@@ -92,19 +93,19 @@ public class PendingCases extends AppCompatActivity {
 
                     @Override
                     public void onLongClick(View view, final int positionList) {
-                        String[] popupList;
+                        final String[] popupList;
                         if (list.get(positionList).getChildList().get(0).getIsAcknowledge().equals("0")) {
                             popupList = new String[2];
-                            popupList[0] = "Acknowledge";
-                            popupList[1] = "Action";
+                            popupList[0] = getString(R.string.acknowledge);
+                            popupList[1] = getString(R.string.action);
                         } else {
                             popupList = new String[1];
-                            popupList[0] = "Action";
+                            popupList[0] = getString(R.string.action);
                         }
                         ToolbarUtil.chooseOptions(PendingCases.this, new AdapterView.OnItemClickListener() {
                             @Override
                             public void onItemClick(AdapterView<?> parent, View view, final int position, long id) {
-                                if (parent.getItemAtPosition(position).equals("Acknowledge")) {
+                                if (parent.getItemAtPosition(position).equals(getString(R.string.acknowledge))) {
                                     AlertDialog.Builder dialog = new AlertDialog.Builder(PendingCases.this);
                                     dialog.setMessage("Are you sure want to acknowledge this task ?");
                                     dialog.setPositiveButton("yes", new DialogInterface.OnClickListener() {
@@ -112,25 +113,38 @@ public class PendingCases extends AppCompatActivity {
                                         public void onClick(DialogInterface dialog, int which) {
                                             String outletName = list.get(positionList).getOutletName();
                                             if (TaskModel.acknowledgeTask(outletName)) {
-                                                Toast.makeText(PendingCases.this, "\t" + outletName + "\nAcknowledge done", Toast.LENGTH_SHORT).show();
+                                                Toast.makeText(PendingCases.this, "\t   " + outletName + "\nAcknowledge done", Toast.LENGTH_SHORT).show();
                                                 ToolbarUtil.alertDialog.dismiss();
                                                 PendingCases.this.recreate();
                                             }
                                         }
                                     });
-                                    dialog.show();
-                                } else if (parent.getItemAtPosition(position).equals("Action")) {
-                                    ToolbarUtil.alertDialog.dismiss();
-                                    ToolbarUtil.chooseOptions(PendingCases.this, new AdapterView.OnItemClickListener() {
+                                    dialog.setNeutralButton("Cancel", new DialogInterface.OnClickListener() {
                                         @Override
-                                        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                                            if (parent.getItemAtPosition(position).equals("Scan with camera")) {
-                                                startActivity(new Intent(PendingCases.this, QRScanner.class));
-                                            } else if (parent.getItemAtPosition(position).equals("Scan with QR scanner")) {
-                                                Toast.makeText(PendingCases.this, "Under Development", Toast.LENGTH_SHORT).show();
-                                            }
+                                        public void onClick(DialogInterface dialog, int which) {
+                                            ToolbarUtil.alertDialog.dismiss();
                                         }
-                                    }, "Scan with camera", "Scan with QR scanner");
+                                    });
+                                    dialog.show();
+                                } else if (parent.getItemAtPosition(position).equals(getString(R.string.action))) {
+                                    ToolbarUtil.alertDialog.dismiss();
+                                    if (list.get(positionList).getChildList().get(0).getIsAcknowledge().equals(Acknowledge.UNACKNOWLEDGE.toString())) {
+                                        Toast.makeText(PendingCases.this, "First acknowledge the task", Toast.LENGTH_SHORT).show();
+                                    } else {
+                                        ToolbarUtil.chooseOptions(PendingCases.this, new AdapterView.OnItemClickListener() {
+                                            @Override
+                                            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                                                if (parent.getItemAtPosition(position).equals(getString(R.string.scan_with_camera))) {
+                                                    startActivity(new Intent(PendingCases.this, QRScanner.class));
+                                                    ToolbarUtil.alertDialog.dismiss();
+                                                } else if (parent.getItemAtPosition(position).equals(getString(R.string.inbuilt_qr_scanner))) {
+                                                    ToolbarUtil.toast(PendingCases.this, getString(R.string.under_development));
+                                                    ToolbarUtil.alertDialog.dismiss();
+                                                }
+                                            }
+                                        }, getString(R.string.scan_with_camera), getString(R.string.inbuilt_qr_scanner));
+                                    }
+
                                 }
                             }
                         }, popupList);
@@ -160,6 +174,8 @@ public class PendingCases extends AppCompatActivity {
 
         EditText searchEditText = (EditText) searchView.findViewById(android.support.v7.appcompat.R.id.search_src_text);
         searchEditText.setTextColor(getResources().getColor(R.color.white));
+        searchEditText.setHint("e.g 0001-0BCC");
+        searchEditText.setHintTextColor(getResources().getColor(R.color.tab_text_color));
         searchView.setPadding(getResources().getDimensionPixelSize(R.dimen.search_view_minus), 0, 0, 0);
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
 

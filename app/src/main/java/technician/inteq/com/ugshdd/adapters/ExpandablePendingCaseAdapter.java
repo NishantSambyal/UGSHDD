@@ -3,6 +3,7 @@ package technician.inteq.com.ugshdd.adapters;
 import android.content.Context;
 import android.graphics.Color;
 import android.support.annotation.NonNull;
+import android.support.v7.widget.CardView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -48,7 +49,9 @@ public class ExpandablePendingCaseAdapter extends ExpandableRecyclerAdapter<Outl
 
             case PARENT_NORMAL_WITH_BACKGROUND:
                 outletView = mInflater.inflate(R.layout.pending_case_single_item, parentViewGroup, false);
-                outletView.setBackgroundColor(Color.parseColor("#596b4739"));
+                CardView view = (CardView) outletView.findViewById(R.id.card_view);
+                view.setCardBackgroundColor(Color.parseColor("#dac0b4"));
+//                outletView.setBackgroundColor(Color.parseColor("#596b4739"));
                 break;
 
 

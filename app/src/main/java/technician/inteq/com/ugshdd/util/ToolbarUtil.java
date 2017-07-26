@@ -25,6 +25,7 @@ import android.widget.ArrayAdapter;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import technician.inteq.com.ugshdd.R;
 
@@ -52,7 +53,6 @@ public class ToolbarUtil {
         toolbar.setOverflowIcon(drawable);
         view = views;
         setNames(string);
-
     }
 
     public static void setNames(String[] string) {
@@ -63,6 +63,10 @@ public class ToolbarUtil {
         } else {
             view[1].setVisibility(View.GONE);
         }
+    }
+
+    public static void toast(Context context, String message) {
+        Toast.makeText(context, message, Toast.LENGTH_SHORT).show();
     }
 
     public static void createLoginSession(String tech_fullname) {

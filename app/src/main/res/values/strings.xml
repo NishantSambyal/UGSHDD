@@ -7,4 +7,11 @@
     <string name="about">About</string>
     <string name="database">Database</string>
     <string name="search_title">Search...</string>
+    <string name="acknowledge">Acknowledge</string>
+    <string name="action">Action</string>
+    <string name="scan_with_camera">Scan with camera</string>
+    <string name="inbuilt_qr_scanner">Inbuilt QR scanner</string>
+    <string name="under_development">Under Development</string>
+    <string name="edit">Edit</string>
+    <string name="delete">Delete</string>
 </resources>

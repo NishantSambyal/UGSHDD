@@ -36,6 +36,7 @@
         <activity android:name=".util.AndroidDatabaseManager" />
         <activity android:name=".ui.activity.PendingCases" />
         <activity android:name=".util.QRScanner" />
+        <activity android:name=".ui.activity.AddActionsActivity" />
     </application>
 
 </manifest>
