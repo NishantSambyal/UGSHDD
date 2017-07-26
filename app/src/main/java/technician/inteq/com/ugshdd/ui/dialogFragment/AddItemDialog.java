@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -24,14 +25,13 @@ import technician.inteq.com.ugshdd.model.PendingCaseBean.InventoryItem;
 
 public class AddItemDialog extends DialogFragment {
 
-    String[] item = {"item 1", "item 2", "item 3", "item 4", "item 5", "item 6", "item 7", "item 8", "item 9", "item 10"};
-    int[] images = {R.drawable.add_new_report, R.drawable.daily_cash_report, R.drawable.ic_chrome_reader_mode, R.drawable.ic_error_outline, R.drawable.ic_label, R.drawable.ic_vpn_key_brown_24dp, R.drawable.return_material, R.drawable.ic_shopping_cart, R.drawable.ic_import_export, R.drawable.material_transfer};
     String[] section_array = {"-Select Section-", "Burner", "Pipe", "Cylinder parts"};
     String[] category_array = {"-Select Category-", "Burner", "Pipe", "Cylinder parts"};
     TextView quantityView;
     int quantity = 1;
     ArrayList<InventoryItem> inventoryItems;
-
+    ImageView imageview;
+    TextView itemName, itemDescription, itemRate;
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.add_action_inventory_dialog, container, false);
@@ -39,7 +39,11 @@ public class AddItemDialog extends DialogFragment {
         Spinner spinner_section = (Spinner) view.findViewById(R.id.spinner_section);
         Spinner spinner_items = (Spinner) view.findViewById(R.id.spinner_items);
         Spinner spinner_category = (Spinner) view.findViewById(R.id.spinner_category);
+        imageview = (ImageView) view.findViewById(R.id.item_image);
         quantityView = (TextView) view.findViewById(R.id.quantity);
+        itemName = (TextView) view.findViewById(R.id.item_name);
+        itemDescription = (TextView) view.findViewById(R.id.item_description);
+        itemRate = (TextView) view.findViewById(R.id.item_rate);
         TextView title = (TextView) view.findViewById(R.id.title);
         title.setText("Add Items");
         ArrayAdapter<String> section_adapter = new ArrayAdapter<>(getActivity(), android.R.layout.simple_spinner_dropdown_item, section_array);
@@ -53,7 +57,12 @@ public class AddItemDialog extends DialogFragment {
         spinner_items.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                InventoryItem item = inventoryItems.get(position);
 
+                imageview.setImageResource(item.getItemImage());
+                itemName.setText(item.getItem());
+                itemDescription.setText(item.getDescription());
+                itemRate.setText(item.getRate());
             }
 
             @Override

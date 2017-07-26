@@ -42,7 +42,7 @@ public class AddItemAdapter extends RecyclerView.Adapter<AddItemAdapter.AddItemR
         holder.quentity.setText(leave.getRate());
         holder.rate.setText(leave.getQuentity());
         holder.amount.setText(leave.getAmount());
-        Glide.with(context).load(leave.getItemImage()).thumbnail(R.drawable.item_placeholder).into(holder.imageView);
+        Glide.with(context).load(leave.getItemImage()).into(holder.imageView);
 //        holder.imageView.setImageResource(leave.getItemImage());
     }
 

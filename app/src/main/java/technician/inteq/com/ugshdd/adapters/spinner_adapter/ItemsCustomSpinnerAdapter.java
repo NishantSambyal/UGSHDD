@@ -52,7 +52,7 @@ public class ItemsCustomSpinnerAdapter extends BaseAdapter {
         ImageView icon = (ImageView) view.findViewById(R.id.item_image);
         TextView names = (TextView) view.findViewById(R.id.item_name);
         TextView description = (TextView) view.findViewById(R.id.description);
-        Glide.with(context).load(items.getItemImage()).thumbnail(R.drawable.item_placeholder).into(icon);
+        Glide.with(context).load(items.getItemImage()).into(icon);
         names.setText(items.getItem());
         description.setText(items.getDescription());
         return view;
