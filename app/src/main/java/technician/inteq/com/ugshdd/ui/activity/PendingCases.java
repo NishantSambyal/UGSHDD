@@ -1,11 +1,18 @@
 package technician.inteq.com.ugshdd.ui.activity;
 
+import android.Manifest;
+import android.annotation.TargetApi;
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.PendingIntent;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.drawable.Drawable;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -32,10 +39,10 @@ import technician.inteq.com.ugshdd.Database.InternalValues;
 import technician.inteq.com.ugshdd.R;
 import technician.inteq.com.ugshdd.adapters.ExpandablePendingCaseAdapter;
 import technician.inteq.com.ugshdd.adapters.PendingCasesListAdapter;
-import technician.inteq.com.ugshdd.adapters.RecyclerTouchListener;
 import technician.inteq.com.ugshdd.model.PendingCaseBean.Outlets;
 import technician.inteq.com.ugshdd.util.QRScanner;
-import technician.inteq.com.ugshdd.util.ToolbarUtil;
+import technician.inteq.com.ugshdd.util.RecyclerTouchListener;
+import technician.inteq.com.ugshdd.util.Utility;
 
 /**
  * Created by Nishant Sambyal on 14-Jul-17.
@@ -51,7 +58,7 @@ public class PendingCases extends AppCompatActivity implements InternalValues {
     TextView toolbarSubtitle;
     LinearLayout empty;
     PendingCasesListAdapter tabletAdapter;
-
+    Context context;
     private static void recreateAdapter() {
 
     }
@@ -60,6 +67,7 @@ public class PendingCases extends AppCompatActivity implements InternalValues {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.pending_case);
+        context = this;
         prepareList();
         empty = (LinearLayout) findViewById(R.id.empty);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -102,7 +110,7 @@ public class PendingCases extends AppCompatActivity implements InternalValues {
                             popupList = new String[1];
                             popupList[0] = getString(R.string.action);
                         }
-                        ToolbarUtil.chooseOptions(PendingCases.this, new AdapterView.OnItemClickListener() {
+                        Utility.chooseOptions(PendingCases.this, new AdapterView.OnItemClickListener() {
                             @Override
                             public void onItemClick(AdapterView<?> parent, View view, final int position, long id) {
                                 if (parent.getItemAtPosition(position).equals(getString(R.string.acknowledge))) {
@@ -114,7 +122,7 @@ public class PendingCases extends AppCompatActivity implements InternalValues {
                                             String outletName = list.get(positionList).getOutletName();
                                             if (TaskModel.acknowledgeTask(outletName)) {
                                                 Toast.makeText(PendingCases.this, "\t   " + outletName + "\nAcknowledge done", Toast.LENGTH_SHORT).show();
-                                                ToolbarUtil.alertDialog.dismiss();
+                                                Utility.alertDialog.dismiss();
                                                 PendingCases.this.recreate();
                                             }
                                         }
@@ -122,24 +130,27 @@ public class PendingCases extends AppCompatActivity implements InternalValues {
                                     dialog.setNeutralButton("Cancel", new DialogInterface.OnClickListener() {
                                         @Override
                                         public void onClick(DialogInterface dialog, int which) {
-                                            ToolbarUtil.alertDialog.dismiss();
+                                            Utility.alertDialog.dismiss();
                                         }
                                     });
                                     dialog.show();
                                 } else if (parent.getItemAtPosition(position).equals(getString(R.string.action))) {
-                                    ToolbarUtil.alertDialog.dismiss();
+                                    Utility.alertDialog.dismiss();
                                     if (list.get(positionList).getChildList().get(0).getIsAcknowledge().equals(Acknowledge.UNACKNOWLEDGE.toString())) {
                                         Toast.makeText(PendingCases.this, "First acknowledge the task", Toast.LENGTH_SHORT).show();
                                     } else {
-                                        ToolbarUtil.chooseOptions(PendingCases.this, new AdapterView.OnItemClickListener() {
+                                        Utility.chooseOptions(PendingCases.this, new AdapterView.OnItemClickListener() {
                                             @Override
                                             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                                                 if (parent.getItemAtPosition(position).equals(getString(R.string.scan_with_camera))) {
-                                                    startActivity(new Intent(PendingCases.this, QRScanner.class));
-                                                    ToolbarUtil.alertDialog.dismiss();
+                                                    if (checkPermission()) {
+                                                        startActivity(new Intent(PendingCases.this, QRScanner.class));
+                                                    }
+                                                    Utility.alertDialog.dismiss();
+
                                                 } else if (parent.getItemAtPosition(position).equals(getString(R.string.inbuilt_qr_scanner))) {
-                                                    ToolbarUtil.toast(PendingCases.this, getString(R.string.under_development));
-                                                    ToolbarUtil.alertDialog.dismiss();
+                                                    Utility.toast(PendingCases.this, getString(R.string.under_development));
+                                                    Utility.alertDialog.dismiss();
                                                 }
                                             }
                                         }, getString(R.string.scan_with_camera), getString(R.string.inbuilt_qr_scanner));
@@ -238,5 +249,45 @@ public class PendingCases extends AppCompatActivity implements InternalValues {
 
     public void back(View view) {
         finish();
+    }
+
+    public boolean checkPermission() {
+        int currentAPIVersion = Build.VERSION.SDK_INT;
+        if (currentAPIVersion >= android.os.Build.VERSION_CODES.M) {
+            if (ContextCompat.checkSelfPermission(context, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
+                if (ActivityCompat.shouldShowRequestPermissionRationale((Activity) context, Manifest.permission.CAMERA)) {
+                    AlertDialog.Builder alertBuilder = new AlertDialog.Builder(context);
+                    alertBuilder.setCancelable(true);
+                    alertBuilder.setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                        @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
+                        public void onClick(DialogInterface dialog, int which) {
+                            ActivityCompat.requestPermissions((Activity) context, new String[]{Manifest.permission.CAMERA}, 1);
+                        }
+                    });
+                    AlertDialog alert = alertBuilder.create();
+                    alert.show();
+                } else {
+                    ActivityCompat.requestPermissions((Activity) context, new String[]{Manifest.permission.CAMERA}, 1);
+                }
+                return false;
+            } else {
+                return true;
+            }
+        } else {
+            return true;
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+        switch (requestCode) {
+            case 1:
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    startActivity(new Intent(PendingCases.this, QRScanner.class));
+                } else {
+                    Utility.toast(context, "Unable to process further\nMust grant permission");
+                }
+                break;
+        }
     }
 }

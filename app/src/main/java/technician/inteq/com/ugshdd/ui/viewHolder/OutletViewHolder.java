@@ -1,4 +1,4 @@
-package technician.inteq.com.ugshdd.model.PendingCaseBean;
+package technician.inteq.com.ugshdd.ui.viewHolder;
 
 import android.annotation.SuppressLint;
 import android.os.Build;
@@ -10,6 +10,7 @@ import android.widget.TextView;
 import com.bignerdranch.expandablerecyclerview.ParentViewHolder;
 
 import technician.inteq.com.ugshdd.R;
+import technician.inteq.com.ugshdd.model.PendingCaseBean.Outlets;
 
 /**
  * Created by Nishant Sambyal on 13-Jul-17.

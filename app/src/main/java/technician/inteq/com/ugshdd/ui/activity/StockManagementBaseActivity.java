@@ -10,9 +10,9 @@ import android.support.v4.view.ViewPager;
 import android.view.View;
 
 import technician.inteq.com.ugshdd.R;
-import technician.inteq.com.ugshdd.adapters.MyPagerAdapter;
+import technician.inteq.com.ugshdd.adapters.viewPagerAdapter.MaterialTransferPagerAdapter;
 import technician.inteq.com.ugshdd.ui.fragment.stock_management.NewMaterialTransfer;
-import technician.inteq.com.ugshdd.util.ToolbarUtil;
+import technician.inteq.com.ugshdd.util.Utility;
 
 public class StockManagementBaseActivity extends FragmentActivity {
     private TabLayout tabLayout;
@@ -22,17 +22,17 @@ public class StockManagementBaseActivity extends FragmentActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        new ToolbarUtil().initializeDelegate(this, R.layout.activity_stock_management, savedInstanceState, new String[]{"Stock Management", ""});
+        new Utility().initializeDelegate(this, R.layout.activity_stock_management, savedInstanceState, new String[]{"Stock Management", ""});
         fragmentManager = getSupportFragmentManager();
         viewPager = (ViewPager) findViewById(R.id.view_pager);
-        viewPager.setAdapter(new MyPagerAdapter(getSupportFragmentManager()));
+        viewPager.setAdapter(new MaterialTransferPagerAdapter(getSupportFragmentManager()));
         tabLayout = (TabLayout) findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(viewPager);
     }
 
     public void click(View view) {
         tabLayout.setVisibility(View.GONE);
-        ToolbarUtil.setNames(new String[]{"New Material Transfer", ""});
+        Utility.setNames(new String[]{"New Material Transfer", ""});
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.addToBackStack("");
         fragmentTransaction.replace(R.id.main_layout, new NewMaterialTransfer());
@@ -44,7 +44,7 @@ public class StockManagementBaseActivity extends FragmentActivity {
 
         if (fragmentManager.getBackStackEntryCount() == 1) {
             tabLayout.setVisibility(View.VISIBLE);
-            ToolbarUtil.setNames(new String[]{"Stock Management", ""});
+            Utility.setNames(new String[]{"Stock Management", ""});
             fragmentManager.popBackStack();
         } else
             super.onBackPressed();

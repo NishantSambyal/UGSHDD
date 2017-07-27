@@ -1,4 +1,4 @@
-package technician.inteq.com.ugshdd.adapters;
+package technician.inteq.com.ugshdd.adapters.viewPagerAdapter;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -12,11 +12,11 @@ import technician.inteq.com.ugshdd.ui.fragment.stock_management.TransferItemFrag
  * Created by Patyal on 7/5/2017.
  */
 
-public class MyPagerAdapter extends FragmentStatePagerAdapter {
+public class MaterialTransferPagerAdapter extends FragmentStatePagerAdapter {
 
     private String tabTitles[] = new String[]{"Transfer Item", "Accepted Item"};
 
-    public MyPagerAdapter(FragmentManager fm) {
+    public MaterialTransferPagerAdapter(FragmentManager fm) {
         super(fm);
     }
 

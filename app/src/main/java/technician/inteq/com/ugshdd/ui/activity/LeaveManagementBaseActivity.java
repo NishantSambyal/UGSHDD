@@ -16,7 +16,7 @@ import technician.inteq.com.ugshdd.R;
 import technician.inteq.com.ugshdd.adapters.LeaveRVAdapter;
 import technician.inteq.com.ugshdd.model.Leave;
 import technician.inteq.com.ugshdd.ui.fragment.leave_management.NewLeaveApplicationFragment;
-import technician.inteq.com.ugshdd.util.ToolbarUtil;
+import technician.inteq.com.ugshdd.util.Utility;
 
 public class LeaveManagementBaseActivity extends FragmentActivity {
 
@@ -29,7 +29,7 @@ public class LeaveManagementBaseActivity extends FragmentActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        new ToolbarUtil().initializeDelegate(this, R.layout.leave_management, savedInstanceState, new String[]{"Leave Management", ""});
+        new Utility().initializeDelegate(this, R.layout.leave_management, savedInstanceState, new String[]{"Leave Management", ""});
         floatingActionButton = (FloatingActionButton) findViewById(R.id.fab);
         fragmentManager = getSupportFragmentManager();
         fragmentTransaction = fragmentManager.beginTransaction();
@@ -64,7 +64,7 @@ public class LeaveManagementBaseActivity extends FragmentActivity {
         leaveList.add(new Leave("02/07/2017", "casual leave", "01/07/2017", "02/07/2017", "pending", "done"));
 
         leavesRV = (RecyclerView) findViewById(R.id.leave_app_list);
-        leavesRV.addOnScrollListener(ToolbarUtil.addFabBehaviour(floatingActionButton));
+        leavesRV.addOnScrollListener(Utility.addFabBehaviour(floatingActionButton));
         RecyclerView.LayoutManager manager = new LinearLayoutManager(this);
         leavesRV.setLayoutManager(manager);
         leavesRV.setAdapter(new LeaveRVAdapter(leaveList, this));
@@ -80,7 +80,7 @@ public class LeaveManagementBaseActivity extends FragmentActivity {
     @Override
     public void onBackPressed() {
         if (fragmentManager.getBackStackEntryCount() == 1) {
-            ToolbarUtil.setNames(new String[]{"Leave Management", ""});
+            Utility.setNames(new String[]{"Leave Management", ""});
             fragmentManager.popBackStack();
         } else super.onBackPressed();
     }

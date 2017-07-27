@@ -14,7 +14,7 @@ import android.widget.Toast;
 
 import technician.inteq.com.ugshdd.R;
 import technician.inteq.com.ugshdd.util.AndroidDatabaseManager;
-import technician.inteq.com.ugshdd.util.ToolbarUtil;
+import technician.inteq.com.ugshdd.util.Utility;
 
 public class MainActivity extends Activity {
 
@@ -24,7 +24,7 @@ public class MainActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        new ToolbarUtil().initializeDelegate(this, R.layout.login_activity, savedInstanceState, new String[]{"UGS HHD", ""});
+        new Utility().initializeDelegate(this, R.layout.login_activity, savedInstanceState, new String[]{"UGS HHD", ""});
         username = (EditText) findViewById(R.id.username);
         password = (EditText) findViewById(R.id.password);
         login = (Button) findViewById(R.id.login);

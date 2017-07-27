@@ -1,4 +1,4 @@
-package technician.inteq.com.ugshdd.adapters;
+package technician.inteq.com.ugshdd.adapters.viewPagerAdapter;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -6,8 +6,8 @@ import android.support.v4.app.FragmentStatePagerAdapter;
 
 import technician.inteq.com.ugshdd.ui.fragment.pending_case.AddItemFragment;
 import technician.inteq.com.ugshdd.ui.fragment.pending_case.ChargeableItemFragment;
+import technician.inteq.com.ugshdd.ui.fragment.pending_case.PerformedTask;
 import technician.inteq.com.ugshdd.ui.fragment.pending_case.ReturnItemFragment;
-import technician.inteq.com.ugshdd.ui.fragment.stock_management.AcceptedItemListFragment;
 
 /**
  * Created by Patyal on 7/24/2017.
@@ -31,7 +31,7 @@ public class AddActionPagerAdapter extends FragmentStatePagerAdapter {
         } else if (position == 2) {
             fragment = new ReturnItemFragment();
         } else if (position == 3) {
-            fragment = new AcceptedItemListFragment();
+            fragment = new PerformedTask();
         }
         return fragment;
     }

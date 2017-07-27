@@ -20,7 +20,7 @@ public class InventoryItem {
     }
 
 
-    public InventoryItem(int itemImage, String status, String subCategory, String category, String internalId, String item, String description, String quentity, String rate, String amount) {
+    public InventoryItem(int itemImage, String status, String subCategory, String category, String internalId, String item, String description, String quentity, String rate) {
         this.itemImage = itemImage;
         this.status = status;
         SubCategory = subCategory;
@@ -30,7 +30,6 @@ public class InventoryItem {
         this.description = description;
         this.quentity = quentity;
         this.rate = rate;
-        this.amount = amount;
     }
 
     public InventoryItem(String status, String subCategory, String category, String internalId, String item, String description, String quentity, String rate, String amount) {
@@ -66,7 +65,7 @@ public class InventoryItem {
     }
 
     public String getAmount() {
-        return amount;
+        return amount = String.valueOf(Integer.parseInt(rate) * Integer.parseInt(quentity));
     }
 
     public String getInternalId() {

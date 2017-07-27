@@ -22,9 +22,9 @@ import java.util.ArrayList;
 
 import technician.inteq.com.ugshdd.R;
 import technician.inteq.com.ugshdd.adapters.CashReportAdapter;
-import technician.inteq.com.ugshdd.adapters.RecyclerTouchListener;
 import technician.inteq.com.ugshdd.model.DailyCashReportBean;
-import technician.inteq.com.ugshdd.util.ToolbarUtil;
+import technician.inteq.com.ugshdd.util.RecyclerTouchListener;
+import technician.inteq.com.ugshdd.util.Utility;
 
 /**
  * Created by Nishant Sambyal on 05-Jul-17.
@@ -41,7 +41,7 @@ public class DailyCashReport extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        new ToolbarUtil().initializeDelegate(this, R.layout.daily_cash_report, savedInstanceState, new String[]{"Daily Cash Report", ""});
+        new Utility().initializeDelegate(this, R.layout.daily_cash_report, savedInstanceState, new String[]{"Daily Cash Report", ""});
         newCashReport = (FloatingActionButton) findViewById(R.id.newCashReport);
         prepareDemoBean();
         recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
@@ -56,7 +56,7 @@ public class DailyCashReport extends Activity {
                 startActivity(new Intent(DailyCashReport.this, NewDailyCashReportBaseActivity.class));
             }
         });
-        recyclerView.addOnScrollListener(ToolbarUtil.addFabBehaviour(newCashReport));
+        recyclerView.addOnScrollListener(Utility.addFabBehaviour(newCashReport));
         recyclerView.addOnItemTouchListener(new RecyclerTouchListener(getApplicationContext(), recyclerView, new RecyclerTouchListener.ClickListener() {
             @Override
             public void onClick(View view, int position) {

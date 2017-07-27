@@ -19,7 +19,7 @@ import technician.inteq.com.ugshdd.adapters.TechnicalRequestRVAdapter;
 import technician.inteq.com.ugshdd.model.technicalRequestBean.TechnicalRequests;
 import technician.inteq.com.ugshdd.model.technicalRequestBean.TechnicalRequestsDetails;
 import technician.inteq.com.ugshdd.ui.fragment.leave_management.NewLeaveApplicationFragment;
-import technician.inteq.com.ugshdd.util.ToolbarUtil;
+import technician.inteq.com.ugshdd.util.Utility;
 
 public class TechnicalRequestBaseActivity extends FragmentActivity {
 
@@ -34,7 +34,7 @@ public class TechnicalRequestBaseActivity extends FragmentActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        new ToolbarUtil().initializeDelegate(this, R.layout.activity_technical_request_base, savedInstanceState, new String[]{"Technical Request", ""});
+        new Utility().initializeDelegate(this, R.layout.activity_technical_request_base, savedInstanceState, new String[]{"Technical Request", ""});
         fragmentManager = getSupportFragmentManager();
         fragmentTransaction = fragmentManager.beginTransaction();
         technicalRequestList = new ArrayList<>();
@@ -120,7 +120,7 @@ public class TechnicalRequestBaseActivity extends FragmentActivity {
     @Override
     public void onBackPressed() {
         if (fragmentManager.getBackStackEntryCount() == 1) {
-            ToolbarUtil.setNames(new String[]{"Technical Request", ""});
+            Utility.setNames(new String[]{"Technical Request", ""});
             fragmentManager.popBackStack();
         } else super.onBackPressed();
     }

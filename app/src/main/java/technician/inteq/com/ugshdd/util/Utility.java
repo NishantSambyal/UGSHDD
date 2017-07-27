@@ -35,7 +35,7 @@ import static android.R.layout.list_content;
  * Created by Nishant Sambyal on 16-Jun-17.
  */
 
-public class ToolbarUtil {
+public class Utility {
 
     public static final String LOGGED_IN = "logged_in";
     private static final String TECH_LOGIN = "tech_session";

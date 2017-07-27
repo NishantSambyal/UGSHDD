@@ -19,7 +19,7 @@ import android.widget.LinearLayout;
 import technician.inteq.com.ugshdd.Controller.TaskModel;
 import technician.inteq.com.ugshdd.R;
 import technician.inteq.com.ugshdd.util.AndroidDatabaseManager;
-import technician.inteq.com.ugshdd.util.ToolbarUtil;
+import technician.inteq.com.ugshdd.util.Utility;
 
 /**
  * Created by Nishant Sambyal on 04-Jul-17.
@@ -34,7 +34,7 @@ public class Dashboard extends Activity implements View.OnClickListener {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        new ToolbarUtil().initializeDelegate(this, R.layout.dashboard, savedInstanceState, new String[]{"Main Menu", ""});
+        new Utility().initializeDelegate(this, R.layout.dashboard, savedInstanceState, new String[]{"Main Menu", ""});
         if (TaskModel.getOutletDetails().size() < 2) {
             for (int i = 0; i <= 10; i++) {
                 TaskModel.insertTasks("000" + i + "-0BCC", "1234" + i);
@@ -159,7 +159,7 @@ public class Dashboard extends Activity implements View.OnClickListener {
         alertDialog.setIcon(getResources().getDrawable(R.mipmap.tick));
         alertDialog.setTitle("About Version !");
         alertDialog.setCancelable(true);
-        alertDialog.setMessage("Version : 001 \n Release Date : 21th-July-2017");
+        alertDialog.setMessage("Version : 001 \n Release Date : 26th-July-2017");
         alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {

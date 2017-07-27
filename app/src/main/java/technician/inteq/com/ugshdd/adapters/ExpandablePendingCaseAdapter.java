@@ -14,9 +14,9 @@ import java.util.List;
 
 import technician.inteq.com.ugshdd.R;
 import technician.inteq.com.ugshdd.model.PendingCaseBean.OutletDetail;
-import technician.inteq.com.ugshdd.model.PendingCaseBean.OutletDetailViewHolder;
-import technician.inteq.com.ugshdd.model.PendingCaseBean.OutletViewHolder;
 import technician.inteq.com.ugshdd.model.PendingCaseBean.Outlets;
+import technician.inteq.com.ugshdd.ui.viewHolder.OutletDetailViewHolder;
+import technician.inteq.com.ugshdd.ui.viewHolder.OutletViewHolder;
 
 /**
  * Created by Nishant Sambyal on 14-Jul-17.

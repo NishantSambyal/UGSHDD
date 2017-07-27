@@ -16,7 +16,7 @@ import technician.inteq.com.ugshdd.R;
 import technician.inteq.com.ugshdd.ui.fragment.daily_cash_report.DailyCashReportCashFragment;
 import technician.inteq.com.ugshdd.ui.fragment.daily_cash_report.DailyCashReportChequeFragment;
 import technician.inteq.com.ugshdd.ui.fragment.daily_cash_report.DailyCashReportTotalAmountFragment;
-import technician.inteq.com.ugshdd.util.ToolbarUtil;
+import technician.inteq.com.ugshdd.util.Utility;
 
 /**
  * Created by Nishant Sambyal on 05-Jul-17.
@@ -30,7 +30,7 @@ public class NewDailyCashReportBaseActivity extends FragmentActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        new ToolbarUtil().initializeDelegate(this, R.layout.new_daily_cash_report_base_activity, savedInstanceState, new String[]{"New Daily Cash Report", ""});
+        new Utility().initializeDelegate(this, R.layout.new_daily_cash_report_base_activity, savedInstanceState, new String[]{"New Daily Cash Report", ""});
         viewPager = (ViewPager) findViewById(R.id.viewpager);
         setupViewPager(viewPager);
         tabLayout = (TabLayout) findViewById(R.id.tabs);

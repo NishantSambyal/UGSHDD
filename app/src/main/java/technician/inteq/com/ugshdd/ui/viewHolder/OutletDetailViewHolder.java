@@ -1,4 +1,4 @@
-package technician.inteq.com.ugshdd.model.PendingCaseBean;
+package technician.inteq.com.ugshdd.ui.viewHolder;
 
 import android.support.annotation.NonNull;
 import android.view.View;
@@ -7,6 +7,7 @@ import android.widget.TextView;
 import com.bignerdranch.expandablerecyclerview.ChildViewHolder;
 
 import technician.inteq.com.ugshdd.R;
+import technician.inteq.com.ugshdd.model.PendingCaseBean.OutletDetail;
 
 /**
  * Created by Nishant Sambyal on 14-Jul-17.

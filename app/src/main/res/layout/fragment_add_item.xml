@@ -1,4 +1,4 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -6,19 +6,38 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <View
-            android:id="@+id/border_view"
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_below="@+id/header_layout"
-            android:background="#f45ebedc" />
-
         <android.support.v7.widget.RecyclerView
-            android:id="@+id/add_item_rv"
+            android:id="@+id/item_rv"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_below="@+id/border_view"
-            android:tag="small" />
+            android:tag="small"
+            android:visibility="gone" />
+
+        <LinearLayout
+            android:id="@+id/empty"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerInParent="true"
+            android:layout_centerVertical="true"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:visibility="visible">
+
+            <ImageView
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:background="@drawable/ic_error_outline" />
+
+            <TextView
+                style="@style/Base.DialogWindowTitle.AppCompat"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="No Items"
+                android:textColor="#757575" />
+        </LinearLayout>
+
     </RelativeLayout>
 
-</FrameLayout>
+</RelativeLayout>

@@ -15,7 +15,7 @@ import java.util.List;
 import technician.inteq.com.ugshdd.R;
 import technician.inteq.com.ugshdd.ui.fragment.daily_cash_report.DailyCashReportChequeFragment;
 import technician.inteq.com.ugshdd.ui.fragment.daily_cash_report.DailyCashReportTotalAmountFragment;
-import technician.inteq.com.ugshdd.util.ToolbarUtil;
+import technician.inteq.com.ugshdd.util.Utility;
 
 /**
  * Created by Nishant Sambyal on 07-Jul-17.
@@ -29,7 +29,7 @@ public class UpdateDailyCashReportBaseActivity extends FragmentActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        new ToolbarUtil().initializeDelegate(this, R.layout.activity_stock_management, savedInstanceState, new String[]{"Stock Management", ""});
+        new Utility().initializeDelegate(this, R.layout.activity_stock_management, savedInstanceState, new String[]{"Stock Management", ""});
         setContentView(R.layout.new_daily_cash_report_base_activity);
         viewPager = (ViewPager) findViewById(R.id.viewpager);
         setupViewPager(viewPager);
