@@ -2,6 +2,7 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#EAE6E5"
     android:scrollbars="none">
 
     <LinearLayout
@@ -9,8 +10,18 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <include layout="@layout/toolbar" />
+        <include layout="@layout/toolbar_dashboard" />
 
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="6dp"
+            android:background="@color/colorAccent" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="4dp"
+            android:layout_marginTop="5dp"
+            android:background="@color/colorPrimary" />
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -21,7 +32,7 @@
                 android:layout_height="wrap_content"
                 android:paddingLeft="30dp"
                 android:paddingRight="30dp"
-                android:paddingTop="20dp">
+                android:paddingTop="15dp">
 
                 <LinearLayout
                     android:id="@+id/pendingCases"
@@ -103,6 +114,7 @@
                 android:paddingLeft="30dp"
                 android:paddingRight="30dp"
                 android:paddingTop="20dp">
+
                 <LinearLayout
                     android:id="@+id/dayEndReport"
                     android:layout_width="wrap_content"
@@ -137,6 +149,7 @@
                         android:textStyle="bold|italic"
                         android:typeface="sans" />
                 </LinearLayout>
+
                 <LinearLayout
                     android:id="@+id/leaveManagement"
                     android:layout_width="wrap_content"

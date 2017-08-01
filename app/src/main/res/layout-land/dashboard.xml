@@ -9,8 +9,18 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <include layout="@layout/toolbar" />
+        <include layout="@layout/toolbar_dashboard" />
 
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="6dp"
+            android:background="@color/colorAccent" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="4dp"
+            android:layout_marginTop="5dp"
+            android:background="@color/colorPrimary" />
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

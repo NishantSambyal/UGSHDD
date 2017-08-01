@@ -7,19 +7,21 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.view.ViewPager;
 import android.view.View;
+import android.widget.TextView;
 
 import technician.inteq.com.ugshdd.R;
 import technician.inteq.com.ugshdd.adapters.viewPagerAdapter.AddActionPagerAdapter;
-import technician.inteq.com.ugshdd.model.PendingCaseBean.InventoryItem;
 import technician.inteq.com.ugshdd.ui.dialogFragment.AddItemDialog;
 import technician.inteq.com.ugshdd.ui.fragment.pending_case.AddItemFragment;
 import technician.inteq.com.ugshdd.ui.fragment.pending_case.ChargeableItemFragment;
 import technician.inteq.com.ugshdd.ui.fragment.pending_case.ReturnItemFragment;
+import technician.inteq.com.ugshdd.util.UGSApplication;
 import technician.inteq.com.ugshdd.util.Utility;
 
 public class AddActionsActivity extends FragmentActivity implements AddItemDialog.AddItem {
 
     FloatingActionButton floatingActionButton;
+    TextView titleOutlet, titleFoodType;
     private TabLayout tabLayout;
     private ViewPager viewPager;
     private FragmentManager fragmentManager;
@@ -28,6 +30,10 @@ public class AddActionsActivity extends FragmentActivity implements AddItemDialo
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         new Utility().initializeDelegate(this, R.layout.activity_add_actions, savedInstanceState, new String[]{"Add Actions", ""});
+        titleOutlet = (TextView) findViewById(R.id.title_outlet);
+        titleFoodType = (TextView) findViewById(R.id.title_food_type);
+        titleOutlet.setText(UGSApplication.accountNumber);
+        titleFoodType.setText(UGSApplication.food_type);
         floatingActionButton = (FloatingActionButton) findViewById(R.id.fab);
         fragmentManager = getSupportFragmentManager();
         viewPager = (ViewPager) findViewById(R.id.view_pager);
@@ -54,32 +60,31 @@ public class AddActionsActivity extends FragmentActivity implements AddItemDialo
 
             @Override
             public void onPageScrollStateChanged(int state) {
-
             }
         });
         floatingActionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 AddItemDialog dFragment = new AddItemDialog();
+                Bundle bundle = new Bundle();
+                bundle.putShort("currentType", (short) (viewPager.getCurrentItem() + 1));
+                dFragment.setArguments(bundle);
                 dFragment.show(getFragmentManager(), "Dialog Fragment");
             }
         });
     }
 
     @Override
-    public void selectedItem(InventoryItem inventoryItem) {
+    public void selectedItem() {
         switch (viewPager.getCurrentItem()) {
             case 0:
-                AddItemFragment addItemFragment = (AddItemFragment) fragmentManager.getFragments().get(0);
-                addItemFragment.addItem(inventoryItem);
+                ((AddItemFragment) fragmentManager.getFragments().get(0)).addItem();
                 break;
             case 1:
-                ChargeableItemFragment chargeableItemFragment = (ChargeableItemFragment) fragmentManager.getFragments().get(1);
-                chargeableItemFragment.addItem(inventoryItem);
+                ((ChargeableItemFragment) fragmentManager.getFragments().get(1)).addItem();
                 break;
             case 2:
-                ReturnItemFragment returnItemFragment = (ReturnItemFragment) fragmentManager.getFragments().get(2);
-                returnItemFragment.addItem(inventoryItem);
+                ((ReturnItemFragment) fragmentManager.getFragments().get(2)).addItem();
                 break;
             case 3:
                 break;

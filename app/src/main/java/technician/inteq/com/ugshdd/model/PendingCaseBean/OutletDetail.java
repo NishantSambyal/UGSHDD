@@ -6,14 +6,20 @@ package technician.inteq.com.ugshdd.model.PendingCaseBean;
 
 public class OutletDetail {
 
+    String outletName;
     String jobNumber;
     String unitNumber;
     String isAcknowledge;
 
-    public OutletDetail(String jobNumber, String unitNumber, String isAcknowledge) {
+    public OutletDetail(String jobNumber, String unitNumber, String isAcknowledge, String outletName) {
         this.jobNumber = jobNumber;
         this.unitNumber = unitNumber;
         this.isAcknowledge = isAcknowledge;
+        this.outletName = outletName;
+    }
+
+    public String getOutletName() {
+        return outletName;
     }
 
     public String getJobNumber() {

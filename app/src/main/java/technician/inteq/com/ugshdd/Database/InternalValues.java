@@ -18,4 +18,17 @@ public interface InternalValues {
             return "" + isAcknowledge;
         }
     }
+
+    enum ItemType {
+        AddItem(1), ChargeableItem(2), ReturnItem(3);
+        int id;
+
+        ItemType(int type) {
+            this.id = type;
+        }
+
+        public int getId() {
+            return id;
+        }
+    }
 }

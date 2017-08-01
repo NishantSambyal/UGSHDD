@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Spinner;
@@ -33,7 +34,8 @@ public class PerformedTask extends Fragment {
     Spinner spinner_category;
     String[] categoryArray = {"--select category--", "Category 1", "Category 2", "Category 3", "Category 4"};
     ImageView imageView;
-
+    Button sign;
+    int in_x = 0;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,7 +45,8 @@ public class PerformedTask extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_performed_task, container, false);
 
-        view.findViewById(R.id.sign).setOnClickListener(new View.OnClickListener() {
+        sign = (Button) view.findViewById(R.id.sign);
+        sign.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 startActivityForResult(new Intent(getActivity(), SignatureActivity.class), SIGNATURE_ACTIVITY);
@@ -83,12 +86,19 @@ public class PerformedTask extends Fragment {
                 int action = event.getAction();
                 switch (action) {
                     case MotionEvent.ACTION_DOWN:
+                        in_x = (int) event.getX();
                         v.getParent().requestDisallowInterceptTouchEvent(true);
                         break;
 
                     case MotionEvent.ACTION_UP:
                         v.getParent().requestDisallowInterceptTouchEvent(false);
                         break;
+
+                    case MotionEvent.ACTION_MOVE:
+                        if (Math.abs(in_x - event.getX()) > 50)
+                            v.getParent().requestDisallowInterceptTouchEvent(false);
+                        break;
+
                 }
                 v.onTouchEvent(event);
                 return true;
@@ -101,13 +111,10 @@ public class PerformedTask extends Fragment {
 
     void addTasks() {
         taskList = new ArrayList<>();
-        taskList.add("Item Added");
-        taskList.add("Chargeable Item Added");
-        taskList.add("Item Returned");
-        taskList.add("Ad hoc task - night");
-        taskList.add("APT - call to remind");
-        taskList.add("APT - SMS the venue");
-        taskList.add("Auto change - Don't turn Red");
+        taskList.add("Replaced Burner");
+        taskList.add("Repaired Gas Valve");
+        taskList.add("Cleaned the Stove");
+        taskList.add("Replace Pipes");
     }
 
     @Override
@@ -117,7 +124,6 @@ public class PerformedTask extends Fragment {
         switch (requestCode) {
             case SIGNATURE_ACTIVITY:
                 if (resultCode == RESULT_OK) {
-
                     Bundle bundle = data.getExtras();
                     String status = bundle.getString("status");
 
@@ -130,8 +136,9 @@ public class PerformedTask extends Fragment {
                         Toast.makeText(getActivity(), "Signature capture successful!", Toast.LENGTH_SHORT).show();
 
                         final Bitmap mCBitmap2 = BitmapFactory.decodeByteArray(byte_arr, 0, byte_arr.length);
+                        imageView.setVisibility(View.VISIBLE);
                         imageView.setImageBitmap(mCBitmap2);
-                        //  Signt.setVisibility(View.INVISIBLE);
+                        sign.setVisibility(View.GONE);
                     }
                 }
                 break;

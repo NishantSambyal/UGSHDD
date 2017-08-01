@@ -17,14 +17,17 @@ public class OutletDetailViewHolder extends ChildViewHolder {
 
     TextView jobNumber;
     TextView unitNumber;
+    View view;
 
     public OutletDetailViewHolder(@NonNull View itemView) {
         super(itemView);
+        view = itemView;
         jobNumber = (TextView) itemView.findViewById(R.id.job_no);
         unitNumber = (TextView) itemView.findViewById(R.id.unitNumber);
     }
 
     public void bind(@NonNull OutletDetail outletDetail) {
+        view.setTag(outletDetail.getOutletName());
         jobNumber.setText(outletDetail.getJobNumber());
         unitNumber.setText(outletDetail.getUnitNumber());
     }

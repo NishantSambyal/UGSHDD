@@ -17,7 +17,7 @@ import technician.inteq.com.ugshdd.util.UGSApplication;
  * Created by Nishant Sambyal on 12-Jul-17.
  */
 
-public class TaskModel implements DatabaseValues {
+public class TaskController implements DatabaseValues {
 
     public static boolean insertTasks(String outlet, String jobNumber) {
         SQLiteDatabase db = UGSApplication.getDb();
@@ -26,12 +26,12 @@ public class TaskModel implements DatabaseValues {
         values.put(COL_JOB_NO, jobNumber);
         values.put(COL_UNIT_NO, "unit_no");
         values.put(COL_ACKNOWLEDGE, "0");
-        return db.insert(TABLE_TASKS, null, values) != -1;
+        return db.insert(TABLE_PENDING_TASKS, null, values) != -1;
     }
 
     public static Cursor getAllOutlets() {
         SQLiteDatabase db = UGSApplication.getDb();
-        return db.query(TABLE_TASKS, null, null, null, null, null, null);
+        return db.query(TABLE_PENDING_TASKS, null, null, null, null, null, null);
     }
 
     public static List<Outlets> getOutletDetails() {
@@ -43,7 +43,9 @@ public class TaskModel implements DatabaseValues {
             if (cursor.moveToFirst()) {
                 do {
                     outletDetail = new OutletDetail(cursor.getString(cursor.getColumnIndex(DatabaseValues.COL_JOB_NO)),
-                            cursor.getString(cursor.getColumnIndex(DatabaseValues.COL_UNIT_NO)), cursor.getString(cursor.getColumnIndex(DatabaseValues.COL_ACKNOWLEDGE)));
+                            cursor.getString(cursor.getColumnIndex(DatabaseValues.COL_UNIT_NO)),
+                            cursor.getString(cursor.getColumnIndex(DatabaseValues.COL_ACKNOWLEDGE)),
+                            cursor.getString(cursor.getColumnIndex(DatabaseValues.COL_OUTLET)));
                     outlets = new Outlets(cursor.getString(cursor.getColumnIndex(DatabaseValues.COL_OUTLET)), Arrays.asList(outletDetail));
                     outletList.add(outlets);
                 }
@@ -59,7 +61,8 @@ public class TaskModel implements DatabaseValues {
         SQLiteDatabase db = UGSApplication.getDb();
         ContentValues values = new ContentValues();
         values.put(COL_ACKNOWLEDGE, "1");
-        return db.update(TABLE_TASKS, values, COL_OUTLET + "= ?", new String[]{outlet}) == 1;
+        return db.update(TABLE_PENDING_TASKS, values, COL_OUTLET + "= ?", new String[]{outlet}) == 1;
     }
+
 
 }

@@ -2,7 +2,6 @@ package technician.inteq.com.ugshdd.util;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.view.MenuItemCompat;
 import android.view.Menu;
@@ -53,16 +52,15 @@ public class QRScanner extends Activity implements ZXingScannerView.ResultHandle
         String[] format = string.split("_");
         if (format.length == 10) {
             String[] acc_num = format[0].split("-");
-            SharedPreferences preferences = getSharedPreferences("qr_scan", MODE_PRIVATE);
-            SharedPreferences.Editor mEditor = preferences.edit();
-            mEditor.putString("outlet_id", format[0]);
-            mEditor.putString("acc_num", acc_num[0] + "-" + acc_num[1]);
-            mEditor.putString("street", format[1] + " " + format[2] + " " + format[3]);
-            mEditor.putString("building", format[4]);
-            mEditor.putString("unit_country_pincode", format[5] + " " + format[6]);
-            mEditor.putString("stall_no", format[7]);
-            mEditor.putString("food_type", format[8]);
-            mEditor.putString("outlet_ref", format[9]);
+            UGSApplication.outletID = format[0];
+            UGSApplication.accountNumber = acc_num[0] + "-" + acc_num[1];
+            UGSApplication.street = format[1] + " " + format[2] + " " + format[3];
+            UGSApplication.building = format[4];
+            UGSApplication.unit_country = format[5] + " " + format[6];
+            UGSApplication.stall_no = format[7];
+            UGSApplication.food_type = format[8];
+            UGSApplication.outlet_reference = format[0];
+
             startActivity(new Intent(this, AddActionsActivity.class));
             finish();
         }

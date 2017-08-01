@@ -40,7 +40,7 @@ public class ExpandablePendingCaseAdapter extends ExpandableRecyclerAdapter<Outl
     @NonNull
     @Override
     public OutletViewHolder onCreateParentViewHolder(@NonNull ViewGroup parentViewGroup, int viewType) {
-        View outletView;
+        View outletView = null;
         switch (viewType) {
             default:
             case PARENT_NORMAL:

@@ -23,14 +23,17 @@ public class OutletViewHolder extends ParentViewHolder {
 
     private TextView outlet;
     private ImageView arrowImage;
+    private View view;
 
     public OutletViewHolder(View itemView) {
         super(itemView);
+        view = itemView;
         outlet = (TextView) itemView.findViewById(R.id.outlet);
         arrowImage = (ImageView) itemView.findViewById(R.id.arrowImage);
     }
 
     public void bind(Outlets outlets) {
+        view.setTag(outlets.getOutletName());
         outlet.setText(outlets.getOutletName());
     }
 

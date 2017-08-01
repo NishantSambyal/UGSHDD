@@ -5,6 +5,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,19 +13,24 @@ import android.widget.AdapterView;
 import android.widget.LinearLayout;
 
 import java.util.ArrayList;
+import java.util.List;
 
+import technician.inteq.com.ugshdd.Controller.CaseController;
 import technician.inteq.com.ugshdd.R;
 import technician.inteq.com.ugshdd.adapters.AddItemAdapter;
+import technician.inteq.com.ugshdd.model.PendingCaseBean.Case;
 import technician.inteq.com.ugshdd.model.PendingCaseBean.InventoryItem;
 import technician.inteq.com.ugshdd.util.RecyclerTouchListener;
+import technician.inteq.com.ugshdd.util.UGSApplication;
 import technician.inteq.com.ugshdd.util.Utility;
 
 public class AddItemFragment extends Fragment {
 
+    private final String type = "1";
     RecyclerView recyclerView;
     ArrayList<InventoryItem> inventoryItems;
-    AddItemAdapter addItemAdapter;
     LinearLayout layout;
+    List<Case> cases;
 
     public static AddItemFragment newInstance(String param1, String param2) {
         AddItemFragment fragment = new AddItemFragment();
@@ -36,6 +42,7 @@ public class AddItemFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        cases = CaseController.loadItems(type, UGSApplication.accountNumber);
     }
 
     @Override
@@ -45,10 +52,13 @@ public class AddItemFragment extends Fragment {
         recyclerView = (RecyclerView) view.findViewById(R.id.item_rv);
         RecyclerView.LayoutManager manager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(manager);
-        inventoryItems = new ArrayList<>();
-        addItemAdapter = new AddItemAdapter(inventoryItems, getContext());
-        recyclerView.setAdapter(addItemAdapter);
+        recyclerView.setAdapter(new AddItemAdapter(cases, getContext()));
         recyclerView.addOnScrollListener(Utility.addFabBehaviour((FloatingActionButton) getActivity().findViewById(R.id.fab)));
+        if (cases.size() > 0) {
+            recyclerView.setVisibility(View.VISIBLE);
+            layout.setVisibility(View.GONE);
+        }
+
         recyclerView.addOnItemTouchListener(new RecyclerTouchListener(getContext(), recyclerView, new RecyclerTouchListener.ClickListener() {
             @Override
             public void onClick(View view, int position) {
@@ -63,25 +73,26 @@ public class AddItemFragment extends Fragment {
                         if (parent.getItemAtPosition(position).equals(getString(R.string.edit))) {
                             Utility.alertDialog.dismiss();
                         } else if (parent.getItemAtPosition(position).equals(getString(R.string.delete))) {
-                            inventoryItems.remove(positionList);
-                            addItemAdapter.notifyDataSetChanged();
+                            CaseController.deletePendingCases(cases.get(positionList).getOutlet(), cases.get(positionList).getId());
+                            cases = CaseController.loadItems(type, UGSApplication.accountNumber);
+                            recyclerView.setAdapter(new AddItemAdapter(cases, getContext()));
                             Utility.alertDialog.dismiss();
-                            if (inventoryItems.size() == 0) {
+                            Log.e("onLongPress....", " " + cases.size());
+                            if (cases.size() == 0) {
                                 recyclerView.setVisibility(View.GONE);
                                 layout.setVisibility(View.VISIBLE);
                             }
                         }
                     }
-
                 }, popupList);
             }
         }));
         return view;
     }
 
-    public void addItem(InventoryItem item) {
-        inventoryItems.add(item);
-        addItemAdapter.notifyDataSetChanged();
+    public void addItem() {
+        cases = CaseController.loadItems(type, UGSApplication.accountNumber);
+        recyclerView.setAdapter(new AddItemAdapter(cases, getContext()));
         recyclerView.setVisibility(View.VISIBLE);
         layout.setVisibility(View.GONE);
     }

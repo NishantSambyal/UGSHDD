@@ -13,7 +13,7 @@ import com.bumptech.glide.Glide;
 import java.util.List;
 
 import technician.inteq.com.ugshdd.R;
-import technician.inteq.com.ugshdd.model.PendingCaseBean.InventoryItem;
+import technician.inteq.com.ugshdd.model.PendingCaseBean.Case;
 
 /**
  * Created by Patyal on 7/25/2017.
@@ -21,12 +21,14 @@ import technician.inteq.com.ugshdd.model.PendingCaseBean.InventoryItem;
 
 public class AddItemAdapter extends RecyclerView.Adapter<AddItemAdapter.AddItemRVViewholder> {
 
-    List<InventoryItem> strings;
-    Context context;
+    private List<Case> caseList;
+    private Context context;
 
-    public AddItemAdapter(List<InventoryItem> strings, Context context) {
-        this.strings = strings;
+
+    public AddItemAdapter(List<Case> caseList, Context context) {
+        this.caseList = caseList;
         this.context = context;
+
     }
 
     @Override
@@ -36,23 +38,24 @@ public class AddItemAdapter extends RecyclerView.Adapter<AddItemAdapter.AddItemR
 
     @Override
     public void onBindViewHolder(AddItemRVViewholder holder, int position) {
-        InventoryItem leave = strings.get(position);
-        holder.item.setText(leave.getItem());
-        holder.description.setText(leave.getDescription());
-        holder.quentity.setText(leave.getRate());
-        holder.rate.setText(leave.getQuentity());
-        holder.amount.setText(leave.getAmount());
-        Glide.with(context).load(leave.getItemImage()).into(holder.imageView);
-//        holder.imageView.setImageResource(leave.getItemImage());
+        Case aCase = caseList.get(position);
+
+        holder.item.setText(aCase.getInventoryItem().getItem());
+        holder.description.setText(aCase.getInventoryItem().getDescription());
+        holder.quantity.setText(String.valueOf(aCase.getQuantity()));
+        holder.rate.setText(aCase.getInventoryItem().getRate());
+        holder.amount.setText(String.valueOf(aCase.getAmount()));
+        Glide.with(context).load(aCase.getInventoryItem().getItemImage()).into(holder.imageView);
+
     }
 
     @Override
     public int getItemCount() {
-        return strings.size();
+        return caseList.size();
     }
 
     class AddItemRVViewholder extends RecyclerView.ViewHolder {
-        TextView item, description, quentity, rate, amount;
+        TextView item, description, quantity, rate, amount;
         View view;
         ImageView imageView;
 
@@ -61,11 +64,10 @@ public class AddItemAdapter extends RecyclerView.Adapter<AddItemAdapter.AddItemR
             view = itemView;
             item = (TextView) itemView.findViewById(R.id.item);
             description = (TextView) itemView.findViewById(R.id.description);
-            quentity = (TextView) itemView.findViewById(R.id.qty);
+            quantity = (TextView) itemView.findViewById(R.id.qty);
             rate = (TextView) itemView.findViewById(R.id.rate);
             amount = (TextView) itemView.findViewById(R.id.amount);
             imageView = (ImageView) itemView.findViewById(R.id.image);
         }
-
     }
 }

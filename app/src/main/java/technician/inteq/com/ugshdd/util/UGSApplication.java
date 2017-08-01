@@ -11,6 +11,14 @@ import technician.inteq.com.ugshdd.Database.DatabaseHelper;
 
 public class UGSApplication extends Application {
 
+    public static String outletID;
+    public static String accountNumber;
+    public static String street;
+    public static String building;
+    public static String unit_country;
+    public static String stall_no;
+    public static String food_type;
+    public static String outlet_reference;
     private static SQLiteDatabase db;
 
     public static SQLiteDatabase getDb() {
@@ -32,4 +40,5 @@ public class UGSApplication extends Application {
         super.onTerminate();
         db.close();
     }
+
 }

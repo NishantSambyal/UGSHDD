@@ -37,7 +37,9 @@
         <activity android:name=".ui.activity.PendingCases" />
         <activity android:name=".util.QRScanner" />
         <activity android:name=".ui.activity.AddActionsActivity" />
-        <activity android:name=".ui.activity.SignatureActivity" />
+        <activity
+            android:name=".ui.activity.SignatureActivity"
+            android:windowSoftInputMode="stateHidden" />
     </application>
 
 </manifest>

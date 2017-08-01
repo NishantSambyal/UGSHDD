@@ -34,7 +34,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
-import technician.inteq.com.ugshdd.Controller.TaskModel;
+import technician.inteq.com.ugshdd.Controller.TaskController;
 import technician.inteq.com.ugshdd.Database.InternalValues;
 import technician.inteq.com.ugshdd.R;
 import technician.inteq.com.ugshdd.adapters.ExpandablePendingCaseAdapter;
@@ -59,6 +59,7 @@ public class PendingCases extends AppCompatActivity implements InternalValues {
     LinearLayout empty;
     PendingCasesListAdapter tabletAdapter;
     Context context;
+
     private static void recreateAdapter() {
 
     }
@@ -82,10 +83,10 @@ public class PendingCases extends AppCompatActivity implements InternalValues {
         toolbar.setOverflowIcon(drawable);
         toolbarTitle.setText("Pending cases");
 
+
         recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
         recyclerView.setHasFixedSize(true);
-        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
-        recyclerView.setLayoutManager(mLayoutManager);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
         if (list.size() > 0) {
             if (recyclerView.getTag().equals("xlarge")) {
                 tabletAdapter = new PendingCasesListAdapter(list);
@@ -96,13 +97,12 @@ public class PendingCases extends AppCompatActivity implements InternalValues {
                 recyclerView.addOnItemTouchListener(new RecyclerTouchListener(getApplicationContext(), recyclerView, new RecyclerTouchListener.ClickListener() {
                     @Override
                     public void onClick(View view, int position) {
-
                     }
-
                     @Override
-                    public void onLongClick(View view, final int positionList) {
+                    public void onLongClick(final View viewOutlet, final int positionList) {
                         final String[] popupList;
-                        if (list.get(positionList).getChildList().get(0).getIsAcknowledge().equals("0")) {
+                        final int actuallyRequiredPosition = getPosition((String) viewOutlet.getTag());
+                        if (list.get(actuallyRequiredPosition).getChildList().get(0).getIsAcknowledge().equals(Acknowledge.UNACKNOWLEDGE.toString())) {
                             popupList = new String[2];
                             popupList[0] = getString(R.string.acknowledge);
                             popupList[1] = getString(R.string.action);
@@ -119,9 +119,8 @@ public class PendingCases extends AppCompatActivity implements InternalValues {
                                     dialog.setPositiveButton("yes", new DialogInterface.OnClickListener() {
                                         @Override
                                         public void onClick(DialogInterface dialog, int which) {
-                                            String outletName = list.get(positionList).getOutletName();
-                                            if (TaskModel.acknowledgeTask(outletName)) {
-                                                Toast.makeText(PendingCases.this, "\t   " + outletName + "\nAcknowledge done", Toast.LENGTH_SHORT).show();
+                                            if (TaskController.acknowledgeTask((String) viewOutlet.getTag())) {
+                                                Toast.makeText(PendingCases.this, "\t   " + viewOutlet.getTag() + "\nAcknowledge done", Toast.LENGTH_SHORT).show();
                                                 Utility.alertDialog.dismiss();
                                                 PendingCases.this.recreate();
                                             }
@@ -136,7 +135,7 @@ public class PendingCases extends AppCompatActivity implements InternalValues {
                                     dialog.show();
                                 } else if (parent.getItemAtPosition(position).equals(getString(R.string.action))) {
                                     Utility.alertDialog.dismiss();
-                                    if (list.get(positionList).getChildList().get(0).getIsAcknowledge().equals(Acknowledge.UNACKNOWLEDGE.toString())) {
+                                    if (list.get(actuallyRequiredPosition).getChildList().get(0).getIsAcknowledge().equals(Acknowledge.UNACKNOWLEDGE.toString())) {
                                         Toast.makeText(PendingCases.this, "First acknowledge the task", Toast.LENGTH_SHORT).show();
                                     } else {
                                         Utility.chooseOptions(PendingCases.this, new AdapterView.OnItemClickListener() {
@@ -170,7 +169,7 @@ public class PendingCases extends AppCompatActivity implements InternalValues {
     }
 
     private void prepareList() {
-        list = TaskModel.getOutletDetails();
+        list = TaskController.getOutletDetails();
         listPass = new ArrayList<>(list);
     }
 
@@ -182,7 +181,6 @@ public class PendingCases extends AppCompatActivity implements InternalValues {
         menu.findItem(R.id.about).setVisible(false);
         MenuItem myActionMenuItem = menu.findItem(R.id.action_search);
         final SearchView searchView = (SearchView) myActionMenuItem.getActionView();
-
         EditText searchEditText = (EditText) searchView.findViewById(android.support.v7.appcompat.R.id.search_src_text);
         searchEditText.setTextColor(getResources().getColor(R.color.white));
         searchEditText.setHint("e.g 0001-0BCC");
@@ -289,5 +287,15 @@ public class PendingCases extends AppCompatActivity implements InternalValues {
                 }
                 break;
         }
+    }
+
+    int getPosition(String outletname) {
+        for (int i = 0; i < list.size(); i++) {
+            Outlets outlet = list.get(i);
+            if (outlet.getOutletName().equals(outletname)) {
+                return i;
+            }
+        }
+        return 0;
     }
 }
