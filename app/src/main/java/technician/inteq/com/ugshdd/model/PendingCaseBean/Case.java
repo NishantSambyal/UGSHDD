@@ -20,6 +20,12 @@ public class Case {
     InventoryItem inventoryItem;
 
 
+    public Case(int quantity, String amount, short id) {
+        this.quantity = quantity;
+        this.amount = amount;
+        this.id = id;
+    }
+
     public Case(short id, String outletNumber, String itemID, int quantity, String amount, short itemType) {
         this.id = id;
         this.outlet = outletNumber;

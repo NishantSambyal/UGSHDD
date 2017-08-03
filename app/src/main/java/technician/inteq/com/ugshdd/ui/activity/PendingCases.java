@@ -98,6 +98,7 @@ public class PendingCases extends AppCompatActivity implements InternalValues {
                     @Override
                     public void onClick(View view, int position) {
                     }
+
                     @Override
                     public void onLongClick(final View viewOutlet, final int positionList) {
                         final String[] popupList;

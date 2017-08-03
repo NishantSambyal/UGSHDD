@@ -23,11 +23,14 @@ import android.widget.LinearLayout;
 
 import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
+import java.util.List;
 
 import technician.inteq.com.ugshdd.Controller.InventoryItemController;
+import technician.inteq.com.ugshdd.Controller.PerformedTaskController;
 import technician.inteq.com.ugshdd.Controller.TaskController;
 import technician.inteq.com.ugshdd.R;
 import technician.inteq.com.ugshdd.model.PendingCaseBean.InventoryItem;
+import technician.inteq.com.ugshdd.model.PendingCaseBean.PerformedTaskBean;
 import technician.inteq.com.ugshdd.util.AndroidDatabaseManager;
 
 /**
@@ -41,6 +44,7 @@ public class Dashboard extends AppCompatActivity implements View.OnClickListener
     Context context;
     Toolbar toolbar;
     ArrayList<InventoryItem> inventoryItems;
+    List<PerformedTaskBean> performedTaskList;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -78,19 +82,20 @@ public class Dashboard extends AppCompatActivity implements View.OnClickListener
             public void run() {
                 if (InventoryItemController.getAllItems().getCount() < 1) {
                     prepareList();
+                    try {
                     for (InventoryItem item : inventoryItems) {
-                        try {
-
                             item.insertIntoItem();
-                        } catch (IllegalAccessException e) {
-                            e.printStackTrace();
+                    }
+                        for (PerformedTaskBean bean : performedTaskList) {
+                            PerformedTaskController.insertTasks(bean);
                         }
+                    } catch (IllegalAccessException e) {
+                        e.printStackTrace();
                     }
                 }
 
             }
         }).start();
-
     }
 
     @Override
@@ -234,6 +239,12 @@ public class Dashboard extends AppCompatActivity implements View.OnClickListener
         inventoryItems.add(new InventoryItem(convertIntoByte(R.drawable.high_pressure_stove), "New", "High Pressure Stove", "Burner", "4651", "89-4-63-0002 ", "", "267"));
         inventoryItems.add(new InventoryItem(convertIntoByte(R.drawable.ball_valve), "Used", "Ball Valve", "Accessories", "331", "89-275-GEN-MBV-1U ", "1 Ball Valve Used", "267"));
         inventoryItems.add(new InventoryItem(convertIntoByte(R.drawable.spray_paint), "New", "Non Inventory", "Accessories", "337", "GEN-ANI-6 ", "Spray Paint-White", "267"));
+        performedTaskList = new ArrayList<>();
+        performedTaskList.add(new PerformedTaskBean("Replaced Burner"));
+        performedTaskList.add(new PerformedTaskBean("Repaired Gas Valve"));
+        performedTaskList.add(new PerformedTaskBean("Cleaned the Stove"));
+        performedTaskList.add(new PerformedTaskBean("Replace Pipes"));
+        performedTaskList.add(new PerformedTaskBean("Replace cylinder"));
     }
 
     private byte[] convertIntoByte(int resource) {

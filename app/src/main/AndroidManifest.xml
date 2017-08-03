@@ -40,6 +40,7 @@
         <activity
             android:name=".ui.activity.SignatureActivity"
             android:windowSoftInputMode="stateHidden" />
+        <activity android:name=".ui.activity.SummaryActivity" />
     </application>
 
 </manifest>

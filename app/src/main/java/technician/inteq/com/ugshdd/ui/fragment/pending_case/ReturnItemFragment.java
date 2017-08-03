@@ -19,6 +19,7 @@ import technician.inteq.com.ugshdd.R;
 import technician.inteq.com.ugshdd.adapters.AddItemAdapter;
 import technician.inteq.com.ugshdd.model.PendingCaseBean.Case;
 import technician.inteq.com.ugshdd.model.PendingCaseBean.InventoryItem;
+import technician.inteq.com.ugshdd.ui.dialogFragment.EditItemDialog;
 import technician.inteq.com.ugshdd.util.RecyclerTouchListener;
 import technician.inteq.com.ugshdd.util.UGSApplication;
 import technician.inteq.com.ugshdd.util.Utility;
@@ -76,6 +77,16 @@ public class ReturnItemFragment extends Fragment {
                     @Override
                     public void onItemClick(AdapterView<?> parent, View view, final int position, long id) {
                         if (parent.getItemAtPosition(position).equals(getString(R.string.edit))) {
+                            EditItemDialog dFragment = new EditItemDialog();
+                            Bundle bundle = new Bundle();
+                            bundle.putShort("item_id", cases.get(positionList).getId());
+                            bundle.putString("item_name", cases.get(positionList).getInventoryItem().getItem());
+                            bundle.putString("item_description", cases.get(positionList).getInventoryItem().getDescription());
+                            bundle.putString("item_rate", cases.get(positionList).getInventoryItem().getRate());
+                            bundle.putString("item_amount", cases.get(positionList).getAmount());
+                            bundle.putInt("item_quantity", cases.get(positionList).getQuantity());
+                            dFragment.setArguments(bundle);
+                            dFragment.show(getActivity().getFragmentManager(), "Dialog Fragment");
                             Utility.alertDialog.dismiss();
                         } else if (parent.getItemAtPosition(position).equals(getString(R.string.delete))) {
                             CaseController.deletePendingCases(cases.get(positionList).getOutlet(), cases.get(positionList).getId());
@@ -94,7 +105,7 @@ public class ReturnItemFragment extends Fragment {
         return view;
     }
 
-    public void addItem() {
+    public void refreshList() {
         cases = CaseController.loadItems(type, UGSApplication.accountNumber);
         recyclerView.setAdapter(new AddItemAdapter(cases, getContext()));
         recyclerView.setVisibility(View.VISIBLE);

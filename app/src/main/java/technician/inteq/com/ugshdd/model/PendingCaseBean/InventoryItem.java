@@ -26,7 +26,6 @@ public class InventoryItem implements DatabaseValues {
     private String description;
     private String rate;
     private String quantity = "";
-    private String amount = "";
     private String type;
 
     public InventoryItem() {
@@ -163,10 +162,6 @@ public class InventoryItem implements DatabaseValues {
 
     public String getStatus() {
         return status;
-    }
-
-    public String getAmount() {
-        return String.valueOf(Double.parseDouble(quantity) * Double.parseDouble(rate));
     }
 
     public String getType() {

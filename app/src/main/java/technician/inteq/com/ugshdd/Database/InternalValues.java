@@ -27,8 +27,9 @@ public interface InternalValues {
             this.id = type;
         }
 
-        public int getId() {
-            return id;
+        @Override
+        public String toString() {
+            return "" + id;
         }
     }
 }

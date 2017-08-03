@@ -12,13 +12,14 @@ import android.widget.TextView;
 import technician.inteq.com.ugshdd.R;
 import technician.inteq.com.ugshdd.adapters.viewPagerAdapter.AddActionPagerAdapter;
 import technician.inteq.com.ugshdd.ui.dialogFragment.AddItemDialog;
+import technician.inteq.com.ugshdd.ui.dialogFragment.EditItemDialog;
 import technician.inteq.com.ugshdd.ui.fragment.pending_case.AddItemFragment;
 import technician.inteq.com.ugshdd.ui.fragment.pending_case.ChargeableItemFragment;
 import technician.inteq.com.ugshdd.ui.fragment.pending_case.ReturnItemFragment;
 import technician.inteq.com.ugshdd.util.UGSApplication;
 import technician.inteq.com.ugshdd.util.Utility;
 
-public class AddActionsActivity extends FragmentActivity implements AddItemDialog.AddItem {
+public class AddActionsActivity extends FragmentActivity implements AddItemDialog.AddItem, EditItemDialog.RefreshItem {
 
     FloatingActionButton floatingActionButton;
     TextView titleOutlet, titleFoodType;
@@ -76,15 +77,24 @@ public class AddActionsActivity extends FragmentActivity implements AddItemDialo
 
     @Override
     public void selectedItem() {
+        refreshList();
+    }
+
+    @Override
+    public void refresh() {
+        refreshList();
+    }
+
+    void refreshList() {
         switch (viewPager.getCurrentItem()) {
             case 0:
-                ((AddItemFragment) fragmentManager.getFragments().get(0)).addItem();
+                ((AddItemFragment) fragmentManager.getFragments().get(0)).refreshList();
                 break;
             case 1:
-                ((ChargeableItemFragment) fragmentManager.getFragments().get(1)).addItem();
+                ((ChargeableItemFragment) fragmentManager.getFragments().get(1)).refreshList();
                 break;
             case 2:
-                ((ReturnItemFragment) fragmentManager.getFragments().get(2)).addItem();
+                ((ReturnItemFragment) fragmentManager.getFragments().get(2)).refreshList();
                 break;
             case 3:
                 break;

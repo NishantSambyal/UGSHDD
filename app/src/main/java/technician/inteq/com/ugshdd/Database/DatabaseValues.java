@@ -11,13 +11,16 @@ public interface DatabaseValues {
     String TYPE_TEXT = " TEXT";
     String TYPE_INTEGER = " INTEGER";
     String TYPE_BLOB = " blob";
+    String TYPE_UNIQUE = " UNIQUE";
     String TYPE_COMMA_SEP = ", ";
 
     //Tables Names
     String TABLE_PENDING_TASKS = "pending_tasks";
     String TABLE_COMPLETED_TASKS = "completed_tasks";
     String TABLE_ONGOING_TASKS = "ongoing_tasks";
-    String TABLE_TASKS = "tasks";
+    String TABLE_PERFORMED_TASKS_LIST = "performed_tasks_list";
+    String TABLE_PERFORMED_TASKS = "performed_tasks";
+    String TABLE_PERFORMED_TASKS_TEMP = "performed_tasks_temp";
     String TABLE_ITEMS = "items";
 
     //Column names
@@ -30,10 +33,7 @@ public interface DatabaseValues {
     String COL_QUANTITY = "quantity";
     String COL_AMOUNT = "amount";
     String COL_ITEM_TYPE = "item_type";
-    String COL_TASK_1 = "Replaced Burner";
-    String COL_TASK_2 = "Repaired Gas Valve";
-    String COL_TASK_3 = "Cleaned the Stove";
-    String COL_TASK_4 = "Replace Pipes";
+    String COL_TASKS = "tasks";
 
     //Queries to execute
     String SQL_CREATE_TABLE_PENDING_TASKS = "CREATE TABLE " + TABLE_PENDING_TASKS + "(" + COL_ID + TYPE_INTEGER + " PRIMARY KEY " + TYPE_COMMA_SEP
@@ -48,10 +48,16 @@ public interface DatabaseValues {
             + COL_OUTLET + TYPE_TEXT + TYPE_COMMA_SEP + COL_INTERNAL_ID + TYPE_TEXT + TYPE_COMMA_SEP + COL_QUANTITY + TYPE_TEXT
             + TYPE_COMMA_SEP + COL_ITEM_TYPE + TYPE_TEXT + TYPE_COMMA_SEP + COL_AMOUNT + TYPE_TEXT + ")";
 
-    String SQL_CREATE_TABLE_TASK = "CREATE TABLE " + TABLE_TASKS + "(" + COL_ID + TYPE_INTEGER + " PRIMARY KEY " + TYPE_COMMA_SEP
-            + COL_OUTLET + TYPE_TEXT + TYPE_COMMA_SEP + COL_TASK_1 + TYPE_TEXT + TYPE_COMMA_SEP + COL_TASK_2 + TYPE_TEXT
-            + TYPE_COMMA_SEP + COL_TASK_3 + TYPE_TEXT + TYPE_COMMA_SEP + COL_TASK_4 + TYPE_TEXT + ")";
+    String SQL_CREATE_TABLE_TASK = "CREATE TABLE " + TABLE_PERFORMED_TASKS_LIST + "(" + COL_ID + TYPE_INTEGER + " PRIMARY KEY " + TYPE_COMMA_SEP
+            + COL_TASKS + TYPE_TEXT + ")";
+
+    String SQL_CREATE_TABLE_TASKS = "CREATE TABLE " + TABLE_PERFORMED_TASKS + "(" + COL_ID + TYPE_INTEGER + " PRIMARY KEY " + TYPE_COMMA_SEP
+            + COL_OUTLET + TYPE_TEXT + TYPE_COMMA_SEP + COL_TASKS + TYPE_TEXT + ")";
+
+    String SQL_CREATE_TABLE_TASKS_TEMP = "CREATE TABLE " + TABLE_PERFORMED_TASKS_TEMP + "(" + COL_ID + TYPE_INTEGER + " PRIMARY KEY " + TYPE_COMMA_SEP
+            + COL_OUTLET + TYPE_TEXT + TYPE_COMMA_SEP + COL_TASKS + TYPE_TEXT + TYPE_UNIQUE + ")";
 
     String SQL_CREATE_TABLE_ITEM = InventoryItem.getSql();
+
 
 }

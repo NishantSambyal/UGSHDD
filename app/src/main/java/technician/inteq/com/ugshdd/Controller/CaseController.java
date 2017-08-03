@@ -1,5 +1,6 @@
 package technician.inteq.com.ugshdd.Controller;
 
+import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
@@ -26,9 +27,20 @@ public class CaseController implements DatabaseValues {
         return db.rawQuery(query, null);
     }
 
+
+    public static void updateCase(Case cases) throws IllegalAccessException {
+        SQLiteDatabase db = UGSApplication.getDb();
+        String where = COL_ID + " = ? ";
+        ContentValues values = new ContentValues();
+        values.put("quantity", cases.getQuantity());
+        values.put("amount", cases.getAmount());
+        db.update(TABLE_ONGOING_TASKS, values, where, new String[]{String.valueOf(cases.getId())});
+    }
+
+
     public static boolean insert(Case singleCase) throws IllegalAccessException {
         SQLiteDatabase db = UGSApplication.getDb();
-        String where = COL_INTERNAL_ID + " = ? AND " + COL_ITEM_TYPE + " =?";
+        String where = COL_INTERNAL_ID + " = ? AND " + COL_ITEM_TYPE + " = ? ";
         if (db.query(TABLE_ONGOING_TASKS, null, where, new String[]{singleCase.getInternalId(), String.valueOf(singleCase.getItem_type())}, null, null, null).getCount() > 0) {
             return false;
         }
@@ -65,7 +77,6 @@ public class CaseController implements DatabaseValues {
                 cases.add(aCase);
             } while (cursor.moveToNext());
         }
-
         return cases;
     }
 }

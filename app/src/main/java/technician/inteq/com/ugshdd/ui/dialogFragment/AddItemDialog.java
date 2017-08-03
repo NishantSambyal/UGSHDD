@@ -149,7 +149,6 @@ public class AddItemDialog extends DialogFragment {
         }
     }
 
-
     public interface AddItem {
         void selectedItem();
     }

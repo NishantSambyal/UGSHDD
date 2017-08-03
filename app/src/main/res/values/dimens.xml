@@ -4,4 +4,7 @@
     <dimen name="fab_margin">16dp</dimen>
     <dimen name="mobile_label_font_size">15dp</dimen>
     <dimen name="search_view_minus">15dp</dimen>
+    <dimen name="task_view">16sp</dimen>
+    <dimen name="task_view_min_height">50dp</dimen>
+
 </resources>
