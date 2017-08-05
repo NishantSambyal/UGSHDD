@@ -14,8 +14,8 @@ import java.util.Arrays;
 import java.util.List;
 
 import technician.inteq.com.ugshdd.R;
-import technician.inteq.com.ugshdd.adapters.ExpandableMaterialListRVAdapter;
 import technician.inteq.com.ugshdd.adapters.MaterialListRVAdapter;
+import technician.inteq.com.ugshdd.adapters.expandableRVAdapters.ExpandableMaterialListRVAdapter;
 import technician.inteq.com.ugshdd.model.TransferItemxllayout;
 import technician.inteq.com.ugshdd.model.transferItemBean.TransferItem;
 import technician.inteq.com.ugshdd.model.transferItemBean.TransferItemDetail;

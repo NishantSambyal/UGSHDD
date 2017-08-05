@@ -16,7 +16,7 @@ import java.util.List;
 
 import technician.inteq.com.ugshdd.R;
 import technician.inteq.com.ugshdd.adapters.AcceptedItemRVAdapter;
-import technician.inteq.com.ugshdd.adapters.ExpandableAccepedItemRVAdapter;
+import technician.inteq.com.ugshdd.adapters.expandableRVAdapters.ExpandableAccepedItemRVAdapter;
 import technician.inteq.com.ugshdd.model.AcceptedItemBean.AcceptedItem;
 import technician.inteq.com.ugshdd.model.AcceptedItemBean.AcceptedItemDetails;
 

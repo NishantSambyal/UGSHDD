@@ -26,12 +26,12 @@ public class TaskController implements DatabaseValues {
         values.put(COL_JOB_NO, jobNumber);
         values.put(COL_UNIT_NO, "unit_no");
         values.put(COL_ACKNOWLEDGE, "0");
-        return db.insert(TABLE_PENDING_TASKS, null, values) != -1;
+        return db.insert(TABLE_CASES, null, values) != -1;
     }
 
     public static Cursor getAllOutlets() {
         SQLiteDatabase db = UGSApplication.getDb();
-        return db.query(TABLE_PENDING_TASKS, null, null, null, null, null, null);
+        return db.query(TABLE_CASES, null, null, null, null, null, null);
     }
 
     public static List<Outlets> getOutletDetails() {
@@ -58,11 +58,22 @@ public class TaskController implements DatabaseValues {
     }
 
     public static boolean acknowledgeTask(String outlet) {
-        SQLiteDatabase db = UGSApplication.getDb();
         ContentValues values = new ContentValues();
         values.put(COL_ACKNOWLEDGE, "1");
-        return db.update(TABLE_PENDING_TASKS, values, COL_OUTLET + "= ?", new String[]{outlet}) == 1;
+        return UGSApplication.getDb().update(TABLE_CASES, values, COL_OUTLET + "= ?", new String[]{outlet}) == 1;
     }
+
+    public static boolean completeTask(String outlet, byte[] signature, String customerName) {
+
+        SQLiteDatabase db = UGSApplication.getDb();
+        ContentValues values = new ContentValues();
+        values.put(COL_IS_COMPLETED, "1");
+        values.put(COL_SIGNATURE, signature);
+        values.put(COL_CUSTOMER_NAME, customerName);
+        return db.update(TABLE_CASES, values, COL_OUTLET + "= ?", new String[]{outlet}) == 1;
+    }
+
+
 
 
 }

@@ -37,8 +37,8 @@ import java.util.Locale;
 import technician.inteq.com.ugshdd.Controller.TaskController;
 import technician.inteq.com.ugshdd.Database.InternalValues;
 import technician.inteq.com.ugshdd.R;
-import technician.inteq.com.ugshdd.adapters.ExpandablePendingCaseAdapter;
 import technician.inteq.com.ugshdd.adapters.PendingCasesListAdapter;
+import technician.inteq.com.ugshdd.adapters.expandableRVAdapters.ExpandablePendingCaseAdapter;
 import technician.inteq.com.ugshdd.model.PendingCaseBean.Outlets;
 import technician.inteq.com.ugshdd.util.QRScanner;
 import technician.inteq.com.ugshdd.util.RecyclerTouchListener;
@@ -82,7 +82,6 @@ public class PendingCases extends AppCompatActivity implements InternalValues {
         Drawable drawable = ContextCompat.getDrawable(this, R.drawable.option_menu);
         toolbar.setOverflowIcon(drawable);
         toolbarTitle.setText("Pending cases");
-
 
         recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
         recyclerView.setHasFixedSize(true);
@@ -155,7 +154,6 @@ public class PendingCases extends AppCompatActivity implements InternalValues {
                                             }
                                         }, getString(R.string.scan_with_camera), getString(R.string.inbuilt_qr_scanner));
                                     }
-
                                 }
                             }
                         }, popupList);
@@ -166,7 +164,6 @@ public class PendingCases extends AppCompatActivity implements InternalValues {
             empty.setVisibility(View.VISIBLE);
             recyclerView.setVisibility(View.GONE);
         }
-
     }
 
     private void prepareList() {
@@ -180,6 +177,13 @@ public class PendingCases extends AppCompatActivity implements InternalValues {
         menu.findItem(R.id.logout).setVisible(false);
         menu.findItem(R.id.database).setVisible(false);
         menu.findItem(R.id.about).setVisible(false);
+        menu.findItem(R.id.completed_tasks).setVisible(true).setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                startActivity(new Intent(PendingCases.this, CompletedTaskActivity.class));
+                return true;
+            }
+        });
         MenuItem myActionMenuItem = menu.findItem(R.id.action_search);
         final SearchView searchView = (SearchView) myActionMenuItem.getActionView();
         EditText searchEditText = (EditText) searchView.findViewById(android.support.v7.appcompat.R.id.search_src_text);

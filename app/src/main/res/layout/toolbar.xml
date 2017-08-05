@@ -27,5 +27,7 @@
             android:paddingLeft="5dp"
             android:textColor="#fff"
             android:visibility="gone" />
+
     </LinearLayout>
+
 </android.support.v7.widget.Toolbar>

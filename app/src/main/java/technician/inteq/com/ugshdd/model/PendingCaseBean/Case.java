@@ -1,24 +1,29 @@
 package technician.inteq.com.ugshdd.model.PendingCaseBean;
 
 import android.content.ContentValues;
+import android.database.Cursor;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
 import java.util.Collection;
+import java.util.List;
+
+import technician.inteq.com.ugshdd.Controller.CaseController;
+import technician.inteq.com.ugshdd.Database.DatabaseValues;
 
 /**
  * Created by Nishant Sambyal on 28-Jul-17.
  */
 
 public class Case {
-    String outlet;
-    String internalId;
-    int quantity;
-    String amount;
-    short item_type;
-    short id;
-    InventoryItem inventoryItem;
 
+    private String outlet;
+    private String internalId;
+    private int quantity;
+    private String amount;
+    private short item_type;
+    private short id;
+    private InventoryItem inventoryItem;
 
     public Case(int quantity, String amount, short id) {
         this.quantity = quantity;
@@ -41,6 +46,17 @@ public class Case {
         this.quantity = quantity;
         this.amount = amount;
         this.item_type = itemType;
+    }
+
+    public static List<Case> getCompletedCases(List<Case> cases) {
+        Cursor cursor = CaseController.getAllCompletedCases();
+        if (cursor.moveToFirst()) {
+            do {
+                cases.add(new Case(cursor.getString(cursor.getColumnIndex(DatabaseValues.COL_OUTLET)), "", 0, "", (short) 0));
+            } while (cursor.moveToNext());
+        }
+
+        return null;
     }
 
     public ContentValues getContentValues() throws IllegalAccessException, IllegalArgumentException {

@@ -19,22 +19,24 @@ import technician.inteq.com.ugshdd.util.UGSApplication;
 public class CaseController implements DatabaseValues {
 
     public static Cursor getAllPendingCases(String type, String outlet) {
-        SQLiteDatabase db = UGSApplication.getDb();
         String query = "SELECT * FROM " + TABLE_ONGOING_TASKS + " LEFT JOIN " + TABLE_ITEMS
                 + " ON " + TABLE_ONGOING_TASKS + "." + COL_INTERNAL_ID + "=" + TABLE_ITEMS
                 + "." + COL_INTERNAL_ID + " WHERE " + TABLE_ONGOING_TASKS + "." + COL_ITEM_TYPE + " = '" + type + "' AND " + TABLE_ONGOING_TASKS
                 + "." + COL_OUTLET + " = '" + outlet + "'";
-        return db.rawQuery(query, null);
+        return UGSApplication.getDb().rawQuery(query, null);
     }
 
+    public static Cursor getAllCompletedCases() {
+        String query = "SELECT * FROM " + TABLE_CASES + " WHERE " + COL_IS_COMPLETED + " = 1";
+        return UGSApplication.getDb().rawQuery(query, null);
+    }
 
     public static void updateCase(Case cases) throws IllegalAccessException {
-        SQLiteDatabase db = UGSApplication.getDb();
         String where = COL_ID + " = ? ";
         ContentValues values = new ContentValues();
         values.put("quantity", cases.getQuantity());
         values.put("amount", cases.getAmount());
-        db.update(TABLE_ONGOING_TASKS, values, where, new String[]{String.valueOf(cases.getId())});
+        UGSApplication.getDb().update(TABLE_ONGOING_TASKS, values, where, new String[]{String.valueOf(cases.getId())});
     }
 
 
@@ -48,11 +50,29 @@ public class CaseController implements DatabaseValues {
     }
 
     public static boolean deletePendingCases(String outlet, short itemId) {
-        SQLiteDatabase db = UGSApplication.getDb();
         String where = COL_OUTLET + " = ? AND " + COL_ID + " = ?";
         String whereArgs[] = {outlet, String.valueOf(itemId)};
-        db.delete(TABLE_ONGOING_TASKS, where, whereArgs);
+        UGSApplication.getDb().delete(TABLE_ONGOING_TASKS, where, whereArgs);
         return true;
+    }
+
+    public static void saveOngoingTask() {
+        SQLiteDatabase db = UGSApplication.getDb();
+        ContentValues values = new ContentValues();
+        String s = "SELECT  * FROM " + TABLE_ONGOING_TASKS;
+        Cursor cursor = db.rawQuery(s, null);
+        if (cursor.moveToFirst()) {
+            do {
+                values.put(COL_OUTLET, cursor.getString(cursor.getColumnIndex(COL_OUTLET)));
+                values.put(COL_INTERNAL_ID, cursor.getString(cursor.getColumnIndex(COL_INTERNAL_ID)));
+                values.put(COL_QUANTITY, cursor.getString(cursor.getColumnIndex(COL_QUANTITY)));
+                values.put(COL_ITEM_TYPE, cursor.getString(cursor.getColumnIndex(COL_ITEM_TYPE)));
+                values.put(COL_AMOUNT, cursor.getString(cursor.getColumnIndex(COL_AMOUNT)));
+                db.insert(TABLE_COMPLETED_TASKS, null, values);
+            } while (cursor.moveToNext());
+        }
+        db.delete(TABLE_ONGOING_TASKS, null, null);
+        db.delete(TABLE_PERFORMED_TASKS_TEMP, null, null);
     }
 
     public static List<Case> loadItems(String type, String outlet) {
@@ -60,7 +80,7 @@ public class CaseController implements DatabaseValues {
         Cursor cursor = CaseController.getAllPendingCases(type, outlet);
         if (cursor.moveToFirst()) {
             do {
-                Case aCase = new Case(cursor.getShort(0),
+                Case aCase = new Case(cursor.getShort(0),// id of ongoing task
                         cursor.getString(cursor.getColumnIndex(DatabaseValues.COL_OUTLET)),
                         cursor.getString(cursor.getColumnIndex(DatabaseValues.COL_INTERNAL_ID)),
                         cursor.getInt(cursor.getColumnIndex(DatabaseValues.COL_QUANTITY)),

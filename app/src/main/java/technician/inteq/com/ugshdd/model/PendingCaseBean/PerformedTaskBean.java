@@ -16,7 +16,7 @@ import technician.inteq.com.ugshdd.Database.DatabaseValues;
  */
 
 public class PerformedTaskBean implements DatabaseValues {
-    private String id, tasks;
+    private String id, tasks, outlet;
 
     public PerformedTaskBean(String tasks) {
         this.tasks = tasks;
@@ -53,7 +53,7 @@ public class PerformedTaskBean implements DatabaseValues {
             String name = field.getName();
             Class<?> type = field.getType();
             if (!Modifier.isStatic(field.getModifiers()) && !Collection.class.isAssignableFrom(type)
-                    && field.get(this) != null && !name.equals("id")) {
+                    && field.get(this) != null && !name.equals("id") && !name.equals("outlet")) {
                 if (type.equals(byte[].class)) {
                     byte[] obj = (byte[]) field.get(this);
                     values.put(name, obj);

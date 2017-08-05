@@ -6,6 +6,7 @@
     <string name="logout">Logout</string>
     <string name="about">About</string>
     <string name="database">Database</string>
+    <string name="completed_task">CompletedTask</string>
     <string name="search_title">Search...</string>
     <string name="acknowledge">Acknowledge</string>
     <string name="action">Action</string>
@@ -14,4 +15,5 @@
     <string name="under_development">Under Development</string>
     <string name="edit">Edit</string>
     <string name="delete">Delete</string>
+    <string name="documents">Documents</string>
 </resources>

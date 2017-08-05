@@ -82,7 +82,7 @@ public class MainActivity extends Activity {
         alertDialog.setIcon(getResources().getDrawable(R.mipmap.tick));
         alertDialog.setTitle("About Version !");
         alertDialog.setCancelable(true);
-        alertDialog.setMessage("Version : 001 \n Release Date : 27th-July-2017");
+        alertDialog.setMessage("Version : 002 \n Release Date : 08th-Aug-2017");
         alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {

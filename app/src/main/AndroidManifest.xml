@@ -6,6 +6,8 @@
     <uses-permission android:name="android.permission.READ_SMS" />
     <uses-permission android:name="android.permission.SEND_SMS" />
     <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
         android:name=".util.UGSApplication"
@@ -21,12 +23,15 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <service android:name=".Services.ReceiveSMS" />
+
         <receiver android:name=".Services.IncomingSms">
             <intent-filter>
                 <action android:name="android.provider.Telephony.SMS_RECEIVED" />
             </intent-filter>
         </receiver>
+
         <activity android:name=".ui.activity.Dashboard" />
         <activity android:name=".ui.activity.DailyCashReport" />
         <activity android:name=".ui.activity.LeaveManagementBaseActivity" />
@@ -41,6 +46,7 @@
             android:name=".ui.activity.SignatureActivity"
             android:windowSoftInputMode="stateHidden" />
         <activity android:name=".ui.activity.SummaryActivity" />
+        <activity android:name=".ui.activity.CompletedTaskActivity"></activity>
     </application>
 
 </manifest>

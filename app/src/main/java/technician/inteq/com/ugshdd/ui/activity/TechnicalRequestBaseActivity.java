@@ -14,8 +14,8 @@ import java.util.Arrays;
 import java.util.List;
 
 import technician.inteq.com.ugshdd.R;
-import technician.inteq.com.ugshdd.adapters.ExpandableTechnicalRVAdapter;
 import technician.inteq.com.ugshdd.adapters.TechnicalRequestRVAdapter;
+import technician.inteq.com.ugshdd.adapters.expandableRVAdapters.ExpandableTechnicalRVAdapter;
 import technician.inteq.com.ugshdd.model.technicalRequestBean.TechnicalRequests;
 import technician.inteq.com.ugshdd.model.technicalRequestBean.TechnicalRequestsDetails;
 import technician.inteq.com.ugshdd.ui.fragment.leave_management.NewLeaveApplicationFragment;

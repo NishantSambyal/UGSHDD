@@ -15,7 +15,7 @@ public interface DatabaseValues {
     String TYPE_COMMA_SEP = ", ";
 
     //Tables Names
-    String TABLE_PENDING_TASKS = "pending_tasks";
+    String TABLE_CASES = "tasks";
     String TABLE_COMPLETED_TASKS = "completed_tasks";
     String TABLE_ONGOING_TASKS = "ongoing_tasks";
     String TABLE_PERFORMED_TASKS_LIST = "performed_tasks_list";
@@ -33,12 +33,17 @@ public interface DatabaseValues {
     String COL_QUANTITY = "quantity";
     String COL_AMOUNT = "amount";
     String COL_ITEM_TYPE = "item_type";
+    String COL_IS_ASSIGNED = "is_assigned";
+    String COL_IS_COMPLETED = "is_completed";
+    String COL_SIGNATURE = "signature";
     String COL_TASKS = "tasks";
+    String COL_CUSTOMER_NAME = "customer_name";
 
     //Queries to execute
-    String SQL_CREATE_TABLE_PENDING_TASKS = "CREATE TABLE " + TABLE_PENDING_TASKS + "(" + COL_ID + TYPE_INTEGER + " PRIMARY KEY " + TYPE_COMMA_SEP
+    String SQL_CREATE_TABLE_PENDING_TASKS = "CREATE TABLE " + TABLE_CASES + "(" + COL_ID + TYPE_INTEGER + " PRIMARY KEY " + TYPE_COMMA_SEP
             + COL_OUTLET + TYPE_TEXT + TYPE_COMMA_SEP + COL_JOB_NO + TYPE_TEXT + TYPE_COMMA_SEP + COL_UNIT_NO + TYPE_TEXT
-            + TYPE_COMMA_SEP + COL_ACKNOWLEDGE + TYPE_TEXT + ")";
+            + TYPE_COMMA_SEP + COL_ACKNOWLEDGE + TYPE_TEXT + TYPE_COMMA_SEP + COL_IS_ASSIGNED + TYPE_TEXT
+            + TYPE_COMMA_SEP + COL_IS_COMPLETED + TYPE_TEXT + TYPE_COMMA_SEP + COL_CUSTOMER_NAME + TYPE_TEXT + TYPE_COMMA_SEP + COL_SIGNATURE + TYPE_BLOB + ")";
 
     String SQL_CREATE_TABLE_COMPLETED_TASKS = "CREATE TABLE " + TABLE_COMPLETED_TASKS + "(" + COL_ID + TYPE_INTEGER + " PRIMARY KEY " + TYPE_COMMA_SEP
             + COL_OUTLET + TYPE_TEXT + TYPE_COMMA_SEP + COL_INTERNAL_ID + TYPE_TEXT + TYPE_COMMA_SEP + COL_QUANTITY + TYPE_TEXT

@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -52,11 +51,6 @@ public class PerformedTask extends Fragment {
         view.findViewById(R.id.next).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                try {
-                    PerformedTaskController.insertTempTasks(selectedTasks);
-                } catch (IllegalAccessException e) {
-                    e.printStackTrace();
-                }
                 startActivity(new Intent(getActivity(), SummaryActivity.class));
             }
         });
@@ -78,12 +72,10 @@ public class PerformedTask extends Fragment {
             public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
                 View view = super.getView(position, convertView, parent);
                 CheckedTextView chk = (CheckedTextView) view;
-                Log.e("defined....", "" + taskList.get(position).getId());
+
                 for (PerformedTaskBean taskBean : performedList) {
                     if (taskBean.getId().equals(taskList.get(position).getId())) {
-//                        ((view).setSelected(true));
                         ((ListView) parent).setItemChecked(position, true);
-                        Log.e("kjsdbvksjbdvksbdvk....", "kjcbkdsbkabdvkjabsdvosbdkvjbsdkvbsdlkbvksjd");
                     }
                 }
                 chk.setPadding(15, 3, 15, 3);
@@ -101,13 +93,17 @@ public class PerformedTask extends Fragment {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 CheckedTextView chk = (CheckedTextView) view;
                 if (chk.isChecked()) {
+                    try {
+                        PerformedTaskController.insertTempTask(new PerformedTaskHelper(UGSApplication.accountNumber, taskList.get(position).getId()));
+                    } catch (IllegalAccessException e) {
+                        e.printStackTrace();
+                    }
                     selectedTasks.add(new PerformedTaskHelper(UGSApplication.accountNumber, taskList.get(position).getId()));
                 } else {
-                    for (PerformedTaskHelper task : selectedTasks) {
-                        if (taskList.get(position).getId().equals(task.getTask())) {
-                            selectedTasks.remove(selectedTasks.indexOf(task));
-                            break;
-                        }
+                    try {
+                        PerformedTaskController.removeTempTask(taskList.get(position).getId(), UGSApplication.accountNumber);
+                    } catch (IllegalAccessException e) {
+                        e.printStackTrace();
                     }
                 }
             }

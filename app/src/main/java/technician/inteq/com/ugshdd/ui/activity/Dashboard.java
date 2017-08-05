@@ -57,11 +57,13 @@ public class Dashboard extends AppCompatActivity implements View.OnClickListener
         getSupportActionBar().setDisplayUseLogoEnabled(true);
         Drawable drawable = ContextCompat.getDrawable(context, R.drawable.option_menu);
         toolbar.setOverflowIcon(drawable);
+
         if (TaskController.getOutletDetails().size() < 2) {
             for (int i = 0; i <= 10; i++) {
                 TaskController.insertTasks("000" + i + "-0BCC", "1234" + i);
             }
         }
+
         pendingCases = (LinearLayout) findViewById(R.id.pendingCases);
         materialRequest = (LinearLayout) findViewById(R.id.materialRequest);
         dayEndReport = (LinearLayout) findViewById(R.id.dayEndReport);
@@ -260,7 +262,7 @@ public class Dashboard extends AppCompatActivity implements View.OnClickListener
         alertDialog.setIcon(getResources().getDrawable(R.mipmap.tick));
         alertDialog.setTitle("About Version !");
         alertDialog.setCancelable(true);
-        alertDialog.setMessage("Version : 001 \n Release Date : 26th-July-2017");
+        alertDialog.setMessage("Version : 002 \n Release Date : 04th-Aug-2017");
         alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {

@@ -36,7 +36,6 @@ import technician.inteq.com.ugshdd.R;
 
 public class SignatureActivity extends FragmentActivity {
     public static String tempDir;
-    public int count = 1;
     public String current = null;
     LinearLayout mContent;
     signature mSignature;
@@ -45,7 +44,6 @@ public class SignatureActivity extends FragmentActivity {
     File mypath;
     String invoice = "";
     byte[] byte_arr;
-    String image_str = "";
     Drawable drawable;
     boolean signed;
     private Bitmap mBitmap;
@@ -75,7 +73,6 @@ public class SignatureActivity extends FragmentActivity {
         mContent.addView(mSignature, LayoutParams.FILL_PARENT, LayoutParams.FILL_PARENT);
         mClear = (Button) findViewById(R.id.clear);
         mGetSign = (Button) findViewById(R.id.getsign);
-        // mGetSign.setEnabled(false);
         mCancel = (Button) findViewById(R.id.cancel);
         mView = mContent;
 
@@ -119,6 +116,7 @@ public class SignatureActivity extends FragmentActivity {
                             System.out.println("image size" + result.length);
                             Bundle b = new Bundle();
                             b.putString("status", "done");
+                            b.putString("name", yourName.getText().toString());
                             b.putByteArray("image", result);
                             Intent intent1 = new Intent();
                             intent1.putExtras(b);
