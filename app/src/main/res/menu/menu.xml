@@ -7,13 +7,17 @@
         android:title="@string/logout" />
 
     <item
+        android:id="@+id/settings"
+        android:title="@string/settings" />
+
+    <item
         android:id="@+id/about"
         android:title="@string/about" />
-
 
     <item
         android:id="@+id/database"
         android:title="@string/database" />
+
     <item
         android:id="@+id/completed_tasks"
         android:title="@string/completed_task" />
@@ -21,14 +25,8 @@
     <item
         android:id="@+id/action_search"
         android:icon="@android:drawable/ic_menu_search"
-        android:title="Search"
+        android:title="@string/search"
         app:actionViewClass="android.support.v7.widget.SearchView"
         app:showAsAction="always" />
-    <!-- <item
-         android:id="@+id/action"
-         android:icon="@android:drawable/ic_menu_search"
-         android:title="action_search"
-         android:showAsAction="collapseActionView|ifRoom"
-         android:actionViewClass="android.support.v7.widget.SearchView" />-->
 
 </menu>

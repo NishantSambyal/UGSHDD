@@ -1,9 +1,11 @@
 package technician.inteq.com.ugshdd.util;
 
 import android.app.Activity;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.view.MenuItemCompat;
+import android.support.v7.app.AlertDialog;
 import android.view.Menu;
 import android.view.MenuItem;
 
@@ -19,6 +21,7 @@ import technician.inteq.com.ugshdd.ui.activity.AddActionsActivity;
 
 public class QRScanner extends Activity implements ZXingScannerView.ResultHandler {
     String outletIntent;
+    AlertDialog mainDialog;
     private ZXingScannerView mScannerView;
     private boolean mFlash;
     private boolean mAutoFocus;
@@ -38,10 +41,14 @@ public class QRScanner extends Activity implements ZXingScannerView.ResultHandle
     @Override
     public void onResume() {
         super.onResume();
+        if (mainDialog != null && mainDialog.isShowing()) {
+            mainDialog.dismiss();
+        }
         mScannerView.setResultHandler(this); // Register ourselves as a handler for scan results.
         mScannerView.startCamera();          // Start camera on resume
         mScannerView.setFlash(true);
         mScannerView.setAutoFocus(true);
+
     }
 
     @Override
@@ -71,8 +78,19 @@ public class QRScanner extends Activity implements ZXingScannerView.ResultHandle
                 startActivity(new Intent(this, AddActionsActivity.class));
                 finish();
             } else {
-                Utility.toast(QRScanner.this, "Invalid QR code " + acc_num[0] + "-" + acc_num[1]);
-                finish();
+                mScannerView.setFlash(false);
+                AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
+                alertDialog.setTitle("Error !");
+                alertDialog.setCancelable(false);
+                alertDialog.setMessage("Invalid QR code " + acc_num[0] + "-" + acc_num[1]);
+                alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        finish();
+                    }
+                });
+                mainDialog = alertDialog.create();
+                mainDialog.show();
             }
         }
     }

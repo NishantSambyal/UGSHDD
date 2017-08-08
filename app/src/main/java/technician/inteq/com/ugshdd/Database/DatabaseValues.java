@@ -8,7 +8,7 @@ import technician.inteq.com.ugshdd.model.PendingCaseBean.InventoryItem;
 
 public interface DatabaseValues {
     //Data Types
-    String TYPE_TEXT = " TEXT";
+    String TYPE_TEXT = " TEXT ";
     String TYPE_INTEGER = " INTEGER";
     String TYPE_BLOB = " blob";
     String TYPE_UNIQUE = " UNIQUE";
@@ -22,6 +22,7 @@ public interface DatabaseValues {
     String TABLE_PERFORMED_TASKS = "performed_tasks";
     String TABLE_PERFORMED_TASKS_TEMP = "performed_tasks_temp";
     String TABLE_ITEMS = "items";
+    String TABLE_CONTACT = "contact";
 
     //Column names
     String COL_ID = "id";
@@ -38,6 +39,7 @@ public interface DatabaseValues {
     String COL_SIGNATURE = "signature";
     String COL_TASKS = "tasks";
     String COL_CUSTOMER_NAME = "customer_name";
+    String COL_IS_ACTIVE = "isActive";
 
     //Queries to execute
     String SQL_CREATE_TABLE_PENDING_TASKS = "CREATE TABLE " + TABLE_CASES + "(" + COL_ID + TYPE_INTEGER + " PRIMARY KEY " + TYPE_COMMA_SEP
@@ -64,5 +66,7 @@ public interface DatabaseValues {
 
     String SQL_CREATE_TABLE_ITEM = InventoryItem.getSql();
 
+    String SQL_CREATE_TABLE_CONTACT = "CREATE TABLE " + TABLE_CONTACT + "(" + COL_ID + TYPE_INTEGER + " PRIMARY KEY " + TYPE_COMMA_SEP
+            + TABLE_CONTACT + TYPE_TEXT + TYPE_UNIQUE + TYPE_COMMA_SEP + COL_IS_ACTIVE + TYPE_TEXT + ")";
 
 }

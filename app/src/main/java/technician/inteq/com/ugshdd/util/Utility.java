@@ -113,7 +113,7 @@ public class Utility {
 
     public static void chooseOptions(final Context context, AdapterView.OnItemClickListener clickListener, String... args) {
         AlertDialog.Builder dialog = new AlertDialog.Builder(context);
-        final ArrayAdapter<String> adapter = new ArrayAdapter<String>(context, android.R.layout.simple_list_item_1, args) {
+        final ArrayAdapter adapter = new ArrayAdapter<String>(context, android.R.layout.simple_list_item_1, args) {
             @NonNull
             @Override
             public View getView(int position, View convertView, ViewGroup parent) {

@@ -20,7 +20,7 @@ public class DatabaseHelper extends SQLiteOpenHelper implements DatabaseValues {
     private static final String SQL_DELETE_ENTRIES = "DROP TABLE IF EXISTS ";
     String[] SQL_CREATE_TABLES = {SQL_CREATE_TABLE_PENDING_TASKS, SQL_CREATE_TABLE_COMPLETED_TASKS,
             SQL_CREATE_TABLE_ONGOING_TASKS, SQL_CREATE_TABLE_TASK, SQL_CREATE_TABLE_ITEM,
-            SQL_CREATE_TABLE_TASKS, SQL_CREATE_TABLE_TASKS_TEMP};
+            SQL_CREATE_TABLE_TASKS, SQL_CREATE_TABLE_TASKS_TEMP, SQL_CREATE_TABLE_CONTACT};
 
     public DatabaseHelper(Context context, SQLiteDatabase.CursorFactory factory) {
         super(context, DATABASE_NAME, factory, 1);

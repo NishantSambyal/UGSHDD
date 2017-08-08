@@ -31,6 +31,7 @@ import technician.inteq.com.ugshdd.Controller.TaskController;
 import technician.inteq.com.ugshdd.R;
 import technician.inteq.com.ugshdd.model.PendingCaseBean.InventoryItem;
 import technician.inteq.com.ugshdd.model.PendingCaseBean.PerformedTaskBean;
+import technician.inteq.com.ugshdd.ui.dialogFragment.ContactDialog;
 import technician.inteq.com.ugshdd.util.AndroidDatabaseManager;
 
 /**
@@ -58,7 +59,7 @@ public class Dashboard extends AppCompatActivity implements View.OnClickListener
         Drawable drawable = ContextCompat.getDrawable(context, R.drawable.option_menu);
         toolbar.setOverflowIcon(drawable);
         if (TaskController.getOutletDetails().size() < 2) {
-            for (int i = 0; i <= 10; i++) {
+            for (int i = 1; i <= 10; i++) {
                 TaskController.insertTasks("000" + i + "-0BCC", "1234" + i);
             }
         }
@@ -142,6 +143,10 @@ public class Dashboard extends AppCompatActivity implements View.OnClickListener
         switch (id) {
             case R.id.database:
                 startActivity(new Intent(Dashboard.this, AndroidDatabaseManager.class));
+                break;
+            case R.id.settings:
+                ContactDialog dFragment = new ContactDialog();
+                dFragment.show(getFragmentManager(), "Dialog Fragment");
                 break;
             case R.id.logout:
                 startActivity(new Intent(Dashboard.this, MainActivity.class));
@@ -241,6 +246,7 @@ public class Dashboard extends AppCompatActivity implements View.OnClickListener
         inventoryItems.add(new InventoryItem(convertIntoByte(R.drawable.high_pressure_stove), "New", "High Pressure Stove", "Burner", "4651", "89-4-63-0002 ", "", "267"));
         inventoryItems.add(new InventoryItem(convertIntoByte(R.drawable.ball_valve), "Used", "Ball Valve", "Accessories", "331", "89-275-GEN-MBV-1U ", "1 Ball Valve Used", "267"));
         inventoryItems.add(new InventoryItem(convertIntoByte(R.drawable.spray_paint), "New", "Non Inventory", "Accessories", "337", "GEN-ANI-6 ", "Spray Paint-White", "267"));
+
         performedTaskList = new ArrayList<>();
         performedTaskList.add(new PerformedTaskBean("Replaced Burner"));
         performedTaskList.add(new PerformedTaskBean("Repaired Gas Valve"));
@@ -257,12 +263,13 @@ public class Dashboard extends AppCompatActivity implements View.OnClickListener
         byte[] bitmapdata = stream.toByteArray();
         return bitmapdata;
     }
+
     private void about() {
         AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
         alertDialog.setIcon(getResources().getDrawable(R.mipmap.tick));
         alertDialog.setTitle("About Version !");
         alertDialog.setCancelable(true);
-        alertDialog.setMessage("Version : 002 \n Release Date : 04th-Aug-2017");
+        alertDialog.setMessage("Version : 002 \n Release Date : 08th-Aug-2017");
         alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
@@ -271,6 +278,4 @@ public class Dashboard extends AppCompatActivity implements View.OnClickListener
         });
         alertDialog.show();
     }
-
-
 }
