@@ -10,12 +10,16 @@ public class OutletDetail {
     String jobNumber;
     String unitNumber;
     String isAcknowledge;
+    String isAssigned;
+    String isCompleted;
 
-    public OutletDetail(String jobNumber, String unitNumber, String isAcknowledge, String outletName) {
+    public OutletDetail(String jobNumber, String unitNumber, String isAcknowledge, String outletName, String isAssigned, String isCompleted) {
         this.jobNumber = jobNumber;
         this.unitNumber = unitNumber;
         this.isAcknowledge = isAcknowledge;
         this.outletName = outletName;
+        this.isAssigned = isAssigned;
+        this.isCompleted = isCompleted;
     }
 
     public String getOutletName() {
@@ -40,5 +44,13 @@ public class OutletDetail {
 
     public String getIsAcknowledge() {
         return isAcknowledge;
+    }
+
+    public String getIsAssigned() {
+        return isAssigned;
+    }
+
+    public String getIsCompleted() {
+        return isCompleted;
     }
 }

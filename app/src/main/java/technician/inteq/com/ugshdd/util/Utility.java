@@ -47,7 +47,6 @@ public class Utility {
         delegate.setSupportActionBar(toolbar);
         delegate.getSupportActionBar().setDisplayShowTitleEnabled(false);
         delegate.getSupportActionBar().setDisplayShowHomeEnabled(true);
-        delegate.getSupportActionBar().setLogo(R.mipmap.ic_launcher);
         delegate.getSupportActionBar().setDisplayUseLogoEnabled(true);
         Drawable drawable = ContextCompat.getDrawable(context, R.drawable.option_menu);
         toolbar.setOverflowIcon(drawable);
@@ -146,6 +145,23 @@ public class Utility {
         }
         alertDialog = dialog.create();
         alertDialog.show();
+    }
+
+    public static String round(double value, int places) {
+        if (places < 0) throw new IllegalArgumentException();
+        long factor = (long) Math.pow(10, places);
+        value = value * factor;
+        long tmp = Math.round(value);
+        return String.format("%.2f", (double) tmp / factor);
+    }
+
+    public static String round(String valueTemp, int places) {
+        double value = Double.parseDouble(valueTemp);
+        if (places < 0) throw new IllegalArgumentException();
+        long factor = (long) Math.pow(10, places);
+        value = value * factor;
+        long tmp = Math.round(value);
+        return String.format("%.2f", (double) tmp / factor);
     }
 
     public AppCompatDelegate initializeDelegate(Activity activity, @LayoutRes int resId, Bundle savedInstanceState, String[] string) {

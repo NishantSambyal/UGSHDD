@@ -45,7 +45,9 @@ public class TaskController implements DatabaseValues {
                     outletDetail = new OutletDetail(cursor.getString(cursor.getColumnIndex(DatabaseValues.COL_JOB_NO)),
                             cursor.getString(cursor.getColumnIndex(DatabaseValues.COL_UNIT_NO)),
                             cursor.getString(cursor.getColumnIndex(DatabaseValues.COL_ACKNOWLEDGE)),
-                            cursor.getString(cursor.getColumnIndex(DatabaseValues.COL_OUTLET)));
+                            cursor.getString(cursor.getColumnIndex(DatabaseValues.COL_OUTLET)),
+                            cursor.getString(cursor.getColumnIndex(DatabaseValues.COL_IS_ASSIGNED)),
+                            cursor.getString(cursor.getColumnIndex(DatabaseValues.COL_IS_COMPLETED)));
                     outlets = new Outlets(cursor.getString(cursor.getColumnIndex(DatabaseValues.COL_OUTLET)), Arrays.asList(outletDetail));
                     outletList.add(outlets);
                 }

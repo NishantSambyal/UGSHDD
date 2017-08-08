@@ -376,7 +376,7 @@ public class CreatePDF {
             total += Double.parseDouble(cases.getAmount());
         }
         subTotal = total + subTotal;
-        cell = new PdfPCell(new Phrase(String.valueOf(total), font));
+        cell = new PdfPCell(new Phrase(Utility.round(total, 2), font));
         cell.setHorizontalAlignment(Element.ALIGN_CENTER);
         cell.setPadding(5);
         cell.setBorder(Rectangle.NO_BORDER);
@@ -466,7 +466,7 @@ public class CreatePDF {
 //        cell.setBorder(Rectangle.NO_BORDER);
         innerTable4.addCell(cell);
         for (int i = 0; i < caseList.size(); i++) {    //loop for all Amount numbers
-            cell = new PdfPCell(new Phrase(caseList.get(i).getAmount(), font));
+            cell = new PdfPCell(new Phrase(Utility.round(caseList.get(i).getAmount(), 2), font));
             cell.setHorizontalAlignment(Element.ALIGN_CENTER);
             cell.setPadding(3);
             cell.setBorder(Rectangle.NO_BORDER);
@@ -479,7 +479,7 @@ public class CreatePDF {
         Font font = new Font();
         font.setColor(BaseColor.BLACK);
         font.setStyle(Font.BOLD);
-        font.setSize(15);
+        font.setSize(14);
 
         PdfPTable innerTable1 = new PdfPTable(1);
         innerTable1.setTotalWidth(80f);
@@ -506,7 +506,7 @@ public class CreatePDF {
         innerTable3.setTotalWidth(80f);
         innerTable3.setLockedWidth(true);
         innerTable3.setHorizontalAlignment(Element.ALIGN_CENTER);
-        cell = new PdfPCell(new Phrase(String.valueOf(subTotal), font));
+        cell = new PdfPCell(new Phrase(Utility.round(subTotal, 2), font));
         cell.setHorizontalAlignment(Element.ALIGN_CENTER);
         cell.setPadding(5);
         cell.setBorder(Rectangle.NO_BORDER);

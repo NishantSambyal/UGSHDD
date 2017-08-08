@@ -75,6 +75,9 @@ public class AddActionsActivity extends FragmentActivity implements AddItemDialo
         });
     }
 
+    public void back(View view) {
+        viewPager.setCurrentItem(0);
+    }
     @Override
     public void selectedItem() {
         refreshList();

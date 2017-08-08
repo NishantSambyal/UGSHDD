@@ -27,7 +27,6 @@ public class PerformedTaskHelper implements DatabaseValues {
         Cursor cursor = PerformedTaskController.getPerformTasks(outlet);
         if (cursor.moveToFirst()) {
             do {
-
                 list.add(new PerformedTaskBean(cursor.getString(2), cursor.getString(4)));
             } while (cursor.moveToNext());
         }

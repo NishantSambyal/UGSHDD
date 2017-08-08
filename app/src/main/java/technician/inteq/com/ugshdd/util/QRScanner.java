@@ -18,6 +18,7 @@ import technician.inteq.com.ugshdd.ui.activity.AddActionsActivity;
  */
 
 public class QRScanner extends Activity implements ZXingScannerView.ResultHandler {
+    String outletIntent;
     private ZXingScannerView mScannerView;
     private boolean mFlash;
     private boolean mAutoFocus;
@@ -27,6 +28,10 @@ public class QRScanner extends Activity implements ZXingScannerView.ResultHandle
         super.onCreate(state);
         mScannerView = new ZXingScannerView(this);   // Programmatically initialize the scanner view
         setContentView(mScannerView);                // Set the scanner view as the content view
+        Bundle bundle = getIntent().getExtras();
+        if (bundle != null) {
+            outletIntent = (String) bundle.get("outlet");
+        }
 
     }
 
@@ -61,8 +66,14 @@ public class QRScanner extends Activity implements ZXingScannerView.ResultHandle
             UGSApplication.food_type = format[8];
             UGSApplication.outlet_reference = format[0];
 
-            startActivity(new Intent(this, AddActionsActivity.class));
-            finish();
+
+            if (outletIntent.equalsIgnoreCase(acc_num[0] + "-" + acc_num[1])) {
+                startActivity(new Intent(this, AddActionsActivity.class));
+                finish();
+            } else {
+                Utility.toast(QRScanner.this, "Invalid QR code " + acc_num[0] + "-" + acc_num[1]);
+                finish();
+            }
         }
     }
 

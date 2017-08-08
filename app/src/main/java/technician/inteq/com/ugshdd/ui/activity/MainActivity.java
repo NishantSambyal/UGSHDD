@@ -1,10 +1,11 @@
 package technician.inteq.com.ugshdd.ui.activity;
 
-import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.view.Menu;
 import android.view.View;
@@ -14,17 +15,18 @@ import android.widget.Toast;
 
 import technician.inteq.com.ugshdd.R;
 import technician.inteq.com.ugshdd.util.AndroidDatabaseManager;
-import technician.inteq.com.ugshdd.util.Utility;
 
-public class MainActivity extends Activity {
+public class MainActivity extends AppCompatActivity {
 
     EditText username, password;
     Button login;
-
+    Toolbar toolbar;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        new Utility().initializeDelegate(this, R.layout.login_activity, savedInstanceState, new String[]{"UGS HHD", ""});
+        setContentView(R.layout.login_activity);
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
         username = (EditText) findViewById(R.id.username);
         password = (EditText) findViewById(R.id.password);
         login = (Button) findViewById(R.id.login);
@@ -56,6 +58,7 @@ public class MainActivity extends Activity {
         menu.findItem(R.id.action_search).setVisible(false);
         menu.findItem(R.id.logout).setVisible(false);
         menu.findItem(R.id.database).setVisible(false);
+        menu.findItem(R.id.completed_tasks).setVisible(false);
         return true;
     }
 

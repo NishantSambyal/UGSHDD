@@ -1,13 +1,14 @@
 package technician.inteq.com.ugshdd.ui.fragment.pending_case;
 
+import android.app.AlertDialog;
 import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -25,17 +26,22 @@ import technician.inteq.com.ugshdd.R;
 import technician.inteq.com.ugshdd.model.PendingCaseBean.PerformedTaskBean;
 import technician.inteq.com.ugshdd.model.PendingCaseBean.PerformedTaskHelper;
 import technician.inteq.com.ugshdd.ui.activity.SummaryActivity;
+import technician.inteq.com.ugshdd.util.ExpandableHeightListView;
 import technician.inteq.com.ugshdd.util.UGSApplication;
+import technician.inteq.com.ugshdd.util.Utility;
+
+import static technician.inteq.com.ugshdd.Database.DatabaseValues.COL_OUTLET;
+import static technician.inteq.com.ugshdd.Database.DatabaseValues.TABLE_ONGOING_TASKS;
+import static technician.inteq.com.ugshdd.Database.DatabaseValues.TABLE_PERFORMED_TASKS_TEMP;
 
 public class PerformedTask extends Fragment {
 
 
-    ListView listView;
+    ExpandableHeightListView listView;
     List<PerformedTaskBean> taskList;
     List<PerformedTaskHelper> selectedTasks;
     Spinner spinner_category;
     String[] categoryArray = {"--select category--", "Category 1", "Category 2", "Category 3", "Category 4"};
-    int in_x = 0;
     private List<PerformedTaskBean> performedList = new ArrayList<>();
 
     @Override
@@ -51,21 +57,39 @@ public class PerformedTask extends Fragment {
         view.findViewById(R.id.next).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getActivity(), SummaryActivity.class));
+                if (selectedTasks.size() > 0) {
+                    startActivity(new Intent(getActivity(), SummaryActivity.class));
+                } else {
+                    AlertDialog.Builder dialog = new AlertDialog.Builder(getActivity());
+                    dialog.setMessage("No tasks done ?");
+                    dialog.setPositiveButton("OK", null);
+                    dialog.show();
+                }
             }
         });
         view.findViewById(R.id.cancel).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                getActivity().finish();
+                Utility.chooseOptions(getActivity(), new AdapterView.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                        if (parent.getItemAtPosition(position).equals("Clear all data")) {
+                            SQLiteDatabase db = UGSApplication.getDb();
+                            db.delete(TABLE_ONGOING_TASKS, COL_OUTLET + " = ?", new String[]{UGSApplication.accountNumber});
+                            db.delete(TABLE_PERFORMED_TASKS_TEMP, COL_OUTLET + " = ?", new String[]{UGSApplication.accountNumber});
+                            getActivity().finish();
+                        } else {
+                            getActivity().finish();
+                        }
+                    }
+                }, "Clear all data", "do later");
             }
         });
-        listView = (ListView) view.findViewById(R.id.listView);
+        listView = (ExpandableHeightListView) view.findViewById(R.id.listView);
         spinner_category = (Spinner) view.findViewById(R.id.spinner_category);
         ArrayAdapter spinnerAdapter = new ArrayAdapter(getActivity(), android.R.layout.simple_spinner_dropdown_item, categoryArray);
         spinner_category.setAdapter(spinnerAdapter);
         prepareList();
-
         ArrayAdapter adapter = new ArrayAdapter(getActivity(), android.R.layout.select_dialog_multichoice, taskList) {
             @NonNull
             @Override
@@ -108,7 +132,7 @@ public class PerformedTask extends Fragment {
                 }
             }
         });
-        listView.setOnTouchListener(new ListView.OnTouchListener() {
+        /*listView.setOnTouchListener(new ListView.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 int action = event.getAction();
@@ -131,7 +155,7 @@ public class PerformedTask extends Fragment {
                 v.onTouchEvent(event);
                 return true;
             }
-        });
+        });*/
 
         listView.setAdapter(adapter);
         return view;

@@ -57,7 +57,6 @@ public class Dashboard extends AppCompatActivity implements View.OnClickListener
         getSupportActionBar().setDisplayUseLogoEnabled(true);
         Drawable drawable = ContextCompat.getDrawable(context, R.drawable.option_menu);
         toolbar.setOverflowIcon(drawable);
-
         if (TaskController.getOutletDetails().size() < 2) {
             for (int i = 0; i <= 10; i++) {
                 TaskController.insertTasks("000" + i + "-0BCC", "1234" + i);
@@ -133,6 +132,7 @@ public class Dashboard extends AppCompatActivity implements View.OnClickListener
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu, menu);
         menu.findItem(R.id.action_search).setVisible(false);
+        menu.findItem(R.id.completed_tasks).setVisible(false);
         return true;
     }
 
@@ -271,4 +271,6 @@ public class Dashboard extends AppCompatActivity implements View.OnClickListener
         });
         alertDialog.show();
     }
+
+
 }

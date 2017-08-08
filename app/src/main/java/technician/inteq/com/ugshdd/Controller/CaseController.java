@@ -56,10 +56,10 @@ public class CaseController implements DatabaseValues {
         return true;
     }
 
-    public static void saveOngoingTask() {
+    public static void saveOngoingTask(String outlet) {
         SQLiteDatabase db = UGSApplication.getDb();
         ContentValues values = new ContentValues();
-        String s = "SELECT  * FROM " + TABLE_ONGOING_TASKS;
+        String s = "SELECT  * FROM " + TABLE_ONGOING_TASKS + " WHERE " + COL_OUTLET + "= '" + outlet + "'";
         Cursor cursor = db.rawQuery(s, null);
         if (cursor.moveToFirst()) {
             do {
@@ -71,8 +71,8 @@ public class CaseController implements DatabaseValues {
                 db.insert(TABLE_COMPLETED_TASKS, null, values);
             } while (cursor.moveToNext());
         }
-        db.delete(TABLE_ONGOING_TASKS, null, null);
-        db.delete(TABLE_PERFORMED_TASKS_TEMP, null, null);
+        db.delete(TABLE_ONGOING_TASKS, COL_OUTLET + " = ?", new String[]{outlet});
+        db.delete(TABLE_PERFORMED_TASKS_TEMP, COL_OUTLET + " = ?", new String[]{outlet});
     }
 
     public static List<Case> loadItems(String type, String outlet) {

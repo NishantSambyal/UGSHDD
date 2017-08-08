@@ -150,12 +150,9 @@ public class SummaryActivity extends Activity implements InternalValues, View.On
         switch (v.getId()) {
             case R.id.save:
                 if (imageView.getVisibility() == View.VISIBLE) {
-                    TaskController.completeTask(UGSApplication.accountNumber, byteArrSignature, name);
-                    CaseController.saveOngoingTask();
-                    PerformedTaskController.savePerformedTask();
-
+                    saveTasks();
                     if (checkPermission()) {
-                        createThread();
+                        createPDFThread();
                     }
 
                 } else {
@@ -204,7 +201,7 @@ public class SummaryActivity extends Activity implements InternalValues, View.On
         switch (requestCode) {
             case 1:
                 if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    createThread();
+                    createPDFThread();
 
                 } else {
                     //code for deny
@@ -213,7 +210,7 @@ public class SummaryActivity extends Activity implements InternalValues, View.On
         }
     }
 
-    private void createThread() {
+    private void createPDFThread() {
         final ProgressDialog dialog = new ProgressDialog(context);
         dialog.setMessage("Saving data");
         dialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
@@ -261,5 +258,11 @@ public class SummaryActivity extends Activity implements InternalValues, View.On
         }
         return false;
 
+    }
+
+    void saveTasks() {
+        TaskController.completeTask(UGSApplication.accountNumber, byteArrSignature, name);
+        CaseController.saveOngoingTask(UGSApplication.accountNumber);
+        PerformedTaskController.savePerformedTask();
     }
 }

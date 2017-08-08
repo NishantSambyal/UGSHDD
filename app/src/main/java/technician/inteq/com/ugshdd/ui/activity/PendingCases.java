@@ -74,13 +74,19 @@ public class PendingCases extends AppCompatActivity implements InternalValues {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbarTitle = (TextView) toolbar.findViewById(R.id.toolbar_title);
         toolbarSubtitle = (TextView) toolbar.findViewById(R.id.toolbar_subtitle);
+        toolbar.setNavigationIcon(R.drawable.ic_arrow_back);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
-        getSupportActionBar().setLogo(R.mipmap.ic_launcher);
         getSupportActionBar().setDisplayUseLogoEnabled(true);
         Drawable drawable = ContextCompat.getDrawable(this, R.drawable.option_menu);
         toolbar.setOverflowIcon(drawable);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
         toolbarTitle.setText("Pending cases");
 
         recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
@@ -143,7 +149,9 @@ public class PendingCases extends AppCompatActivity implements InternalValues {
                                             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                                                 if (parent.getItemAtPosition(position).equals(getString(R.string.scan_with_camera))) {
                                                     if (checkPermission()) {
-                                                        startActivity(new Intent(PendingCases.this, QRScanner.class));
+                                                        Intent intent = new Intent(PendingCases.this, QRScanner.class);
+                                                        intent.putExtra("outlet", list.get(actuallyRequiredPosition).getChildList().get(0).getOutletName());
+                                                        startActivity(intent);
                                                     }
                                                     Utility.alertDialog.dismiss();
 
