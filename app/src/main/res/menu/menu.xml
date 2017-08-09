@@ -7,8 +7,8 @@
         android:title="@string/logout" />
 
     <item
-        android:id="@+id/settings"
-        android:title="@string/settings" />
+        android:id="@+id/contact"
+        android:title="@string/contact" />
 
     <item
         android:id="@+id/about"

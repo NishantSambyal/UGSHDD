@@ -46,7 +46,8 @@
             android:name=".ui.activity.SignatureActivity"
             android:windowSoftInputMode="stateHidden" />
         <activity android:name=".ui.activity.SummaryActivity" />
-        <activity android:name=".ui.activity.CompletedTaskActivity"></activity>
+        <activity android:name=".ui.activity.CompletedTaskActivity" />
+        <activity android:name=".ui.activity.PDFViewerActivity" />
     </application>
 
 </manifest>

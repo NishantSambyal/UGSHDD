@@ -144,7 +144,7 @@ public class Dashboard extends AppCompatActivity implements View.OnClickListener
             case R.id.database:
                 startActivity(new Intent(Dashboard.this, AndroidDatabaseManager.class));
                 break;
-            case R.id.settings:
+            case R.id.contact:
                 ContactDialog dFragment = new ContactDialog();
                 dFragment.show(getFragmentManager(), "Dialog Fragment");
                 break;
@@ -260,8 +260,8 @@ public class Dashboard extends AppCompatActivity implements View.OnClickListener
         Bitmap bitmap = ((BitmapDrawable) drawable).getBitmap();
         ByteArrayOutputStream stream = new ByteArrayOutputStream();
         bitmap.compress(Bitmap.CompressFormat.JPEG, 80, stream);
-        byte[] bitmapdata = stream.toByteArray();
-        return bitmapdata;
+        byte[] bitmapData = stream.toByteArray();
+        return bitmapData;
     }
 
     private void about() {
@@ -269,7 +269,7 @@ public class Dashboard extends AppCompatActivity implements View.OnClickListener
         alertDialog.setIcon(getResources().getDrawable(R.mipmap.tick));
         alertDialog.setTitle("About Version !");
         alertDialog.setCancelable(true);
-        alertDialog.setMessage("Version : 002 \n Release Date : 08th-Aug-2017");
+        alertDialog.setMessage("Version : 002 \n Release Date : 09th-Aug-2017");
         alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {

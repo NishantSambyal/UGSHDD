@@ -39,7 +39,7 @@ public class PerformedTask extends Fragment {
 
     ExpandableHeightListView listView;
     List<PerformedTaskBean> taskList;
-    List<PerformedTaskHelper> selectedTasks;
+    List<PerformedTaskBean> selectedTasks;
     Spinner spinner_category;
     String[] categoryArray = {"--select category--", "Category 1", "Category 2", "Category 3", "Category 4"};
     private List<PerformedTaskBean> performedList = new ArrayList<>();
@@ -57,6 +57,8 @@ public class PerformedTask extends Fragment {
         view.findViewById(R.id.next).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                selectedTasks = new ArrayList<>();
+                PerformedTaskHelper.getPerformedTask(UGSApplication.accountNumber, selectedTasks);
                 if (selectedTasks.size() > 0) {
                     startActivity(new Intent(getActivity(), SummaryActivity.class));
                 } else {
@@ -122,7 +124,6 @@ public class PerformedTask extends Fragment {
                     } catch (IllegalAccessException e) {
                         e.printStackTrace();
                     }
-                    selectedTasks.add(new PerformedTaskHelper(UGSApplication.accountNumber, taskList.get(position).getId()));
                 } else {
                     try {
                         PerformedTaskController.removeTempTask(taskList.get(position).getId(), UGSApplication.accountNumber);
@@ -162,7 +163,7 @@ public class PerformedTask extends Fragment {
     }
 
     void prepareList() {
-        selectedTasks = new ArrayList<>();
+
         taskList = new ArrayList<>();
         PerformedTaskBean.getPerformedTask(taskList);
     }

@@ -79,11 +79,14 @@ public class AddItemDialog extends DialogFragment {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 item = inventoryItems.get(position);
+
                 Glide.with(getActivity()).load(item.getItemImage()).into(imageview);
                 itemName.setText(item.getItem());
                 itemDescription.setText(item.getDescription());
                 itemRate.setText(item.getRate());
                 itemAmount.setText(item.getRate());
+                quantity = 1;
+                quantityView.setText(String.valueOf(quantity));
             }
 
             @Override

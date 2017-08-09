@@ -101,12 +101,10 @@ public class SummaryActivity extends Activity implements InternalValues, View.On
     }
 
     public void loadSummary() {
-
         addItemList = CaseController.loadItems(ItemType.AddItem.toString(), UGSApplication.accountNumber);
         chargeableItemList = CaseController.loadItems(ItemType.ChargeableItem.toString(), UGSApplication.accountNumber);
         returnItemList = CaseController.loadItems(ItemType.ReturnItem.toString(), UGSApplication.accountNumber);
         PerformedTaskHelper.getPerformedTask(UGSApplication.accountNumber, performedList);
-
     }
 
     void hideEmptyBlocks() {
@@ -212,7 +210,7 @@ public class SummaryActivity extends Activity implements InternalValues, View.On
 
     private void createPDFThread() {
         final ProgressDialog dialog = new ProgressDialog(context);
-        dialog.setMessage("Saving data");
+        dialog.setMessage("Saving data...");
         dialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
         dialog.setIndeterminate(false);
         dialog.setCancelable(false);
@@ -246,10 +244,10 @@ public class SummaryActivity extends Activity implements InternalValues, View.On
         File myDir = new File(Environment.getExternalStorageDirectory() + File.separator + "UGS_HHD" + File.separator);
         myDir.mkdirs();
         try {
-            file = new File(myDir + File.separator + "HHD_PDF" + new SimpleDateFormat("dd_MM_hh_mm_ss").format(new Date()) + ".pdf");
+            file = new File(myDir + File.separator + "HHD_PDF_" + UGSApplication.accountNumber + "_" + new SimpleDateFormat("dd_MM_hh_mm_ss").format(new Date()) + ".pdf");
             PdfWriter.getInstance(document, new FileOutputStream(file));
             document.open();
-            CreatePDF pfd = new CreatePDF(SummaryActivity.this, addItemList, chargeableItemList, returnItemList, performedList);
+            CreatePDF pfd = new CreatePDF(SummaryActivity.this, addItemList, chargeableItemList, returnItemList, performedList, name);
             pfd.createPDF(document);
             document.close();
             return true;

@@ -102,6 +102,8 @@ public class ContactDialog extends DialogFragment {
                                 Utility.alertDialog.dismiss();
                                 if (contactList.size() < 1) {
                                     gone.setVisibility(View.VISIBLE);
+                                    selected.setText("");
+                                    number_id = null;
                                 }
                             }
                         });
@@ -170,8 +172,31 @@ public class ContactDialog extends DialogFragment {
             public void onClick(View v) {
                 if (number_id != null) {
                     ContactController.setSelectedNumber(number_id);
+                    getDialog().dismiss();
+                } else if (ContactController.getSelectedNumber() == null) {
+                    refreshList();
+                    if (contactList.size() > 0) {
+                        Utility.toast(getActivity(), "No number selected\nPlease select a number");
+                    } else {
+                        AlertDialog.Builder alertDialogNumber = new AlertDialog.Builder(getActivity());
+                        alertDialogNumber.setTitle("Warning !");
+                        alertDialogNumber.setCancelable(true);
+                        alertDialogNumber.setMessage("Now you cannot acknowledge a task\nAre you sure want to save ?");
+                        alertDialogNumber.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.cancel();
+                                getDialog().dismiss();
+                            }
+                        });
+                        alertDialogNumber.setNeutralButton("Cancel", null);
+                        alertDialogNumber.show();
+                    }
+
+                } else {
+                    Utility.toast(getActivity(), "No number selected\nlease add and select a number");
                 }
-                getDialog().dismiss();
+
             }
         });
         return view;

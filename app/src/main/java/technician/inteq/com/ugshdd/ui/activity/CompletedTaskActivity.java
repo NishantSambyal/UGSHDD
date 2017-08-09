@@ -1,11 +1,14 @@
 package technician.inteq.com.ugshdd.ui.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,6 +22,8 @@ public class CompletedTaskActivity extends AppCompatActivity {
     ListView listView;
     CompletedCaseAdapter adapter;
     List<Case> cases = new ArrayList<>();
+    List<String> filenames;
+    List<String> filePaths;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,7 +41,26 @@ public class CompletedTaskActivity extends AppCompatActivity {
                     public void onItemClick(AdapterView<?> parent, View view, final int position, long id) {
                         if (parent.getItemAtPosition(position).equals(getString(R.string.documents))) {
                             Utility.alertDialog.dismiss();
-                            Utility.toast(CompletedTaskActivity.this, "Under Development\nYou can view PDF in External Storage /UGS_HHD Folder");
+                            filenames = new ArrayList<>();
+                            filePaths = new ArrayList<>();
+                            for (File file : new File(Environment.getExternalStorageDirectory() + File.separator + "UGS_HHD" + File.separator).listFiles()) {
+                                if (cases.get(position).getOutlet().equals(file.getName().substring(8, 17))) {
+                                    filenames.add(file.getName());
+                                    filePaths.add(file.getAbsolutePath());
+                                }
+                            }
+
+                            Utility.chooseOptions(CompletedTaskActivity.this, new AdapterView.OnItemClickListener() {
+                                @Override
+                                public void onItemClick(AdapterView<?> parent, View view, final int position, long id) {
+
+                                    Intent intent = new Intent(CompletedTaskActivity.this, PDFViewerActivity.class);
+                                    intent.putExtra("filepath", filePaths.get(position));
+                                    startActivity(intent);
+
+
+                                }
+                            }, filenames.toArray(new String[0]));
                         }
                     }
                 }, popupList);

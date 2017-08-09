@@ -34,25 +34,28 @@ import technician.inteq.com.ugshdd.model.PendingCaseBean.PerformedTaskBean;
  */
 
 public class CreatePDF {
-    static double subTotal;
+    double subTotal;
     Image logoImage;
     PdfPCell cell;
     BaseColor myColor1 = WebColors.getRGBColor("#6B4739");
     BaseColor backLight = WebColors.getRGBColor("#EAE6E5");
     Context context;
     List<Case> addItemList, chargeableItemList, returnItemList;
+    String customerName;
     private List<PerformedTaskBean> performedList;
 
-    public CreatePDF(Context context, List<Case> addItemList, List<Case> chargeableItemList, List<Case> returnItemList, List<PerformedTaskBean> performedList) {
+    public CreatePDF(Context context, List<Case> addItemList, List<Case> chargeableItemList, List<Case> returnItemList, List<PerformedTaskBean> performedList, String customerName) {
         this.context = context;
         this.addItemList = addItemList;
         this.chargeableItemList = chargeableItemList;
         this.returnItemList = returnItemList;
         this.performedList = performedList;
+        this.customerName = customerName;
     }
 
     public void createPDF(Document document) throws DocumentException {
         createDocument(document);
+        this.subTotal = 0;
     }
 
     private void createDocument(Document document) throws DocumentException {
@@ -90,7 +93,7 @@ public class CreatePDF {
             addItemsSummaryTable.setLockedWidth(true);
             addItemsSummaryTable.getDefaultCell().setBorder(Rectangle.NO_BORDER);
             addItemsSummaryTable.getDefaultCell().setBackgroundColor(backLight);
-            builtaddItemSummaryTables(addItemsSummaryTable, "ADD ITEMS", addItemList);
+            builtAddItemSummaryTables(addItemsSummaryTable, "ADD ITEMS", addItemList);
         }
         PdfPTable chargeableItemsSummaryTable = new PdfPTable(summaryWidth);
         if (chargeableItemList.size() > 0) {
@@ -99,7 +102,7 @@ public class CreatePDF {
             chargeableItemsSummaryTable.setLockedWidth(true);
             chargeableItemsSummaryTable.getDefaultCell().setBorder(Rectangle.NO_BORDER);
             chargeableItemsSummaryTable.getDefaultCell().setBackgroundColor(backLight);
-            builtaddItemSummaryTables(chargeableItemsSummaryTable, "CHARGEABLE ITEMS", chargeableItemList);
+            builtAddItemSummaryTables(chargeableItemsSummaryTable, "CHARGEABLE ITEMS", chargeableItemList);
         }
         PdfPTable returnedItemsSummaryTable = new PdfPTable(summaryWidth);
         if (returnItemList.size() > 0) {
@@ -107,7 +110,7 @@ public class CreatePDF {
             returnedItemsSummaryTable.setLockedWidth(true);
             returnedItemsSummaryTable.getDefaultCell().setBorder(Rectangle.NO_BORDER);
             returnedItemsSummaryTable.getDefaultCell().setBackgroundColor(backLight);
-            builtaddItemSummaryTables(returnedItemsSummaryTable, "RETURNED ITEMS", returnItemList);
+            builtAddItemSummaryTables(returnedItemsSummaryTable, "RETURNED ITEMS", returnItemList);
         }
 
 
@@ -150,8 +153,11 @@ public class CreatePDF {
             document.add(detailsTableForBlank);
         }
 
-        document.add(subTotalSummary);
-        document.add(detailsTableForBlank);
+        if (this.subTotal > 0) {
+            document.add(subTotalSummary);
+            document.add(detailsTableForBlank);
+        }
+
 
         document.add(performedTasks);
         document.add(detailsTableForBlank);
@@ -241,9 +247,10 @@ public class CreatePDF {
         for (int i = 0; i < performedList.size(); i++) {    //loop for all ITEM numbers numbers
             cell = new PdfPCell(new Phrase(String.valueOf(i + 1), font));
             cell.setBorder(Rectangle.NO_BORDER);
+            cell.setHorizontalAlignment(Element.ALIGN_CENTER);
             cell.setPadding(3);
             innerTable.addCell(cell);
-            cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+
         }
         performedTable.addCell(innerTable);
 
@@ -314,14 +321,14 @@ public class CreatePDF {
         innerTable2.addCell(cell);
         cell.setPaddingBottom(5);
 
-        cell = new PdfPCell(new Phrase("Username : " + "Nishant", font));
+        cell = new PdfPCell(new Phrase("Username : " + customerName, font));
         cell.setBorder(Rectangle.NO_BORDER);
         innerTable2.addCell(cell);
 
         outerTable.addCell(innerTable2);//table for image on right side
     }
 
-    private void builtaddItemSummaryTables(PdfPTable summaryTable, String title, List<Case> caseList) {
+    private void builtAddItemSummaryTables(PdfPTable summaryTable, String title, List<Case> caseList) {
         Font font = new Font();
         font.setColor(BaseColor.BLACK);
         font.setStyle(Font.BOLD);

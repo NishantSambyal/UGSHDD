@@ -34,12 +34,16 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
+import technician.inteq.com.ugshdd.Controller.ContactController;
 import technician.inteq.com.ugshdd.Controller.TaskController;
 import technician.inteq.com.ugshdd.Database.InternalValues;
 import technician.inteq.com.ugshdd.R;
 import technician.inteq.com.ugshdd.adapters.PendingCasesListAdapter;
 import technician.inteq.com.ugshdd.adapters.expandableRVAdapters.ExpandablePendingCaseAdapter;
+import technician.inteq.com.ugshdd.model.PendingCaseBean.OutletDetail;
 import technician.inteq.com.ugshdd.model.PendingCaseBean.Outlets;
+import technician.inteq.com.ugshdd.model.contact.AddContact;
+import technician.inteq.com.ugshdd.ui.dialogFragment.ContactDialog;
 import technician.inteq.com.ugshdd.util.QRScanner;
 import technician.inteq.com.ugshdd.util.RecyclerTouchListener;
 import technician.inteq.com.ugshdd.util.Utility;
@@ -120,25 +124,46 @@ public class PendingCases extends AppCompatActivity implements InternalValues {
                             @Override
                             public void onItemClick(AdapterView<?> parent, View view, final int position, long id) {
                                 if (parent.getItemAtPosition(position).equals(getString(R.string.acknowledge))) {
-                                    AlertDialog.Builder dialog = new AlertDialog.Builder(PendingCases.this);
-                                    dialog.setMessage("Are you sure want to acknowledge this task ?");
-                                    dialog.setPositiveButton("yes", new DialogInterface.OnClickListener() {
-                                        @Override
-                                        public void onClick(DialogInterface dialog, int which) {
-                                            if (TaskController.acknowledgeTask((String) viewOutlet.getTag())) {
-                                                Toast.makeText(PendingCases.this, "\t   " + viewOutlet.getTag() + "\nAcknowledge done", Toast.LENGTH_SHORT).show();
-                                                Utility.alertDialog.dismiss();
-                                                PendingCases.this.recreate();
+                                    final AddContact contactNumber = ContactController.getSelectedNumber();
+                                    if (contactNumber != null) {
+                                        AlertDialog.Builder dialog = new AlertDialog.Builder(PendingCases.this);
+                                        dialog.setMessage("Are you sure want to acknowledge this task ?");
+                                        dialog.setPositiveButton("yes", new DialogInterface.OnClickListener() {
+                                            @Override
+                                            public void onClick(DialogInterface dialog, int which) {
+                                                if (TaskController.acknowledgeTask((String) viewOutlet.getTag())) {
+                                                    Toast.makeText(PendingCases.this, "\t   " + viewOutlet.getTag() + "\nAcknowledge done", Toast.LENGTH_SHORT).show();
+                                                    OutletDetail object = list.get(actuallyRequiredPosition).getChildList().get(0);
+                                                    sendSMS(contactNumber.getNumber(), "outlet: " + object.getOutletName() + " with job number: " + object.getJobNumber() + " is done");
+                                                    Utility.alertDialog.dismiss();
+                                                    PendingCases.this.recreate();
+                                                }
                                             }
-                                        }
-                                    });
-                                    dialog.setNeutralButton("Cancel", new DialogInterface.OnClickListener() {
-                                        @Override
-                                        public void onClick(DialogInterface dialog, int which) {
-                                            Utility.alertDialog.dismiss();
-                                        }
-                                    });
-                                    dialog.show();
+                                        });
+                                        dialog.setNeutralButton("Cancel", new DialogInterface.OnClickListener() {
+                                            @Override
+                                            public void onClick(DialogInterface dialog, int which) {
+                                                Utility.alertDialog.dismiss();
+                                            }
+                                        });
+                                        dialog.show();
+                                    } else {
+                                        AlertDialog.Builder alertDialog = new AlertDialog.Builder(PendingCases.this);
+                                        alertDialog.setTitle("No number added");
+                                        alertDialog.setCancelable(true);
+                                        alertDialog.setMessage("Do you want to add it now..?");
+                                        alertDialog.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                                            @Override
+                                            public void onClick(DialogInterface dialog, int which) {
+                                                ContactDialog dFragment = new ContactDialog();
+                                                dFragment.show(getFragmentManager(), "Dialog Fragment");
+                                            }
+                                        });
+                                        alertDialog.setNeutralButton("Cancel", null);
+                                        alertDialog.show();
+                                        Utility.alertDialog.dismiss();
+                                    }
+
                                 } else if (parent.getItemAtPosition(position).equals(getString(R.string.action))) {
                                     Utility.alertDialog.dismiss();
                                     if (list.get(actuallyRequiredPosition).getChildList().get(0).getIsAcknowledge().equals(Acknowledge.UNACKNOWLEDGE.toString())) {
@@ -185,6 +210,7 @@ public class PendingCases extends AppCompatActivity implements InternalValues {
         menu.findItem(R.id.logout).setVisible(false);
         menu.findItem(R.id.database).setVisible(false);
         menu.findItem(R.id.about).setVisible(false);
+        menu.findItem(R.id.contact).setVisible(false);
         menu.findItem(R.id.completed_tasks).setVisible(true).setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
