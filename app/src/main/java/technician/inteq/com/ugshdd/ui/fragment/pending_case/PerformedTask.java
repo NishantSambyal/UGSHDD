@@ -84,7 +84,7 @@ public class PerformedTask extends Fragment {
                             getActivity().finish();
                         }
                     }
-                }, "Clear all data", "do later");
+                }, "Clear all data", "Do later");
             }
         });
         listView = (ExpandableHeightListView) view.findViewById(R.id.listView);

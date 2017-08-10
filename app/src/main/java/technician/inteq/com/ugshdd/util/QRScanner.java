@@ -59,7 +59,7 @@ public class QRScanner extends Activity implements ZXingScannerView.ResultHandle
 
     @Override
     public void handleResult(Result rawResult) {
-        ////0005-XBCC-01-X00_Blk_925_Yishun Ave 5_ABC Building_#01-248_Singapore 460213_XXXX_Chicken Rice_Yishun Ave 5
+        //0005-XBCC-01-X00_Blk_925_Yishun Ave 5_ABC Building_#01-248_Singapore 460213_XXXX_Chicken Rice_Yishun Ave 5
         String string = rawResult.getText();
         String[] format = string.split("_");
         if (format.length == 10) {

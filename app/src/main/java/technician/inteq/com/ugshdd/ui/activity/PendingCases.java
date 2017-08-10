@@ -64,10 +64,6 @@ public class PendingCases extends AppCompatActivity implements InternalValues {
     PendingCasesListAdapter tabletAdapter;
     Context context;
 
-    private static void recreateAdapter() {
-
-    }
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -134,7 +130,7 @@ public class PendingCases extends AppCompatActivity implements InternalValues {
                                                 if (TaskController.acknowledgeTask((String) viewOutlet.getTag())) {
                                                     Toast.makeText(PendingCases.this, "\t   " + viewOutlet.getTag() + "\nAcknowledge done", Toast.LENGTH_SHORT).show();
                                                     OutletDetail object = list.get(actuallyRequiredPosition).getChildList().get(0);
-                                                    sendSMS(contactNumber.getNumber(), "outlet: " + object.getOutletName() + " with job number: " + object.getJobNumber() + " is done");
+                                                    sendSMS(contactNumber.getNumber(), "Case ID: " + object.getJobNumber() + " for outlet: " + object.getOutletName() + " has been Acknowledged by master");
                                                     Utility.alertDialog.dismiss();
                                                     PendingCases.this.recreate();
                                                 }
@@ -251,8 +247,6 @@ public class PendingCases extends AppCompatActivity implements InternalValues {
                         }
                     }
                 }
-
-
                 return true;
             }
         });
@@ -328,10 +322,10 @@ public class PendingCases extends AppCompatActivity implements InternalValues {
         }
     }
 
-    int getPosition(String outletname) {
+    int getPosition(String outletName) {
         for (int i = 0; i < list.size(); i++) {
             Outlets outlet = list.get(i);
-            if (outlet.getOutletName().equals(outletname)) {
+            if (outlet.getOutletName().equals(outletName)) {
                 return i;
             }
         }

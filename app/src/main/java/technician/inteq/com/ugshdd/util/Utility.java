@@ -79,8 +79,7 @@ public class Utility {
     }
 
     public static SharedPreferences getLoginSession(Context context) {
-        SharedPreferences userPref = context.getSharedPreferences(TECH_LOGIN, Context.MODE_PRIVATE);
-        return userPref;
+        return context.getSharedPreferences(TECH_LOGIN, Context.MODE_PRIVATE);
     }
 
     public static void clearLoginSession() {
