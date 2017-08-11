@@ -44,7 +44,7 @@ import technician.inteq.com.ugshdd.model.PendingCaseBean.OutletDetail;
 import technician.inteq.com.ugshdd.model.PendingCaseBean.Outlets;
 import technician.inteq.com.ugshdd.model.contact.AddContact;
 import technician.inteq.com.ugshdd.ui.dialogFragment.ContactDialog;
-import technician.inteq.com.ugshdd.util.QRScanner;
+import technician.inteq.com.ugshdd.util.QRScanner.FullScannerActivity;
 import technician.inteq.com.ugshdd.util.RecyclerTouchListener;
 import technician.inteq.com.ugshdd.util.Utility;
 
@@ -170,7 +170,7 @@ public class PendingCases extends AppCompatActivity implements InternalValues {
                                             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                                                 if (parent.getItemAtPosition(position).equals(getString(R.string.scan_with_camera))) {
                                                     if (checkPermission()) {
-                                                        Intent intent = new Intent(PendingCases.this, QRScanner.class);
+                                                        Intent intent = new Intent(PendingCases.this, FullScannerActivity.class);
                                                         intent.putExtra("outlet", list.get(actuallyRequiredPosition).getChildList().get(0).getOutletName());
                                                         startActivity(intent);
                                                     }
@@ -214,6 +214,7 @@ public class PendingCases extends AppCompatActivity implements InternalValues {
                 return true;
             }
         });
+
         MenuItem myActionMenuItem = menu.findItem(R.id.action_search);
         final SearchView searchView = (SearchView) myActionMenuItem.getActionView();
         EditText searchEditText = (EditText) searchView.findViewById(android.support.v7.appcompat.R.id.search_src_text);
@@ -314,7 +315,7 @@ public class PendingCases extends AppCompatActivity implements InternalValues {
         switch (requestCode) {
             case 1:
                 if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    startActivity(new Intent(PendingCases.this, QRScanner.class));
+                    startActivity(new Intent(PendingCases.this, FullScannerActivity.class));
                 } else {
                     Utility.toast(context, "Unable to process further\nMust grant permission");
                 }

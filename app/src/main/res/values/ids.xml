@@ -2,4 +2,8 @@
 <resources>
     <item name="visible" type="id" />
     <item name="masked" type="id" />
+    <item name="menu_flash" type="id" />
+    <item name="menu_auto_focus" type="id" />
+    <item name="menu_formats" type="id" />
+    <item name="menu_camera_selector" type="id" />
 </resources>
