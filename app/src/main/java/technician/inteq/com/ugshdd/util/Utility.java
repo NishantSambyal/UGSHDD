@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
+import android.hardware.Camera;
 import android.os.Bundle;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
@@ -163,6 +164,18 @@ public class Utility {
         return String.format("%.2f", (double) tmp / factor);
     }
 
+    public static boolean isCameraUsebyApp() {
+        Camera camera = null;
+        try {
+            camera = Camera.open();
+        } catch (RuntimeException e) {
+            return true;
+        } finally {
+            if (camera != null) camera.release();
+        }
+        return false;
+    }
+
     public AppCompatDelegate initializeDelegate(Activity activity, @LayoutRes int resId, Bundle savedInstanceState, String[] string) {
         context = activity;
         AppCompatDelegate appCompatdelegate = null;
@@ -191,4 +204,6 @@ public class Utility {
             return null;
         }
     }
+
+
 }

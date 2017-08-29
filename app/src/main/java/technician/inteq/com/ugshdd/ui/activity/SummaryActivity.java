@@ -8,6 +8,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Build;
@@ -18,6 +19,7 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
@@ -48,6 +50,10 @@ import technician.inteq.com.ugshdd.util.ExpandableHeightListView;
 import technician.inteq.com.ugshdd.util.UGSApplication;
 import technician.inteq.com.ugshdd.util.Utility;
 
+import static technician.inteq.com.ugshdd.Database.DatabaseValues.COL_OUTLET;
+import static technician.inteq.com.ugshdd.Database.DatabaseValues.TABLE_ONGOING_TASKS;
+import static technician.inteq.com.ugshdd.Database.DatabaseValues.TABLE_PERFORMED_TASKS_TEMP;
+
 /**
  * Created by Nishant Sambyal on 02-Aug-17.
  */
@@ -61,7 +67,7 @@ public class SummaryActivity extends Activity implements InternalValues, View.On
     private ExpandableHeightListView listViewAdd, listViewChargeable, listViewReturned, listViewPerformedTasks;
     private List<Case> addItemList, chargeableItemList, returnItemList;
     private List<PerformedTaskBean> performedList = new ArrayList<>();
-    private Button sign, save, cancel;
+    private Button sign, save, back, cancel;
     private ImageView imageView;
     private byte[] byteArrSignature;
     private String name;
@@ -92,12 +98,14 @@ public class SummaryActivity extends Activity implements InternalValues, View.On
 
         save = (Button) findViewById(R.id.save);
         cancel = (Button) findViewById(R.id.cancel);
+        back = (Button) findViewById(R.id.back);
         sign = (Button) findViewById(R.id.sign);
         imageView = (ImageView) findViewById(R.id.sign_view);
 
         sign.setOnClickListener(this);
-        cancel.setOnClickListener(this);
+        back.setOnClickListener(this);
         save.setOnClickListener(this);
+        cancel.setOnClickListener(this);
     }
 
     public void loadSummary() {
@@ -157,8 +165,24 @@ public class SummaryActivity extends Activity implements InternalValues, View.On
                     Utility.toast(SummaryActivity.this, "Signature left");
                 }
                 break;
-            case R.id.cancel:
+            case R.id.back:
                 finish();
+                break;
+
+            case R.id.cancel:
+                Utility.chooseOptions(SummaryActivity.this, new AdapterView.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                        if (parent.getItemAtPosition(position).equals("Clear all data")) {
+                            SQLiteDatabase db = UGSApplication.getDb();
+                            db.delete(TABLE_ONGOING_TASKS, COL_OUTLET + " = ?", new String[]{UGSApplication.accountNumber});
+                            db.delete(TABLE_PERFORMED_TASKS_TEMP, COL_OUTLET + " = ?", new String[]{UGSApplication.accountNumber});
+                            finishActivity();
+                        } else {
+                            finishActivity();
+                        }
+                    }
+                }, "Clear all data", "Do later");
                 break;
             case R.id.sign:
                 startActivityForResult(new Intent(SummaryActivity.this, SignatureActivity.class), SIGNATURE_ACTIVITY);
@@ -225,9 +249,7 @@ public class SummaryActivity extends Activity implements InternalValues, View.On
                     public void run() {
                         if (done) {
                             dialog.dismiss();
-                            finishAffinity();
-                            startActivity(new Intent(SummaryActivity.this, Dashboard.class));
-                            startActivity(new Intent(SummaryActivity.this, PendingCases.class));
+                            finishActivity();
                             Utility.toast(context, "Transaction done successfully");
                         } else {
                             Utility.toast(context, "Error while creating PDF");
@@ -244,7 +266,7 @@ public class SummaryActivity extends Activity implements InternalValues, View.On
         File myDir = new File(Environment.getExternalStorageDirectory() + File.separator + "UGS_HHD" + File.separator);
         myDir.mkdirs();
         try {
-            file = new File(myDir + File.separator + "HHD_PDF_" + UGSApplication.accountNumber + "_" + new SimpleDateFormat("dd_MM_hh_mm_ss").format(new Date()) + ".pdf");
+            file = new File(myDir + File.separator + "HHD_" + UGSApplication.accountNumber + " " + new SimpleDateFormat("dd-MMM-yyyy_hh_mm_ss").format(new Date()) + ".pdf");
             PdfWriter.getInstance(document, new FileOutputStream(file));
             document.open();
             CreatePDF pfd = new CreatePDF(SummaryActivity.this, addItemList, chargeableItemList, returnItemList, performedList, name);
@@ -262,5 +284,11 @@ public class SummaryActivity extends Activity implements InternalValues, View.On
         TaskController.completeTask(UGSApplication.accountNumber, byteArrSignature, name);
         CaseController.saveOngoingTask(UGSApplication.accountNumber);
         PerformedTaskController.savePerformedTask();
+    }
+
+    void finishActivity() {
+        finishAffinity();
+        startActivity(new Intent(SummaryActivity.this, Dashboard.class));
+        startActivity(new Intent(SummaryActivity.this, PendingCases.class));
     }
 }

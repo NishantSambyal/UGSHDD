@@ -80,7 +80,7 @@
             android:id="@+id/recycler_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:tag="xlarge"
+            android:tag="xlargee"
             app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
         <LinearLayout

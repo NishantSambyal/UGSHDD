@@ -25,7 +25,7 @@ public interface DatabaseValues {
     String TABLE_CONTACT = "contact";
 
     //Column names
-    String COL_ID = "id";
+    String COL_ID = "_id";
     String COL_OUTLET = "outlet";
     String COL_JOB_NO = "job_no";
     String COL_UNIT_NO = "unit_no";

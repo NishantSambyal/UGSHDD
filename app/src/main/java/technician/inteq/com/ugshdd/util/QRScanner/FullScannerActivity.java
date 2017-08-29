@@ -244,4 +244,6 @@ public class FullScannerActivity extends BaseScannerActivity implements
         closeMessageDialog();
         closeFormatsDialog();
     }
+
+
 }

@@ -26,11 +26,11 @@
 
         <service android:name=".Services.ReceiveSMS" />
 
-        <receiver android:name=".Services.IncomingSms">
+        <!--<receiver android:name=".Services.IncomingSms">
             <intent-filter>
                 <action android:name="android.provider.Telephony.SMS_RECEIVED" />
             </intent-filter>
-        </receiver>
+        </receiver>-->
 
         <activity android:name=".ui.activity.Dashboard" />
         <activity android:name=".ui.activity.DailyCashReport" />
@@ -50,6 +50,7 @@
         <activity android:name=".ui.activity.SummaryActivity" />
         <activity android:name=".ui.activity.CompletedTaskActivity" />
         <activity android:name=".ui.activity.PDFViewerActivity" />
+        <activity android:name=".ui.activity.MaterialRequestAddItems" />
     </application>
 
 </manifest>

@@ -58,8 +58,8 @@ public class PendingCasesListAdapter extends RecyclerView.Adapter<PendingCasesLi
             super(itemView);
             outlet = (TextView) itemView.findViewById(R.id.outlet);
             job_no = (TextView) itemView.findViewById(R.id.job_no);
-            unit_food = (TextView) itemView.findViewById(R.id.unit_food);
-            ack = (Button) itemView.findViewById(R.id.ack);
+//            unit_food = (TextView) itemView.findViewById(R.id.unit_food);
+//            ack = (Button) itemView.findViewById(R.id.ack);
         }
     }
 }

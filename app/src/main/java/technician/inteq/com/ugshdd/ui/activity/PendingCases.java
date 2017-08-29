@@ -84,7 +84,7 @@ public class PendingCases extends AppCompatActivity implements InternalValues {
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                finish();
+                finishActivity();
             }
         });
         toolbarTitle.setText("Pending cases");
@@ -130,7 +130,7 @@ public class PendingCases extends AppCompatActivity implements InternalValues {
                                                 if (TaskController.acknowledgeTask((String) viewOutlet.getTag())) {
                                                     Toast.makeText(PendingCases.this, "\t   " + viewOutlet.getTag() + "\nAcknowledge done", Toast.LENGTH_SHORT).show();
                                                     OutletDetail object = list.get(actuallyRequiredPosition).getChildList().get(0);
-                                                    sendSMS(contactNumber.getNumber(), "Case ID: " + object.getJobNumber() + " for outlet: " + object.getOutletName() + " has been Acknowledged by master");
+                                                    sendSMS(contactNumber.getNumber(), "Case ID: " + object.getJobNumber() + " for outlet: " + object.getOutletName() + " has been acknowledged by master");
                                                     Utility.alertDialog.dismiss();
                                                     PendingCases.this.recreate();
                                                 }
@@ -170,9 +170,24 @@ public class PendingCases extends AppCompatActivity implements InternalValues {
                                             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                                                 if (parent.getItemAtPosition(position).equals(getString(R.string.scan_with_camera))) {
                                                     if (checkPermission()) {
-                                                        Intent intent = new Intent(PendingCases.this, FullScannerActivity.class);
-                                                        intent.putExtra("outlet", list.get(actuallyRequiredPosition).getChildList().get(0).getOutletName());
-                                                        startActivity(intent);
+                                                        if (!Utility.isCameraUsebyApp()) {
+                                                            Intent intent = new Intent(PendingCases.this, FullScannerActivity.class);
+                                                            intent.putExtra("outlet", list.get(actuallyRequiredPosition).getChildList().get(0).getOutletName());
+                                                            startActivity(intent);
+                                                        } else {
+                                                            AlertDialog.Builder alertDialog = new AlertDialog.Builder(PendingCases.this);
+                                                            alertDialog.setTitle("Error !");
+                                                            alertDialog.setCancelable(true);
+                                                            alertDialog.setMessage("The camera is already used in other application. Please close all other camera applications and try again");
+                                                            alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                                                @Override
+                                                                public void onClick(DialogInterface dialog, int which) {
+                                                                    dialog.cancel();
+                                                                }
+                                                            });
+                                                            alertDialog.show();
+                                                        }
+
                                                     }
                                                     Utility.alertDialog.dismiss();
 
@@ -280,6 +295,7 @@ public class PendingCases extends AppCompatActivity implements InternalValues {
     }
 
     public void back(View view) {
+        startActivity(new Intent(PendingCases.this, Dashboard.class));
         finish();
     }
 
@@ -330,6 +346,16 @@ public class PendingCases extends AppCompatActivity implements InternalValues {
                 return i;
             }
         }
-        return 0;
+        return -1;
+    }
+
+    void finishActivity() {
+        startActivity(new Intent(PendingCases.this, Dashboard.class));
+        finish();
+    }
+
+    @Override
+    public void onBackPressed() {
+        finishActivity();
     }
 }

@@ -58,6 +58,7 @@ public class Dashboard extends AppCompatActivity implements View.OnClickListener
         getSupportActionBar().setDisplayUseLogoEnabled(true);
         Drawable drawable = ContextCompat.getDrawable(context, R.drawable.option_menu);
         toolbar.setOverflowIcon(drawable);
+
         if (TaskController.getOutletDetails().size() < 2) {
             for (int i = 1; i <= 10; i++) {
                 TaskController.insertTasks("000" + i + "-0BCC", "1234" + i);
@@ -78,6 +79,7 @@ public class Dashboard extends AppCompatActivity implements View.OnClickListener
         leaveManagement.setOnClickListener(this);
         dailyCashReport.setOnClickListener(this);
         technicianRequest.setOnClickListener(this);
+        materialRequest.setOnClickListener(this);
         checkPermission();
         new Thread(new Runnable() {
             @Override
@@ -107,6 +109,13 @@ public class Dashboard extends AppCompatActivity implements View.OnClickListener
             case R.id.pendingCases:
                 Intent iPendingCase = new Intent(Dashboard.this, PendingCases.class);
                 startActivity(iPendingCase);
+                finish();
+                break;
+
+            case R.id.materialRequest:
+                Intent iMaterialRequest = new Intent(Dashboard.this, MaterialRequestAddItems.class);
+                startActivity(iMaterialRequest);
+                finish();
                 break;
 
             case R.id.dailyCashReport:
@@ -191,7 +200,7 @@ public class Dashboard extends AppCompatActivity implements View.OnClickListener
         switch (requestCode) {
             case 1:
                 if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    //writeSMSEvent();
+                    //write SMS Event();
                 } else {
                     //code for deny
                 }
@@ -269,7 +278,7 @@ public class Dashboard extends AppCompatActivity implements View.OnClickListener
         alertDialog.setIcon(getResources().getDrawable(R.mipmap.tick));
         alertDialog.setTitle("About Version !");
         alertDialog.setCancelable(true);
-        alertDialog.setMessage("Version : 002 \n Release Date : 09th-Aug-2017");
+        alertDialog.setMessage("Version : 003 \n Release Date : 17th-Aug-2017");
         alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {

@@ -3,6 +3,8 @@ package technician.inteq.com.ugshdd.model.PendingCaseBean;
 import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.os.Parcel;
+import android.os.Parcelable;
 import android.util.Log;
 
 import java.lang.reflect.Field;
@@ -16,19 +18,46 @@ import technician.inteq.com.ugshdd.util.UGSApplication;
  * Created by Patyal on 7/25/2017.
  */
 
-public class InventoryItem implements DatabaseValues {
+public class InventoryItem implements DatabaseValues, Parcelable {
+    public static final Parcelable.Creator<InventoryItem> CREATOR = new Parcelable.Creator<InventoryItem>() {
+        @Override
+        public InventoryItem createFromParcel(Parcel source) {
+            return new InventoryItem(source);
+        }
+
+        @Override
+        public InventoryItem[] newArray(int size) {
+            return new InventoryItem[0];
+        }
+    };
     private byte[] itemImage;
     private String status;
     private String SubCategory;
     private String category;
     private String internalId;
     private String item;
+    private boolean selected = false;
     private String description;
     private String rate;
-    private String quantity = "";
+    private String quantity = "0";
     private String type;
 
     public InventoryItem() {
+    }
+
+    public InventoryItem(Parcel parcel) {
+        itemImage = new byte[parcel.readInt()];
+        parcel.readByteArray(itemImage);
+        this.status = parcel.readString();
+        this.SubCategory = parcel.readString();
+        this.category = parcel.readString();
+        this.internalId = parcel.readString();
+        this.item = parcel.readString();
+        this.selected = parcel.readInt() != 0;
+        this.description = parcel.readString();
+        this.rate = parcel.readString();
+        this.quantity = parcel.readString();
+        this.type = parcel.readString();
     }
 
     public InventoryItem(byte[] itemImage, String status, String subCategory, String category, String internalId, String item, String description, String rate) {
@@ -49,7 +78,7 @@ public class InventoryItem implements DatabaseValues {
             String name = field.getName();
             Class<?> type = field.getType();
             if (!Modifier.isStatic(field.getModifiers()) && Modifier.isPrivate(field.getModifiers())
-                    && !Collection.class.isAssignableFrom(type) && !name.equals("id")) {
+                    && !Collection.class.isAssignableFrom(type) && !name.equals("selected")) {
                 if (type.equals(byte[].class)) {
                     sql = sql + ", " + name + " " + DatabaseValues.TYPE_BLOB;
                 } else {
@@ -71,7 +100,7 @@ public class InventoryItem implements DatabaseValues {
             for (Field field : obj.getClass().getDeclaredFields()) {
                 String name = field.getName();
                 Class<?> type = field.getType();
-                if (!(name.equals("quantity") || name.equals("amount") || name.equals("type"))) {
+                if (!(name.equals("quantity") || name.equals("amount") || name.equals("type") || name.equals("selected"))) {
                     if (!Modifier.isStatic(field.getModifiers())
                             && !Collection.class.isAssignableFrom(type)) {
                         if (type.equals(byte[].class)) {
@@ -94,6 +123,14 @@ public class InventoryItem implements DatabaseValues {
         return obj;
     }
 
+    public boolean isSelected() {
+        return selected;
+    }
+
+    public void setSelected(boolean selected) {
+        this.selected = selected;
+    }
+
     public void insertIntoItem() throws IllegalAccessException {
         SQLiteDatabase db = UGSApplication.getDb();
         ContentValues values = this.getContentValues();
@@ -107,12 +144,14 @@ public class InventoryItem implements DatabaseValues {
         for (Field field : this.getClass().getDeclaredFields()) {
             String name = field.getName();
             Class<?> type = field.getType();
-            if (!(name.equals("quantity") || name.equals("amount") || name.equals("type"))) {
+            if (!(name.equals("quantity") || name.equals("amount") || name.equals("type")) || name.equals("selected")) {
                 if (!Modifier.isStatic(field.getModifiers()) && !Collection.class.isAssignableFrom(type)
                         && field.get(this) != null) {
                     if (type.equals(byte[].class)) {
                         byte[] obj = (byte[]) field.get(this);
                         values.put(name, obj);
+                    } else if (type.equals(boolean.class)) {
+
                     } else {
 
                         String obj = (String) field.get(this);
@@ -170,5 +209,29 @@ public class InventoryItem implements DatabaseValues {
 
     public void setType(String type) {
         this.type = type;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        try {
+            dest.writeByteArray(itemImage);
+            dest.writeString(status);
+            dest.writeString(SubCategory);
+            dest.writeString(category);
+            dest.writeString(internalId);
+            dest.writeString(item);
+            dest.writeInt(selected ? 1 : 0);
+            dest.writeString(description);
+            dest.writeString(rate);
+            dest.writeString(quantity);
+            dest.writeString(type);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }

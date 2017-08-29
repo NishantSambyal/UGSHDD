@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
@@ -43,22 +44,23 @@ public class CompletedTaskActivity extends AppCompatActivity {
                             Utility.alertDialog.dismiss();
                             filenames = new ArrayList<>();
                             filePaths = new ArrayList<>();
+                            int sno = 1;
                             for (File file : new File(Environment.getExternalStorageDirectory() + File.separator + "UGS_HHD" + File.separator).listFiles()) {
-                                if (cases.get(position).getOutlet().equals(file.getName().substring(8, 17))) {
-                                    filenames.add(file.getName());
+                                if (cases.get(position).getOutlet().equals(file.getName().substring(4, 13))) {
+                                    String fg = file.getName().substring(0, file.getName().indexOf(" ")) + "\n\t" + file.getName().substring(file.getName().indexOf(" "), file.getName().length());
+                                    Log.e("name: ", fg);
+                                    filenames.add(sno + ". " + fg);
                                     filePaths.add(file.getAbsolutePath());
+                                    sno++;
                                 }
                             }
 
                             Utility.chooseOptions(CompletedTaskActivity.this, new AdapterView.OnItemClickListener() {
                                 @Override
                                 public void onItemClick(AdapterView<?> parent, View view, final int position, long id) {
-
                                     Intent intent = new Intent(CompletedTaskActivity.this, PDFViewerActivity.class);
                                     intent.putExtra("filepath", filePaths.get(position));
                                     startActivity(intent);
-
-
                                 }
                             }, filenames.toArray(new String[0]));
                         }

@@ -14,6 +14,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import technician.inteq.com.ugshdd.R;
+import technician.inteq.com.ugshdd.Services.ReceiveSMS;
 import technician.inteq.com.ugshdd.util.AndroidDatabaseManager;
 
 public class MainActivity extends AppCompatActivity {
@@ -21,9 +22,11 @@ public class MainActivity extends AppCompatActivity {
     EditText username, password;
     Button login;
     Toolbar toolbar;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        startService(new Intent(this, ReceiveSMS.class));
         setContentView(R.layout.login_activity);
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -85,7 +88,7 @@ public class MainActivity extends AppCompatActivity {
         alertDialog.setIcon(getResources().getDrawable(R.mipmap.tick));
         alertDialog.setTitle("About Version !");
         alertDialog.setCancelable(true);
-        alertDialog.setMessage("Version : 002 \n Release Date : 09th-Aug-2017");
+        alertDialog.setMessage("Version : 003 \n Release Date : 17th-Aug-2017");
         alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
