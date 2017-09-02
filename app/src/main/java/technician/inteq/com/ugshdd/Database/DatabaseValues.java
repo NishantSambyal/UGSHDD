@@ -23,6 +23,8 @@ public interface DatabaseValues {
     String TABLE_PERFORMED_TASKS_TEMP = "performed_tasks_temp";
     String TABLE_ITEMS = "items";
     String TABLE_CONTACT = "contact";
+    String TABLE_MATERIAL_REQUEST_TEMP = "material_request_temp";
+    String TABLE_MATERIAL_REQUEST = "material_request";
 
     //Column names
     String COL_ID = "_id";
@@ -40,6 +42,8 @@ public interface DatabaseValues {
     String COL_TASKS = "tasks";
     String COL_CUSTOMER_NAME = "customer_name";
     String COL_IS_ACTIVE = "isActive";
+    String COL_TRANSACTION_ID = "transaction_id";
+    String COL_DATE_TIME = "date_time";
 
     //Queries to execute
     String SQL_CREATE_TABLE_PENDING_TASKS = "CREATE TABLE " + TABLE_CASES + "(" + COL_ID + TYPE_INTEGER + " PRIMARY KEY " + TYPE_COMMA_SEP
@@ -68,5 +72,14 @@ public interface DatabaseValues {
 
     String SQL_CREATE_TABLE_CONTACT = "CREATE TABLE " + TABLE_CONTACT + "(" + COL_ID + TYPE_INTEGER + " PRIMARY KEY " + TYPE_COMMA_SEP
             + TABLE_CONTACT + TYPE_TEXT + TYPE_UNIQUE + TYPE_COMMA_SEP + COL_IS_ACTIVE + TYPE_TEXT + ")";
+
+    String SQL_CREATE_TABLE_MATERIAL_REQUEST_TEMP = "CREATE TABLE " + TABLE_MATERIAL_REQUEST_TEMP + "(" + COL_ID + TYPE_INTEGER + " PRIMARY KEY " + TYPE_COMMA_SEP
+            + COL_INTERNAL_ID + TYPE_TEXT + TYPE_COMMA_SEP + COL_QUANTITY + TYPE_TEXT
+            + TYPE_COMMA_SEP + COL_AMOUNT + TYPE_TEXT + ")";
+
+    String SQL_CREATE_TABLE_MATERIAL_REQUEST = "CREATE TABLE " + TABLE_MATERIAL_REQUEST + "(" + COL_ID + TYPE_INTEGER + " PRIMARY KEY " + TYPE_COMMA_SEP
+            + COL_TRANSACTION_ID + TYPE_TEXT + TYPE_COMMA_SEP + COL_INTERNAL_ID + TYPE_TEXT + TYPE_COMMA_SEP
+            + COL_QUANTITY + TYPE_TEXT + TYPE_COMMA_SEP + COL_AMOUNT + TYPE_TEXT
+            + TYPE_COMMA_SEP + COL_DATE_TIME + TYPE_TEXT + ")";
 
 }

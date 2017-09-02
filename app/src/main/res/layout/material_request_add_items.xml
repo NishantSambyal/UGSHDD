@@ -20,22 +20,36 @@
 
     </android.support.design.widget.AppBarLayout>
 
+    <include layout="@layout/material_request_content" />
+
     <LinearLayout
+        android:id="@+id/lin"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+        android:layout_below="@+id/recycler_view"
+        android:layout_gravity="bottom"
+        android:layout_margin="2dp"
+        android:orientation="horizontal">
 
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/recycler_view"
+        <Button
+            android:id="@+id/cancel"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-        <!--<GridView
-            android:numColumns="2"
-            android:id="@+id/gridView"
-            android:clickable="false"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="2dp"
+            android:layout_weight="1"
+            android:background="@drawable/button"
+            android:text="cancel"
+            android:textColor="@color/white" />
+
+        <Button
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />-->
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="2dp"
+            android:layout_weight="1"
+            android:background="@drawable/button"
+            android:onClick="request"
+            android:text="Request"
+            android:textColor="@color/white" />
     </LinearLayout>
 
 </android.support.design.widget.CoordinatorLayout>

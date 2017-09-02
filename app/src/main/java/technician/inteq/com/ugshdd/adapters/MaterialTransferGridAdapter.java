@@ -24,6 +24,7 @@ import technician.inteq.com.ugshdd.model.PendingCaseBean.InventoryItem;
 public class MaterialTransferGridAdapter extends RecyclerView.Adapter<MaterialTransferGridAdapter.ViewHolder> {
     private ArrayList<InventoryItem> inventoryItems;
     private Context context;
+    private ItemClickListener itemClickListener;
 
     public MaterialTransferGridAdapter(Context context, ArrayList<InventoryItem> inventoryItems) {
         this.context = context;
@@ -38,7 +39,6 @@ public class MaterialTransferGridAdapter extends RecyclerView.Adapter<MaterialTr
 
     @Override
     public void onBindViewHolder(final ViewHolder holder, final int position) {
-
         InventoryItem inventoryItem = inventoryItems.get(position);
 
         holder.itemName.setText(inventoryItem.getItem());
@@ -57,19 +57,48 @@ public class MaterialTransferGridAdapter extends RecyclerView.Adapter<MaterialTr
         if (inventoryItem.getItemImage() != null)
             Glide.with(context).load(inventoryItem.getItemImage()).into(holder.imageView);
 
+        holder.addToCart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                itemClickListener.onClickAddToCart(v, position);
+            }
+        });
+        holder.inc.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                itemClickListener.onClickInc(v, position);
+            }
+        });
+        holder.dec.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                itemClickListener.onClickDec(v, position);
+            }
+        });
 
     }
-
 
     @Override
     public int getItemCount() {
         return inventoryItems.size();
     }
 
+    public void setItemClickListener(ItemClickListener itemClickListener) {
+        this.itemClickListener = itemClickListener;
+    }
+
+    public interface ItemClickListener {
+        void onClickAddToCart(View view, int position);
+
+        void onClickInc(View view, int position);
+
+        void onClickDec(View view, int position);
+    }
+
     public class ViewHolder extends RecyclerView.ViewHolder {
-        ImageView imageView, dec, inc;
+        ImageView imageView;
         TextView itemName, itemRate, item_quantity;
-        Button addToCart;
+        Button addToCart, dec, inc;
         LinearLayout selection;
 
         public ViewHolder(View itemView) {
@@ -80,6 +109,9 @@ public class MaterialTransferGridAdapter extends RecyclerView.Adapter<MaterialTr
             addToCart = (Button) itemView.findViewById(R.id.addToCart);
             selection = (LinearLayout) itemView.findViewById(R.id.selection);
             item_quantity = (TextView) itemView.findViewById(R.id.item_quantity);
+            dec = (Button) itemView.findViewById(R.id.dec);
+            inc = (Button) itemView.findViewById(R.id.inc);
+
         }
     }
 }

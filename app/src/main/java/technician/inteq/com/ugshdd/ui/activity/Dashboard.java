@@ -113,7 +113,7 @@ public class Dashboard extends AppCompatActivity implements View.OnClickListener
                 break;
 
             case R.id.materialRequest:
-                Intent iMaterialRequest = new Intent(Dashboard.this, MaterialRequestAddItems.class);
+                Intent iMaterialRequest = new Intent(Dashboard.this, MaterialRequestList.class);
                 startActivity(iMaterialRequest);
                 finish();
                 break;
@@ -278,7 +278,7 @@ public class Dashboard extends AppCompatActivity implements View.OnClickListener
         alertDialog.setIcon(getResources().getDrawable(R.mipmap.tick));
         alertDialog.setTitle("About Version !");
         alertDialog.setCancelable(true);
-        alertDialog.setMessage("Version : 003 \n Release Date : 17th-Aug-2017");
+        alertDialog.setMessage("Version : 003 \n Release Date : 30th-Aug-2017");
         alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {

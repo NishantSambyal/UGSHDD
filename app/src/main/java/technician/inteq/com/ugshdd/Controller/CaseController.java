@@ -81,11 +81,11 @@ public class CaseController implements DatabaseValues {
         if (cursor.moveToFirst()) {
             do {
                 Case aCase = new Case(cursor.getShort(0),// id of ongoing task
-                        cursor.getString(cursor.getColumnIndex(DatabaseValues.COL_OUTLET)),
-                        cursor.getString(cursor.getColumnIndex(DatabaseValues.COL_INTERNAL_ID)),
-                        cursor.getInt(cursor.getColumnIndex(DatabaseValues.COL_QUANTITY)),
-                        cursor.getString(cursor.getColumnIndex(DatabaseValues.COL_AMOUNT)),
-                        cursor.getShort(cursor.getColumnIndex(DatabaseValues.COL_ITEM_TYPE)));
+                        cursor.getString(cursor.getColumnIndex(COL_OUTLET)),
+                        cursor.getString(cursor.getColumnIndex(COL_INTERNAL_ID)),
+                        cursor.getInt(cursor.getColumnIndex(COL_QUANTITY)),
+                        cursor.getString(cursor.getColumnIndex(COL_AMOUNT)),
+                        cursor.getShort(cursor.getColumnIndex(COL_ITEM_TYPE)));
                 aCase.setInventoryItem(new InventoryItem(cursor.getBlob(cursor.getColumnIndex("itemImage")),
                         cursor.getString(cursor.getColumnIndex("status")),
                         cursor.getString(cursor.getColumnIndex("SubCategory")),

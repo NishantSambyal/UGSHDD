@@ -45,12 +45,13 @@
         <activity android:name=".util.QRScanner.FullScannerActivity" />
         <activity android:name=".ui.activity.AddActionsActivity" />
         <activity
-            android:name=".ui.activity.SignatureActivity"
+            android:name=".util.SignatureActivity"
             android:windowSoftInputMode="stateHidden" />
         <activity android:name=".ui.activity.SummaryActivity" />
         <activity android:name=".ui.activity.CompletedTaskActivity" />
         <activity android:name=".ui.activity.PDFViewerActivity" />
         <activity android:name=".ui.activity.MaterialRequestAddItems" />
+        <activity android:name=".ui.activity.MaterialRequestList" />
     </application>
 
 </manifest>

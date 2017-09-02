@@ -19,6 +19,8 @@ import technician.inteq.com.ugshdd.util.UGSApplication;
  */
 
 public class InventoryItem implements DatabaseValues, Parcelable {
+
+
     public static final Parcelable.Creator<InventoryItem> CREATOR = new Parcelable.Creator<InventoryItem>() {
         @Override
         public InventoryItem createFromParcel(Parcel source) {

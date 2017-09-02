@@ -1,4 +1,4 @@
-package technician.inteq.com.ugshdd.ui.activity;
+package technician.inteq.com.ugshdd.util;
 
 import android.content.Context;
 import android.content.ContextWrapper;

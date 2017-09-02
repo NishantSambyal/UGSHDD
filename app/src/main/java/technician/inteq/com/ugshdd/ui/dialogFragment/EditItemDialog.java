@@ -8,11 +8,17 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+
 import technician.inteq.com.ugshdd.Controller.CaseController;
+import technician.inteq.com.ugshdd.Controller.MaterialRequestController;
 import technician.inteq.com.ugshdd.R;
 import technician.inteq.com.ugshdd.model.PendingCaseBean.Case;
+import technician.inteq.com.ugshdd.model.materialRequest.MaterialRequest;
+import technician.inteq.com.ugshdd.ui.activity.AddActionsActivity;
 import technician.inteq.com.ugshdd.util.Utility;
 
 /**
@@ -27,7 +33,8 @@ public class EditItemDialog extends DialogFragment {
     short itemID;
     double amount;
     RefreshItem refreshItem;
-
+    ImageView item_image;
+    MaterialRequest materialRequest;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,13 +42,16 @@ public class EditItemDialog extends DialogFragment {
         refreshItem = (RefreshItem) getActivity();
     }
 
+
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.add_action_inventory_dialog, container, false);
         getDialog().getWindow().requestFeature(Window.FEATURE_NO_TITLE);
+
         view.findViewById(R.id.spinner_section).setVisibility(View.GONE);
         view.findViewById(R.id.spinner_category).setVisibility(View.GONE);
         view.findViewById(R.id.spinner_items).setVisibility(View.GONE);
+        item_image = (ImageView) view.findViewById(R.id.item_image);
         title = (TextView) view.findViewById(R.id.title);
         itemName = (TextView) view.findViewById(R.id.item_name);
         itemDescription = (TextView) view.findViewById(R.id.item_description);
@@ -51,12 +61,25 @@ public class EditItemDialog extends DialogFragment {
         edit = (Button) view.findViewById(R.id.add);
         edit.setText("Edit");
         title.setText("Edit Item");
-        itemName.setText(getArguments().getString("item_name"));
-        itemDescription.setText(getArguments().getString("item_description"));
-        itemRate.setText(getArguments().getString("item_rate"));
-        itemAmount.setText(getArguments().getString("item_amount"));
-        itemQuantity.setText(String.valueOf(getArguments().getInt("item_quantity")));
-        quantity = getArguments().getInt("item_quantity");
+
+        if (getActivity() instanceof AddActionsActivity) {
+            itemName.setText(getArguments().getString("item_name"));
+            itemDescription.setText(getArguments().getString("item_description"));
+            itemRate.setText(getArguments().getString("item_rate"));
+            itemAmount.setText(getArguments().getString("item_amount"));
+            itemQuantity.setText(String.valueOf(getArguments().getInt("item_quantity")));
+            quantity = getArguments().getInt("item_quantity");
+        } else {
+            materialRequest = getArguments().getParcelable("material_request_item");
+            itemName.setText(materialRequest.getInventoryItem().getItem());
+            itemDescription.setText(materialRequest.getInventoryItem().getDescription());
+            itemRate.setText(materialRequest.getInventoryItem().getRate());
+            itemAmount.setText(materialRequest.getAmount());
+            String quantity = materialRequest.getQuantity();
+            itemQuantity.setText(quantity);
+            this.quantity = Integer.parseInt(quantity);
+            Glide.with(getActivity()).load(materialRequest.getInventoryItem().getItemImage()).crossFade().into(item_image);
+        }
 
         view.findViewById(R.id.inc).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -67,6 +90,7 @@ public class EditItemDialog extends DialogFragment {
                 itemAmount.setText(String.valueOf(amount));
             }
         });
+
         view.findViewById(R.id.dec).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -78,27 +102,37 @@ public class EditItemDialog extends DialogFragment {
                 }
             }
         });
+
         view.findViewById(R.id.cancel).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 getDialog().dismiss();
             }
         });
+
         edit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Case updateCase = new Case(quantity, String.valueOf(amount), itemID);
-                try {
-                    CaseController.updateCase(updateCase);
+                if (getActivity() instanceof AddActionsActivity) {
+                    Case updateCase = new Case(quantity, String.valueOf(amount), itemID);
+                    try {
+                        CaseController.updateCase(updateCase);
+                        refreshItem.refresh();
+                        getDialog().dismiss();
+                        Utility.toast(getActivity(), "Item Updated");
+                    } catch (IllegalAccessException e) {
+                        e.printStackTrace();
+                    }
+                } else {
+                    MaterialRequestController.updateMaterialRequestItem(new MaterialRequest(String.valueOf(amount), String.valueOf(quantity), materialRequest.getColID()));
                     refreshItem.refresh();
                     getDialog().dismiss();
                     Utility.toast(getActivity(), "Item Updated");
-                } catch (IllegalAccessException e) {
-                    e.printStackTrace();
                 }
 
             }
         });
+
         return view;
     }
 
