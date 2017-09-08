@@ -21,9 +21,12 @@ import android.view.Menu;
 import android.view.View;
 import android.widget.LinearLayout;
 
+import com.nbsp.materialfilepicker.ui.FilePickerActivity;
+
 import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Pattern;
 
 import technician.inteq.com.ugshdd.Controller.InventoryItemController;
 import technician.inteq.com.ugshdd.Controller.PerformedTaskController;
@@ -33,6 +36,9 @@ import technician.inteq.com.ugshdd.model.PendingCaseBean.InventoryItem;
 import technician.inteq.com.ugshdd.model.PendingCaseBean.PerformedTaskBean;
 import technician.inteq.com.ugshdd.ui.dialogFragment.ContactDialog;
 import technician.inteq.com.ugshdd.util.AndroidDatabaseManager;
+import technician.inteq.com.ugshdd.util.ImportCSV;
+import technician.inteq.com.ugshdd.util.MyFilePickerActivity;
+import technician.inteq.com.ugshdd.util.Utility;
 
 /**
  * Created by Nishant Sambyal on 04-Jul-17.
@@ -40,12 +46,14 @@ import technician.inteq.com.ugshdd.util.AndroidDatabaseManager;
 
 public class Dashboard extends AppCompatActivity implements View.OnClickListener {
 
+    public static final int requestcode = 1;
     LinearLayout pendingCases, materialRequest, dayEndReport, leaveManagement,
             returnMaterial, materialTransfer, dailyCashReport, technicianRequest;
     Context context;
     Toolbar toolbar;
     ArrayList<InventoryItem> inventoryItems;
     List<PerformedTaskBean> performedTaskList;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -84,12 +92,12 @@ public class Dashboard extends AppCompatActivity implements View.OnClickListener
         new Thread(new Runnable() {
             @Override
             public void run() {
-                if (InventoryItemController.getAllItems().getCount() < 1) {
+                if (InventoryItemController.getAllItems(null).getCount() < 1) {
                     prepareList();
                     try {
-                    for (InventoryItem item : inventoryItems) {
+                        for (InventoryItem item : inventoryItems) {
                             item.insertIntoItem();
-                    }
+                        }
                         for (PerformedTaskBean bean : performedTaskList) {
                             PerformedTaskController.insertTasks(bean);
                         }
@@ -162,10 +170,18 @@ public class Dashboard extends AppCompatActivity implements View.OnClickListener
                 finish();
                 break;
             case R.id.about:
-                about();
+                Utility.about(this);
+                break;
+            case R.id.import_csv:
+                Intent intent = new Intent(this, MyFilePickerActivity.class);
+                intent.putExtra(FilePickerActivity.ARG_FILTER, Pattern.compile(".*\\.csv$|.*\\.xlsx$"));
+//                intent.putExtra(FilePickerActivity.ARG_DIRECTORIES_FILTER, true);
+//                intent.putExtra(FilePickerActivity.ARG_SHOW_HIDDEN, true);
+                startActivityForResult(intent, 1);
                 break;
         }
         return super.onOptionsItemSelected(item);
+
     }
 
     public boolean checkPermission() {
@@ -178,13 +194,13 @@ public class Dashboard extends AppCompatActivity implements View.OnClickListener
                     alertBuilder.setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
                         @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
                         public void onClick(DialogInterface dialog, int which) {
-                            ActivityCompat.requestPermissions((Activity) context, new String[]{Manifest.permission.RECEIVE_SMS}, 1);
+                            ActivityCompat.requestPermissions((Activity) context, new String[]{Manifest.permission.RECEIVE_SMS, Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE}, 1);
                         }
                     });
                     AlertDialog alert = alertBuilder.create();
                     alert.show();
                 } else {
-                    ActivityCompat.requestPermissions((Activity) context, new String[]{Manifest.permission.RECEIVE_SMS}, 1);
+                    ActivityCompat.requestPermissions((Activity) context, new String[]{Manifest.permission.RECEIVE_SMS, Manifest.permission.READ_EXTERNAL_STORAGE}, 1);
                 }
                 return false;
             } else {
@@ -273,18 +289,13 @@ public class Dashboard extends AppCompatActivity implements View.OnClickListener
         return bitmapData;
     }
 
-    private void about() {
-        AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
-        alertDialog.setIcon(getResources().getDrawable(R.mipmap.tick));
-        alertDialog.setTitle("About Version !");
-        alertDialog.setCancelable(true);
-        alertDialog.setMessage("Version : 003 \n Release Date : 30th-Aug-2017");
-        alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.cancel();
-            }
-        });
-        alertDialog.show();
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == 1 && resultCode == RESULT_OK) {
+            String filePath = data.getStringExtra(FilePickerActivity.RESULT_FILE_PATH);
+            ImportCSV.importCSV(filePath, this);
+        }
     }
 }

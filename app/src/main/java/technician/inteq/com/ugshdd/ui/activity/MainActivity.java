@@ -1,9 +1,7 @@
 package technician.inteq.com.ugshdd.ui.activity;
 
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
@@ -16,6 +14,7 @@ import android.widget.Toast;
 import technician.inteq.com.ugshdd.R;
 import technician.inteq.com.ugshdd.Services.ReceiveSMS;
 import technician.inteq.com.ugshdd.util.AndroidDatabaseManager;
+import technician.inteq.com.ugshdd.util.Utility;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -62,6 +61,7 @@ public class MainActivity extends AppCompatActivity {
         menu.findItem(R.id.logout).setVisible(false);
         menu.findItem(R.id.database).setVisible(false);
         menu.findItem(R.id.completed_tasks).setVisible(false);
+        menu.findItem(R.id.import_csv).setVisible(false);
         return true;
     }
 
@@ -77,24 +77,11 @@ public class MainActivity extends AppCompatActivity {
                 finish();
                 break;
             case R.id.about:
-                about();
+                Utility.about(this);
                 break;
         }
         return super.onOptionsItemSelected(item);
     }
 
-    private void about() {
-        AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
-        alertDialog.setIcon(getResources().getDrawable(R.mipmap.tick));
-        alertDialog.setTitle("About Version !");
-        alertDialog.setCancelable(true);
-        alertDialog.setMessage("Version : 003 \n Release Date : 30th-Aug-2017");
-        alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.cancel();
-            }
-        });
-        alertDialog.show();
-    }
+
 }

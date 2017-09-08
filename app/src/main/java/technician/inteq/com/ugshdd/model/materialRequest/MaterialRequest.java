@@ -15,6 +15,7 @@ import technician.inteq.com.ugshdd.model.PendingCaseBean.InventoryItem;
  */
 
 public class MaterialRequest implements DatabaseValues, Parcelable {
+
     public static final Creator<MaterialRequest> CREATOR = new Creator<MaterialRequest>() {
 
         @Override
@@ -24,18 +25,28 @@ public class MaterialRequest implements DatabaseValues, Parcelable {
 
         @Override
         public MaterialRequest[] newArray(int size) {
-            return new MaterialRequest[0];
+            return new MaterialRequest[size];
         }
     };
+
     private InventoryItem inventoryItem;
     private String amount;
     private String quantity;
     private String colID;
+    private String transactionID;
 
     public MaterialRequest(String amount, String quantity, String colID) {
         this.amount = amount;
         this.quantity = quantity;
         this.colID = colID;
+    }
+
+    public MaterialRequest(String colID, String amount, String quantity, String transactionID, InventoryItem inventoryItem) {
+        this.inventoryItem = inventoryItem;
+        this.amount = amount;
+        this.quantity = quantity;
+        this.colID = colID;
+        this.transactionID = transactionID;
     }
 
     public MaterialRequest(String colID, String amount, String quantity, InventoryItem inventoryItem) {
@@ -45,17 +56,21 @@ public class MaterialRequest implements DatabaseValues, Parcelable {
         this.colID = colID;
     }
 
+    public MaterialRequest() {
+
+    }
 
     public MaterialRequest(Parcel parcel) {
-        this.inventoryItem = parcel.readParcelable(InventoryItem.class.getClassLoader());
+        this();
+        this.inventoryItem = InventoryItem.class.cast(parcel.readParcelable(InventoryItem.class.getClassLoader()));
         this.amount = parcel.readString();
         this.quantity = parcel.readString();
     }
 
-    public static void getItemFromCursor(List<MaterialRequest> materialRequestList) {
-        Cursor cursor = MaterialRequestController.getAllRequestedMaterial();
+    public static void getTempItemFromCursor(List<MaterialRequest> materialRequestList) {
+        Cursor cursor = MaterialRequestController.getAllRequestedMaterialTemp();
         if (cursor.moveToFirst()) {
-            while (cursor.moveToNext()) {
+            do {
                 materialRequestList.add(new MaterialRequest(cursor.getString(0),
                         cursor.getString(cursor.getColumnIndex(COL_AMOUNT)),
                         cursor.getString(cursor.getColumnIndex(COL_QUANTITY)),
@@ -67,9 +82,41 @@ public class MaterialRequest implements DatabaseValues, Parcelable {
                                 cursor.getString(cursor.getColumnIndex("item")),
                                 cursor.getString(cursor.getColumnIndex("description")),
                                 cursor.getString(cursor.getColumnIndex("rate")))));
-            }
+            } while (cursor.moveToNext());
         }
     }
+
+    public static void getMaterialRequestTransactions(List<MaterialRequestTransaction> list) {
+        Cursor cursor = MaterialRequestController.getMaterialRequestTransactions();
+        if (cursor.moveToFirst()) {
+            do {
+                list.add(new MaterialRequestTransaction(cursor.getString(cursor.getColumnIndex(COL_ID)),
+                        cursor.getString(cursor.getColumnIndex(COL_TRANSACTION_ID)),
+                        cursor.getString(cursor.getColumnIndex(COL_DATE_TIME))));
+            } while (cursor.moveToNext());
+        }
+    }
+
+    public static void getItemFromCursor(List<MaterialRequest> materialRequestList, String transactionID) {
+        Cursor cursor = MaterialRequestController.getAllRequestedMaterial(transactionID);
+        if (cursor.moveToFirst()) {
+            do {
+                materialRequestList.add(new MaterialRequest(cursor.getString(0),
+                        cursor.getString(cursor.getColumnIndex(COL_AMOUNT)),
+                        cursor.getString(cursor.getColumnIndex(COL_QUANTITY)),
+                        cursor.getString(cursor.getColumnIndex(COL_TRANSACTION_ID)),
+                        new InventoryItem(cursor.getBlob(cursor.getColumnIndex("itemImage")),
+                                cursor.getString(cursor.getColumnIndex("status")),
+                                cursor.getString(cursor.getColumnIndex("SubCategory")),
+                                cursor.getString(cursor.getColumnIndex("category")),
+                                cursor.getString(cursor.getColumnIndex("internalId")),
+                                cursor.getString(cursor.getColumnIndex("item")),
+                                cursor.getString(cursor.getColumnIndex("description")),
+                                cursor.getString(cursor.getColumnIndex("rate")))));
+            } while (cursor.moveToNext());
+        }
+    }
+
 
     public InventoryItem getInventoryItem() {
         return inventoryItem;
@@ -87,6 +134,10 @@ public class MaterialRequest implements DatabaseValues, Parcelable {
         return colID;
     }
 
+    public String getTransactionID() {
+        return transactionID;
+    }
+
     @Override
     public int describeContents() {
         return 0;
@@ -94,7 +145,7 @@ public class MaterialRequest implements DatabaseValues, Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        dest.writeParcelable(inventoryItem, 23);
+        dest.writeParcelable(inventoryItem, flags);
         dest.writeString(amount);
         dest.writeString(quantity);
     }

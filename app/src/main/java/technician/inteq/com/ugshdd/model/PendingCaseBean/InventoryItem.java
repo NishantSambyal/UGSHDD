@@ -10,7 +10,9 @@ import android.util.Log;
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
 import java.util.Collection;
+import java.util.List;
 
+import technician.inteq.com.ugshdd.Controller.InventoryItemController;
 import technician.inteq.com.ugshdd.Database.DatabaseValues;
 import technician.inteq.com.ugshdd.util.UGSApplication;
 
@@ -29,9 +31,10 @@ public class InventoryItem implements DatabaseValues, Parcelable {
 
         @Override
         public InventoryItem[] newArray(int size) {
-            return new InventoryItem[0];
+            return new InventoryItem[size];
         }
     };
+
     private byte[] itemImage;
     private String status;
     private String SubCategory;
@@ -42,14 +45,13 @@ public class InventoryItem implements DatabaseValues, Parcelable {
     private String description;
     private String rate;
     private String quantity = "0";
-    private String type;
+    private String type = "";
+    private String c_no;
 
     public InventoryItem() {
     }
 
     public InventoryItem(Parcel parcel) {
-        itemImage = new byte[parcel.readInt()];
-        parcel.readByteArray(itemImage);
         this.status = parcel.readString();
         this.SubCategory = parcel.readString();
         this.category = parcel.readString();
@@ -60,6 +62,10 @@ public class InventoryItem implements DatabaseValues, Parcelable {
         this.rate = parcel.readString();
         this.quantity = parcel.readString();
         this.type = parcel.readString();
+
+        byte[] temp = parcel.createByteArray();
+        parcel.unmarshall(temp, 0, temp.length);
+        this.itemImage = temp;
     }
 
     public InventoryItem(byte[] itemImage, String status, String subCategory, String category, String internalId, String item, String description, String rate) {
@@ -88,7 +94,6 @@ public class InventoryItem implements DatabaseValues, Parcelable {
                     if (!(name.equals("quantity") || name.equals("amount") || name.equals("type"))) {
                         sql = sql + ", " + name + " " + DatabaseValues.TYPE_TEXT;
                     }
-
                 }
             }
         }
@@ -123,6 +128,33 @@ public class InventoryItem implements DatabaseValues, Parcelable {
             obj = null;
         }
         return obj;
+    }
+
+    public static void getCategory(List<String> categoryList) {
+        Cursor cursor = InventoryItemController.getCategory();
+        if (cursor.moveToFirst()) {
+            do {
+                categoryList.add(cursor.getString(cursor.getColumnIndex(COL_CATEGORY)));
+            } while (cursor.moveToNext());
+        }
+    }
+
+    public static void getSubCategory(List<String> subCategoryList, String category) {
+        Cursor cursor = InventoryItemController.getSubCategory(category);
+        if (cursor.moveToFirst()) {
+            do {
+                subCategoryList.add(cursor.getString(cursor.getColumnIndex(COL_ITEM_SUB_CATEGORY)));
+            } while (cursor.moveToNext());
+        }
+    }
+
+    public static void getDataFromCursor(List<InventoryItem> itemList, String subCategory) {
+        Cursor cursor = InventoryItemController.getAllItems(subCategory);
+        if (cursor.moveToFirst()) {
+            do {
+                itemList.add(InventoryItem.getItem(cursor));
+            } while (cursor.moveToNext());
+        }
     }
 
     public boolean isSelected() {
@@ -221,7 +253,7 @@ public class InventoryItem implements DatabaseValues, Parcelable {
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         try {
-            dest.writeByteArray(itemImage);
+
             dest.writeString(status);
             dest.writeString(SubCategory);
             dest.writeString(category);
@@ -232,6 +264,7 @@ public class InventoryItem implements DatabaseValues, Parcelable {
             dest.writeString(rate);
             dest.writeString(quantity);
             dest.writeString(type);
+            dest.writeByteArray(itemImage);
         } catch (Exception e) {
             e.printStackTrace();
         }

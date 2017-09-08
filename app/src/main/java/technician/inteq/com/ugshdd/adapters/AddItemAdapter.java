@@ -1,6 +1,7 @@
 package technician.inteq.com.ugshdd.adapters;
 
 import android.content.Context;
+import android.net.Uri;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,6 +15,7 @@ import java.util.List;
 
 import technician.inteq.com.ugshdd.R;
 import technician.inteq.com.ugshdd.model.PendingCaseBean.Case;
+import technician.inteq.com.ugshdd.util.Utility;
 
 /**
  * Created by Patyal on 7/25/2017.
@@ -45,7 +47,7 @@ public class AddItemAdapter extends RecyclerView.Adapter<AddItemAdapter.AddItemR
         holder.quantity.setText(String.valueOf(aCase.getQuantity()));
         holder.rate.setText(aCase.getInventoryItem().getRate());
         holder.amount.setText(String.valueOf(aCase.getAmount()));
-        Glide.with(context).load(aCase.getInventoryItem().getItemImage()).into(holder.imageView);
+        Glide.with(context).load(Uri.fromFile(Utility.getImage(aCase.getInventoryItem().getInternalId()))).into(holder.imageView);
 
     }
 

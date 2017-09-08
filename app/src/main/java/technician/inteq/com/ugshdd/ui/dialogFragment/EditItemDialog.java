@@ -1,6 +1,7 @@
 package technician.inteq.com.ugshdd.ui.dialogFragment;
 
 import android.app.DialogFragment;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
@@ -78,7 +79,7 @@ public class EditItemDialog extends DialogFragment {
             String quantity = materialRequest.getQuantity();
             itemQuantity.setText(quantity);
             this.quantity = Integer.parseInt(quantity);
-            Glide.with(getActivity()).load(materialRequest.getInventoryItem().getItemImage()).crossFade().into(item_image);
+            Glide.with(getActivity()).load(Uri.fromFile(Utility.getImage(materialRequest.getInventoryItem().getInternalId()))).crossFade().placeholder(R.drawable.noimagefound).into(item_image);
         }
 
         view.findViewById(R.id.inc).setOnClickListener(new View.OnClickListener() {
@@ -129,7 +130,6 @@ public class EditItemDialog extends DialogFragment {
                     getDialog().dismiss();
                     Utility.toast(getActivity(), "Item Updated");
                 }
-
             }
         });
 

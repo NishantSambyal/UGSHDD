@@ -170,7 +170,7 @@ public class PendingCases extends AppCompatActivity implements InternalValues {
                                             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                                                 if (parent.getItemAtPosition(position).equals(getString(R.string.scan_with_camera))) {
                                                     if (checkPermission()) {
-                                                        if (!Utility.isCameraUsebyApp()) {
+                                                        if (!Utility.isCameraAlreadyInUse()) {
                                                             Intent intent = new Intent(PendingCases.this, FullScannerActivity.class);
                                                             intent.putExtra("outlet", list.get(actuallyRequiredPosition).getChildList().get(0).getOutletName());
                                                             startActivity(intent);
@@ -222,6 +222,7 @@ public class PendingCases extends AppCompatActivity implements InternalValues {
         menu.findItem(R.id.database).setVisible(false);
         menu.findItem(R.id.about).setVisible(false);
         menu.findItem(R.id.contact).setVisible(false);
+        menu.findItem(R.id.import_csv).setVisible(false);
         menu.findItem(R.id.completed_tasks).setVisible(true).setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem item) {

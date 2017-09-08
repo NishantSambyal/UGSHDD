@@ -3,11 +3,13 @@ package technician.inteq.com.ugshdd.util;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.hardware.Camera;
 import android.os.Bundle;
+import android.os.Environment;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -28,6 +30,9 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.File;
+import java.text.SimpleDateFormat;
+
 import technician.inteq.com.ugshdd.R;
 
 import static android.R.layout.list_content;
@@ -39,6 +44,7 @@ import static android.R.layout.list_content;
 public class Utility {
 
     public static final String LOGGED_IN = "logged_in";
+    public static final SimpleDateFormat format = new SimpleDateFormat("EEE, dd/MMM/yyyy , hh:mm a");
     private static final String TECH_LOGIN = "tech_session";
     public static AlertDialog alertDialog;
     static TextView[] view;
@@ -164,7 +170,7 @@ public class Utility {
         return String.format("%.2f", (double) tmp / factor);
     }
 
-    public static boolean isCameraUsebyApp() {
+    public static boolean isCameraAlreadyInUse() {
         Camera camera = null;
         try {
             camera = Camera.open();
@@ -174,6 +180,36 @@ public class Utility {
             if (camera != null) camera.release();
         }
         return false;
+    }
+
+    public static File getImage(String imagename) {
+        File mediaImage = new File("temp");
+        try {
+            String root = Environment.getExternalStorageDirectory().toString();
+            File myDir = new File(root);
+            if (!myDir.exists())
+                return mediaImage;
+            mediaImage = new File(myDir.getPath() + "/DownloaderImages/" + imagename + ".jpg");
+        } catch (Exception e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        return mediaImage;
+    }
+
+    public static void about(Context context) {
+        AlertDialog.Builder alertDialog = new AlertDialog.Builder(context);
+        alertDialog.setIcon(context.getResources().getDrawable(R.mipmap.tick));
+        alertDialog.setTitle("About Version !");
+        alertDialog.setCancelable(true);
+        alertDialog.setMessage("Version : 003 \n Release Date : 8th-Sep-2017");
+        alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.cancel();
+            }
+        });
+        alertDialog.show();
     }
 
     public AppCompatDelegate initializeDelegate(Activity activity, @LayoutRes int resId, Bundle savedInstanceState, String[] string) {
@@ -204,6 +240,4 @@ public class Utility {
             return null;
         }
     }
-
-
 }

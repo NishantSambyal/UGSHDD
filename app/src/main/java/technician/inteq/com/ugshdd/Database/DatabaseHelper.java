@@ -21,7 +21,8 @@ public class DatabaseHelper extends SQLiteOpenHelper implements DatabaseValues {
     String[] SQL_CREATE_TABLES = {SQL_CREATE_TABLE_PENDING_TASKS, SQL_CREATE_TABLE_COMPLETED_TASKS,
             SQL_CREATE_TABLE_ONGOING_TASKS, SQL_CREATE_TABLE_TASK, SQL_CREATE_TABLE_ITEM,
             SQL_CREATE_TABLE_TASKS, SQL_CREATE_TABLE_TASKS_TEMP, SQL_CREATE_TABLE_CONTACT,
-            SQL_CREATE_TABLE_MATERIAL_REQUEST_TEMP, SQL_CREATE_TABLE_MATERIAL_REQUEST};
+            SQL_CREATE_TABLE_MATERIAL_REQUEST, SQL_CREATE_TABLE_MATERIAL_REQUEST_TEMP,
+            SQL_CREATE_TABLE_MATERIAL_REQUEST_TRANSACTION};
 
     public DatabaseHelper(Context context, SQLiteDatabase.CursorFactory factory) {
         super(context, DATABASE_NAME, factory, 1);
@@ -44,10 +45,10 @@ public class DatabaseHelper extends SQLiteOpenHelper implements DatabaseValues {
         String[] tableNames;
         int iterator = 0;
         tableNames = new String[c.getCount()];
-        while (c.moveToNext()) {
+        do {
             tableNames[iterator] = c.getString(c.getColumnIndex("name"));
             iterator++;
-        }
+        } while (c.moveToNext());
         for (String SQL_TABLE : tableNames) {
             db.execSQL(SQL_DELETE_ENTRIES + SQL_TABLE);
         }

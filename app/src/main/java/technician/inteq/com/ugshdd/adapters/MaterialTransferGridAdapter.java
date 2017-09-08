@@ -1,6 +1,7 @@
 package technician.inteq.com.ugshdd.adapters;
 
 import android.content.Context;
+import android.net.Uri;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,6 +17,7 @@ import java.util.ArrayList;
 
 import technician.inteq.com.ugshdd.R;
 import technician.inteq.com.ugshdd.model.PendingCaseBean.InventoryItem;
+import technician.inteq.com.ugshdd.util.Utility;
 
 /**
  * Created by Nishant Sambyal on 28-Aug-17.
@@ -42,7 +44,7 @@ public class MaterialTransferGridAdapter extends RecyclerView.Adapter<MaterialTr
         InventoryItem inventoryItem = inventoryItems.get(position);
 
         holder.itemName.setText(inventoryItem.getItem());
-        holder.itemRate.setText(inventoryItem.getRate());
+        holder.itemRate.setText("$ " + inventoryItem.getRate());
         holder.item_quantity.setText(inventoryItem.getQuantity());
 
         if (inventoryItem.isSelected()) {
@@ -54,8 +56,7 @@ public class MaterialTransferGridAdapter extends RecyclerView.Adapter<MaterialTr
             holder.selection.setVisibility(View.GONE);
         }
 
-        if (inventoryItem.getItemImage() != null)
-            Glide.with(context).load(inventoryItem.getItemImage()).into(holder.imageView);
+        Glide.with(context).load(Uri.fromFile(Utility.getImage(inventoryItem.getInternalId()))).placeholder(R.drawable.noimagefound).into(holder.imageView);
 
         holder.addToCart.setOnClickListener(new View.OnClickListener() {
             @Override

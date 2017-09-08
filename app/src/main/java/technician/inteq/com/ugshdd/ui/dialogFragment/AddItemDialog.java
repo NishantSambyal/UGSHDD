@@ -2,6 +2,7 @@ package technician.inteq.com.ugshdd.ui.dialogFragment;
 
 import android.app.DialogFragment;
 import android.database.Cursor;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
@@ -80,7 +81,7 @@ public class AddItemDialog extends DialogFragment {
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 item = inventoryItems.get(position);
 
-                Glide.with(getActivity()).load(item.getItemImage()).into(imageview);
+                Glide.with(getActivity()).load(Uri.fromFile(Utility.getImage(item.getInternalId()))).into(imageview);
                 itemName.setText(item.getItem());
                 itemDescription.setText(item.getDescription());
                 itemRate.setText(item.getRate());
@@ -144,7 +145,7 @@ public class AddItemDialog extends DialogFragment {
 
     void prepareList() {
         inventoryItems = new ArrayList<>();
-        Cursor cursor = InventoryItemController.getAllItems();
+        Cursor cursor = InventoryItemController.getAllItems(null);
         if (cursor.moveToFirst()) {
             do {
                 inventoryItems.add(InventoryItem.getItem(cursor));

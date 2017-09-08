@@ -11,14 +11,6 @@
         android:title="@string/contact" />
 
     <item
-        android:id="@+id/about"
-        android:title="@string/about" />
-
-    <item
-        android:id="@+id/database"
-        android:title="@string/database" />
-
-    <item
         android:id="@+id/completed_tasks"
         android:title="@string/completed_task" />
 
@@ -28,5 +20,17 @@
         android:title="@string/search"
         app:actionViewClass="android.support.v7.widget.SearchView"
         app:showAsAction="always" />
+
+    <item
+        android:id="@+id/import_csv"
+        android:title="@string/import_csv" />
+
+    <item
+        android:id="@+id/about"
+        android:title="@string/about" />
+
+    <item
+        android:id="@+id/database"
+        android:title="@string/database" />
 
 </menu>

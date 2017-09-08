@@ -1,6 +1,7 @@
 package technician.inteq.com.ugshdd.adapters.spinner_adapter;
 
 import android.content.Context;
+import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +15,7 @@ import java.util.ArrayList;
 
 import technician.inteq.com.ugshdd.R;
 import technician.inteq.com.ugshdd.model.PendingCaseBean.InventoryItem;
+import technician.inteq.com.ugshdd.util.Utility;
 
 /**
  * Created by Nishant Sambyal on 25-Jul-17.
@@ -52,7 +54,7 @@ public class ItemsCustomSpinnerAdapter extends BaseAdapter {
         ImageView icon = (ImageView) view.findViewById(R.id.item_image);
         TextView names = (TextView) view.findViewById(R.id.item_name);
         TextView description = (TextView) view.findViewById(R.id.description);
-        Glide.with(context).load(items.getItemImage()).into(icon);
+        Glide.with(context).load(Uri.fromFile(Utility.getImage(items.getInternalId()))).into(icon);
         names.setText(items.getItem());
         description.setText(items.getDescription());
         return view;

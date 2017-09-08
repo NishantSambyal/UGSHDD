@@ -54,10 +54,12 @@ public class ContactDialog extends DialogFragment {
         final EditText numberText = (EditText) view.findViewById(R.id.et_number);
         final Button add = (Button) view.findViewById(R.id.add);
         final TextView selected = (TextView) view.findViewById(R.id.selected);
+
         if (contact != null) {
             selected.setText(contact.getNumber());
             gone.setVisibility(View.GONE);
         }
+
         listView = (ExpandableHeightListView) view.findViewById(R.id.listView);
         final ArrayAdapter adapter = new ArrayAdapter<AddContact>(getActivity(), android.R.layout.simple_list_item_1, contactList) {
 

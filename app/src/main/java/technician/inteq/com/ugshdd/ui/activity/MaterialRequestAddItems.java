@@ -1,67 +1,127 @@
 package technician.inteq.com.ugshdd.ui.activity;
 
 import android.app.Activity;
-import android.app.LoaderManager;
 import android.content.Intent;
-import android.content.Loader;
 import android.content.res.Configuration;
-import android.database.Cursor;
+import android.graphics.Color;
+import android.graphics.Typeface;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.Toast;
+import android.widget.Spinner;
+import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.List;
 
-import technician.inteq.com.ugshdd.Controller.InventoryItemController;
 import technician.inteq.com.ugshdd.Controller.MaterialRequestController;
 import technician.inteq.com.ugshdd.R;
 import technician.inteq.com.ugshdd.adapters.MaterialTransferGridAdapter;
 import technician.inteq.com.ugshdd.model.PendingCaseBean.InventoryItem;
-import technician.inteq.com.ugshdd.util.SQLiteCursorLoader;
+import technician.inteq.com.ugshdd.util.Utility;
 
 /**
  * Created by Nishant Sambyal on 21-Aug-17.
  */
 
-public class MaterialRequestAddItems extends Activity implements LoaderManager.LoaderCallbacks<Cursor> {
+public class MaterialRequestAddItems extends Activity {
     public static final String STATE_INVENTORY = "inventory";
     ArrayList<InventoryItem> inventoryItems;
+    List<String> categoryArrayList, subCategoryArrayList = new ArrayList<>();
     RecyclerView recyclerView;
     Button cancel;
+    Spinner category, subCategory;
+    ArrayAdapter subCategoryAdapter;
+    MaterialTransferGridAdapter materialTransferGridAdapter;
+    String subCategoryItem;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.material_request_add_items);
+        if (savedInstanceState == null) {
+            prepareList();
+        } else {
+            inventoryItems = savedInstanceState.getParcelableArrayList(STATE_INVENTORY);
+        }
         cancel = (Button) findViewById(R.id.cancel);
-        cancel.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-                startActivity(new Intent(MaterialRequestAddItems.this, MaterialRequestList.class));
-            }
-        });
+        category = (Spinner) findViewById(R.id.category);
+        subCategory = (Spinner) findViewById(R.id.sub_category);
         recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
+
         int orientation = this.getResources().getConfiguration().orientation;
         int columns = 2;
         if (orientation == Configuration.ORIENTATION_LANDSCAPE) {
             columns = 3;
         }
         recyclerView.setLayoutManager(new GridLayoutManager(this, columns));
-        if (savedInstanceState == null) {
-            prepareList();
-        } else {
-            inventoryItems = savedInstanceState.getParcelableArrayList(STATE_INVENTORY);
-        }
-        final MaterialTransferGridAdapter materialTransferGridAdapter = new MaterialTransferGridAdapter(this, inventoryItems);
+        ArrayAdapter categoryAdapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, categoryArrayList) {
+
+            @NonNull
+            @Override
+            public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
+                View view = super.getView(position, convertView, parent);
+                TextView text = (TextView) view.findViewById(android.R.id.text1);
+                text.setTextColor(Color.WHITE);
+                text.setTypeface(null, Typeface.BOLD);
+                return view;
+
+            }
+        };
+        category.setAdapter(categoryAdapter);
+        subCategoryAdapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, subCategoryArrayList) {
+
+            @NonNull
+            @Override
+            public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
+                View view = super.getView(position, convertView, parent);
+                TextView text = (TextView) view.findViewById(android.R.id.text1);
+                text.setTextColor(Color.WHITE);
+                text.setTypeface(null, Typeface.BOLD);
+                return view;
+
+            }
+        };
+        subCategory.setAdapter(subCategoryAdapter);
+        category.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                subCategoryArrayList.clear();
+                InventoryItem.getSubCategory(subCategoryArrayList, (String) parent.getItemAtPosition(position));
+                subCategoryAdapter.notifyDataSetChanged();
+                if (subCategoryArrayList.size() > 0) {
+                    refreshInventoryItems(subCategoryArrayList.get(0));
+                    subCategory.setSelection(0);
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+        subCategory.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                subCategoryItem = (String) parent.getItemAtPosition(position);
+                refreshInventoryItems(subCategoryItem);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
+        materialTransferGridAdapter = new MaterialTransferGridAdapter(this, inventoryItems);
         recyclerView.setAdapter(materialTransferGridAdapter);
-
-
         materialTransferGridAdapter.setItemClickListener(new MaterialTransferGridAdapter.ItemClickListener() {
             @Override
             public void onClickAddToCart(View view, int position) {
@@ -73,7 +133,6 @@ public class MaterialRequestAddItems extends Activity implements LoaderManager.L
 
             @Override
             public void onClickInc(View view, int position) {
-                Log.e("iinc:", "" + position);
                 InventoryItem inventoryItem = inventoryItems.get(position);
                 int qty = Integer.parseInt(inventoryItem.getQuantity());
                 qty++;
@@ -96,6 +155,14 @@ public class MaterialRequestAddItems extends Activity implements LoaderManager.L
             }
         });
 
+        cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+                startActivity(new Intent(MaterialRequestAddItems.this, MaterialRequestList.class));
+            }
+        });
+
     }
 
     @Override
@@ -104,38 +171,23 @@ public class MaterialRequestAddItems extends Activity implements LoaderManager.L
         outState.putParcelableArrayList(STATE_INVENTORY, inventoryItems);
     }
 
-    @Override
-    public Loader<Cursor> onCreateLoader(int id, Bundle args) {
-        Cursor cursor = InventoryItemController.getAllItems();
-        SQLiteCursorLoader loader = new SQLiteCursorLoader(this, cursor);
-        return loader;
-    }
-
-    @Override
-    public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
-//        materialTransferGridAdapter.swapCursor(data);
-    }
-
-    @Override
-    public void onLoaderReset(Loader<Cursor> loader) {
-//        materialTransferGridAdapter.swapCursor(null);
-    }
-
-
     void prepareList() {
         inventoryItems = new ArrayList<>();
-        Cursor cursor = InventoryItemController.getAllItems();
-        if (cursor.moveToFirst()) {
-            do {
-                inventoryItems.add(InventoryItem.getItem(cursor));
-            } while (cursor.moveToNext());
-        }
+        InventoryItem.getCategory(categoryArrayList = new ArrayList<>());
+        InventoryItem.getDataFromCursor(inventoryItems, null);
+    }
+
+    private void refreshInventoryItems(String subCategory) {
+        inventoryItems.clear();
+        InventoryItem.getDataFromCursor(inventoryItems, subCategory);
+        materialTransferGridAdapter.notifyDataSetChanged();
     }
 
     public void request(View view) {
         MaterialRequestController.insertRequestedMaterial(inventoryItems);
         startActivity(new Intent(MaterialRequestAddItems.this, MaterialRequestList.class));
-        Toast.makeText(this, "Items Added in list", Toast.LENGTH_SHORT).show();
+        Utility.toast(this, "Items Added in list");
         finish();
     }
+
 }
