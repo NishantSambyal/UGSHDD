@@ -97,6 +97,33 @@ public class MaterialRequest implements DatabaseValues, Parcelable {
         }
     }
 
+    public static List<MaterialRequestTransaction> getMaterialRequestTransaction(List<MaterialRequestTransaction> list, String transactionID) {
+        Cursor cursor = MaterialRequestController.getMaterialRequestTransaction(transactionID);
+        if (cursor.moveToFirst()) {
+            do {
+                list.add(new MaterialRequestTransaction(cursor.getString(cursor.getColumnIndex(COL_ID)),
+                        cursor.getString(cursor.getColumnIndex(COL_TRANSACTION_ID)),
+                        cursor.getString(cursor.getColumnIndex(COL_DATE_TIME))));
+            } while (cursor.moveToNext());
+        }
+        return list;
+    }
+
+    public static List<MaterialRequest> getMaterialRequest(List<MaterialRequest> list, String transactionID) {
+        Cursor cursor = MaterialRequestController.getMaterialRequest(transactionID);
+        if (cursor.moveToFirst()) {
+            do {
+                InventoryItem item = new InventoryItem();
+                item.setInternalId(cursor.getString(cursor.getColumnIndex(COL_INTERNAL_ID)));
+                list.add(new MaterialRequest(cursor.getString(cursor.getColumnIndex(COL_ID)),
+                        cursor.getString(cursor.getColumnIndex(COL_AMOUNT)),
+                        cursor.getString(cursor.getColumnIndex(COL_QUANTITY)),
+                        item));
+            } while (cursor.moveToNext());
+        }
+        return list;
+    }
+
     public static void getItemFromCursor(List<MaterialRequest> materialRequestList, String transactionID) {
         Cursor cursor = MaterialRequestController.getAllRequestedMaterial(transactionID);
         if (cursor.moveToFirst()) {

@@ -46,7 +46,6 @@ import technician.inteq.com.ugshdd.util.Utility;
 
 public class Dashboard extends AppCompatActivity implements View.OnClickListener {
 
-    public static final int requestcode = 1;
     LinearLayout pendingCases, materialRequest, dayEndReport, leaveManagement,
             returnMaterial, materialTransfer, dailyCashReport, technicianRequest;
     Context context;
@@ -58,6 +57,7 @@ public class Dashboard extends AppCompatActivity implements View.OnClickListener
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.dashboard);
+        /*Utility.toast(this, String.valueOf(Utility.isNetworkAvailable(this)));*/
         context = this;
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);

@@ -3,6 +3,7 @@ package technician.inteq.com.ugshdd.Controller;
 import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.util.Log;
 
 import java.util.Calendar;
 import java.util.List;
@@ -33,7 +34,7 @@ public class MaterialRequestController implements DatabaseValues {
         }
     }
 
-    public static void saveTheTransaction() {
+    public static int saveTheTransaction() {
         SQLiteDatabase db = UGSApplication.getDb();
         Cursor cursor = db.query(TABLE_MATERIAL_REQUEST_TEMP, null, null, null, null, null, null);
         Cursor transactionCursor = db.query(TABLE_MATERIAL_REQUEST, null, null, null, null, null, null);
@@ -63,8 +64,8 @@ public class MaterialRequestController implements DatabaseValues {
         values.put(COL_TRANSACTION_ID, transactionID);
         values.put(COL_DATE_TIME, Utility.format.format(Calendar.getInstance().getTime()));
         db.insert(TABLE_MATERIAL_REQUEST_TRANSACTIONS, null, values);
-
         deleteTempTable();
+        return transactionID;
     }
 
     public static Cursor getAllRequestedMaterialTemp() {
@@ -76,6 +77,15 @@ public class MaterialRequestController implements DatabaseValues {
 
     public static Cursor getMaterialRequestTransactions() {
         return UGSApplication.getDb().query(TABLE_MATERIAL_REQUEST_TRANSACTIONS, null, null, null, null, null, null);
+    }
+
+    public static Cursor getMaterialRequestTransaction(String transaction) {
+        Log.e("transaction_id....", transaction);
+        return UGSApplication.getDb().query(TABLE_MATERIAL_REQUEST_TRANSACTIONS, null, COL_TRANSACTION_ID + "=?", new String[]{transaction}, null, null, null);
+    }
+
+    public static Cursor getMaterialRequest(String transaction) {
+        return UGSApplication.getDb().query(TABLE_MATERIAL_REQUEST, null, COL_TRANSACTION_ID + "=?", new String[]{transaction}, null, null, null);
     }
 
     public static Cursor getAllRequestedMaterial(String transactionID) {

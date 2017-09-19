@@ -20,7 +20,6 @@ public class InventoryItemController implements DatabaseValues {
             return UGSApplication.getDb().query(TABLE_ITEMS, null, selection, new String[]{subCategory}, null, null, null);
         }
         return UGSApplication.getDb().query(TABLE_ITEMS, null, null, null, null, null, null);
-//        return db.query(TABLE_ITEMS, null, null, null, null, null, null);
     }
 
 
@@ -33,5 +32,6 @@ public class InventoryItemController implements DatabaseValues {
         return getDb().rawQuery("SELECT DISTINCT "
                 + COL_ITEM_SUB_CATEGORY + " FROM " + TABLE_ITEMS + " WHERE "
                 + COL_CATEGORY + " = '" + category + "'", null);
+
     }
 }

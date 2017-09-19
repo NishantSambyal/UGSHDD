@@ -75,6 +75,10 @@ public class CaseController implements DatabaseValues {
         db.delete(TABLE_PERFORMED_TASKS_TEMP, COL_OUTLET + " = ?", new String[]{outlet});
     }
 
+    public static Cursor getCompletedCase(String outlet_no) {
+        return UGSApplication.getDb().query(TABLE_COMPLETED_TASKS, null, COL_OUTLET + "=?", new String[]{outlet_no}, null, null, null);
+    }
+
     public static List<Case> loadItems(String type, String outlet) {
         List<Case> cases = new ArrayList<>();
         Cursor cursor = CaseController.getAllPendingCases(type, outlet);

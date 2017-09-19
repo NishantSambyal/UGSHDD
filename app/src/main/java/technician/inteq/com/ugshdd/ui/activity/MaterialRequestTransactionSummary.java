@@ -36,7 +36,6 @@ public class MaterialRequestTransactionSummary extends Activity {
         findViewById(R.id.empty).setVisibility(View.GONE);
         findViewById(R.id.fab).setVisibility(View.GONE);
         findViewById(R.id.buttons_view).setVisibility(View.GONE);
-
     }
 
     void prepareList() {

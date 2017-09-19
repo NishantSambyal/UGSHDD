@@ -28,6 +28,9 @@
     <item
         android:id="@+id/about"
         android:title="@string/about" />
+    <item
+        android:id="@+id/add_ip_address"
+        android:title="@string/addip" />
 
     <item
         android:id="@+id/database"

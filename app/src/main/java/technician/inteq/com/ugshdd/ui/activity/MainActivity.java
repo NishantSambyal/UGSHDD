@@ -13,6 +13,7 @@ import android.widget.Toast;
 
 import technician.inteq.com.ugshdd.R;
 import technician.inteq.com.ugshdd.Services.ReceiveSMS;
+import technician.inteq.com.ugshdd.ui.dialogFragment.AddIPDialog;
 import technician.inteq.com.ugshdd.util.AndroidDatabaseManager;
 import technician.inteq.com.ugshdd.util.Utility;
 
@@ -78,6 +79,10 @@ public class MainActivity extends AppCompatActivity {
                 break;
             case R.id.about:
                 Utility.about(this);
+                break;
+            case R.id.add_ip_address:
+                AddIPDialog addIPDialog = new AddIPDialog();
+                addIPDialog.show(getFragmentManager(), "add_ip_fragment");
                 break;
         }
         return super.onOptionsItemSelected(item);

@@ -47,7 +47,6 @@ public class InventoryItem implements DatabaseValues, Parcelable {
     private String quantity = "0";
     private String type = "";
     private String c_no;
-
     public InventoryItem() {
     }
 
@@ -223,6 +222,10 @@ public class InventoryItem implements DatabaseValues, Parcelable {
 
     public String getInternalId() {
         return internalId;
+    }
+
+    public void setInternalId(String internalId) {
+        this.internalId = internalId;
     }
 
     public String getCategory() {

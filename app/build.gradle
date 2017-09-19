@@ -34,4 +34,5 @@ dependencies {
     compile 'com.itextpdf:itext-pdfa:5.5.5'
     compile 'com.joanzapata.pdfview:android-pdfview:1.0.4@aar'
     compile 'com.nbsp:library:1.8'
+    compile 'com.google.code.gson:gson:2.7'
 }

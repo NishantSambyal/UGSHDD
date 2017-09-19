@@ -112,7 +112,6 @@ public class MaterialTransferGridAdapter extends RecyclerView.Adapter<MaterialTr
             item_quantity = (TextView) itemView.findViewById(R.id.item_quantity);
             dec = (Button) itemView.findViewById(R.id.dec);
             inc = (Button) itemView.findViewById(R.id.inc);
-
         }
     }
 }

@@ -11,6 +11,7 @@ import android.content.pm.PackageManager;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
@@ -24,6 +25,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
 import com.itextpdf.text.Document;
 import com.itextpdf.text.PageSize;
 import com.itextpdf.text.pdf.PdfWriter;
@@ -42,11 +44,14 @@ import technician.inteq.com.ugshdd.Database.InternalValues;
 import technician.inteq.com.ugshdd.R;
 import technician.inteq.com.ugshdd.adapters.ArrayAdapters.SummaryItemAdapter;
 import technician.inteq.com.ugshdd.adapters.ArrayAdapters.SummaryPTAdapter;
+import technician.inteq.com.ugshdd.model.HddUpload;
 import technician.inteq.com.ugshdd.model.PendingCaseBean.Case;
 import technician.inteq.com.ugshdd.model.PendingCaseBean.PerformedTaskBean;
 import technician.inteq.com.ugshdd.model.PendingCaseBean.PerformedTaskHelper;
 import technician.inteq.com.ugshdd.util.CreatePDF;
 import technician.inteq.com.ugshdd.util.ExpandableHeightListView;
+import technician.inteq.com.ugshdd.util.NetworkUtil;
+import technician.inteq.com.ugshdd.util.PreferenceUtility;
 import technician.inteq.com.ugshdd.util.SignatureActivity;
 import technician.inteq.com.ugshdd.util.UGSApplication;
 import technician.inteq.com.ugshdd.util.Utility;
@@ -72,6 +77,7 @@ public class SummaryActivity extends Activity implements InternalValues, View.On
     private ImageView imageView;
     private byte[] byteArrSignature;
     private String name;
+    private String url;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -157,10 +163,13 @@ public class SummaryActivity extends Activity implements InternalValues, View.On
         switch (v.getId()) {
             case R.id.save:
                 if (imageView.getVisibility() == View.VISIBLE) {
+
                     saveTasks();
+                    uploadToServer();
                     if (checkPermission()) {
                         createPDFThread();
                     }
+
 
                 } else {
                     Utility.toast(SummaryActivity.this, "Signature left");
@@ -189,6 +198,17 @@ public class SummaryActivity extends Activity implements InternalValues, View.On
                 startActivityForResult(new Intent(SummaryActivity.this, SignatureActivity.class), SIGNATURE_ACTIVITY);
                 break;
         }
+    }
+
+    private void uploadToServer() {
+        if (NetworkUtil.getConnectivityStatus(this) == NetworkUtil.TYPE_WIFI /*|| NetworkUtil.getConnectivityStatus(this) == NetworkUtil.TYPE_MOBILE*/) {
+            if (PreferenceUtility.getCurrentPortAndIpAddress(context).equals("")) {
+                new sendData().execute();
+            } else {
+                Toast.makeText(this, "Unable to upload to server..! Add IP Address", Toast.LENGTH_SHORT).show();
+            }
+        }
+        new sendData().execute();
     }
 
     public boolean checkPermission() {
@@ -225,7 +245,6 @@ public class SummaryActivity extends Activity implements InternalValues, View.On
             case 1:
                 if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     createPDFThread();
-
                 } else {
                     //code for deny
                 }
@@ -291,5 +310,27 @@ public class SummaryActivity extends Activity implements InternalValues, View.On
         finishAffinity();
         startActivity(new Intent(SummaryActivity.this, Dashboard.class));
         startActivity(new Intent(SummaryActivity.this, PendingCases.class));
+    }
+
+
+    public class sendData extends AsyncTask<Void, Void, Void> {
+
+        protected void onPreExecute() {
+            super.onPreExecute();
+        }
+
+        @Override
+        protected Void doInBackground(Void... params) {
+            HddUpload batchDemo = new HddUpload();
+            batchDemo.setCases(Case.getOutletCompletedCases(new ArrayList<Case>(), UGSApplication.accountNumber));
+            String jsonData = new Gson().toJson(batchDemo);
+            System.out.println("vikaspatyaallll" + jsonData);
+            try {
+                String response = NetworkUtil.hitServer(url, jsonData);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            return null;
+        }
     }
 }

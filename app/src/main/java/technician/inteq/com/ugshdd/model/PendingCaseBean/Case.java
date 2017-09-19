@@ -59,6 +59,21 @@ public class Case {
         return null;
     }
 
+    public static List<Case> getOutletCompletedCases(List<Case> list, String outletNo) {
+        Cursor cursor = CaseController.getCompletedCase(outletNo);
+        if (cursor.moveToFirst()) {
+            do {
+                list.add(new Case(
+                        cursor.getString(cursor.getColumnIndex(DatabaseValues.COL_OUTLET)),
+                        cursor.getString(cursor.getColumnIndex(DatabaseValues.COL_INTERNAL_ID)),
+                        cursor.getInt(cursor.getColumnIndex(DatabaseValues.COL_QUANTITY)),
+                        cursor.getString(cursor.getColumnIndex(DatabaseValues.COL_ITEM_TYPE)),
+                        cursor.getShort(cursor.getColumnIndex(DatabaseValues.COL_AMOUNT))));
+            } while (cursor.moveToNext());
+        }
+        return list;
+    }
+
     public ContentValues getContentValues() throws IllegalAccessException, IllegalArgumentException {
         ContentValues values = null;
         values = new ContentValues();

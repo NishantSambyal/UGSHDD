@@ -7,6 +7,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -24,15 +25,21 @@ import android.widget.AdapterView;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
+
 import java.util.ArrayList;
 import java.util.List;
 
 import technician.inteq.com.ugshdd.Controller.MaterialRequestController;
 import technician.inteq.com.ugshdd.R;
 import technician.inteq.com.ugshdd.adapters.recyclerViewAdapter.MaterialRequestRecyclerAdapter;
+import technician.inteq.com.ugshdd.model.HddUpload;
 import technician.inteq.com.ugshdd.model.materialRequest.MaterialRequest;
+import technician.inteq.com.ugshdd.model.materialRequest.MaterialRequestTransaction;
 import technician.inteq.com.ugshdd.ui.dialogFragment.EditItemDialog;
 import technician.inteq.com.ugshdd.ui.dialogFragment.MaterialRequestHistoryDialog;
+import technician.inteq.com.ugshdd.util.NetworkUtil;
+import technician.inteq.com.ugshdd.util.PreferenceUtility;
 import technician.inteq.com.ugshdd.util.RecyclerTouchListener;
 import technician.inteq.com.ugshdd.util.Utility;
 
@@ -54,6 +61,8 @@ public class MaterialRequestList extends AppCompatActivity implements EditItemDi
     int positionEdit;
     LinearLayout emptyLayout, buttonPanel;
     Context context;
+    private String url;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -97,10 +106,23 @@ public class MaterialRequestList extends AppCompatActivity implements EditItemDi
     }
 
     private void save() {
-        saveTheTransaction();
+        uploadToServer(saveTheTransaction());
         toast(MaterialRequestList.this, "Transaction saved successfully");
         finishActivity();
     }
+
+
+    private void uploadToServer(int transactionId) {
+        if (NetworkUtil.getConnectivityStatus(this) == NetworkUtil.TYPE_WIFI /*|| NetworkUtil.getConnectivityStatus(this) == NetworkUtil.TYPE_MOBILE*/) {
+            if (PreferenceUtility.getCurrentPortAndIpAddress(context).equals("")) {
+                new sendData(transactionId).execute();
+            } else {
+                Toast.makeText(this, "Unable to upload to server..! Add IP Address", Toast.LENGTH_SHORT).show();
+            }
+        }
+        new sendData(transactionId).execute();
+    }
+
     public void back(View view) {
         finishActivity();
     }
@@ -131,7 +153,6 @@ public class MaterialRequestList extends AppCompatActivity implements EditItemDi
 
     private void showAlert(String message, DialogInterface.OnClickListener listener) {
         AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
-        alertDialog.setIcon(getResources().getDrawable(R.mipmap.tick));
         alertDialog.setCancelable(true);
         alertDialog.setMessage(message);
         alertDialog.setPositiveButton("OK", listener);
@@ -253,6 +274,35 @@ public class MaterialRequestList extends AppCompatActivity implements EditItemDi
                     //code for deny
                 }
                 break;
+        }
+    }
+
+    public class sendData extends AsyncTask<Void, Void, Void> {
+
+        int transactionId;
+
+        public sendData(int transactionId) {
+            this.transactionId = transactionId;
+        }
+
+        protected void onPreExecute() {
+            super.onPreExecute();
+        }
+
+        @Override
+        protected Void doInBackground(Void... params) {
+            HddUpload batchDemo = new HddUpload();
+            batchDemo.setMaterialRequestsTransactions(MaterialRequest.getMaterialRequestTransaction(new ArrayList<MaterialRequestTransaction>(), String.valueOf(transactionId)));
+            batchDemo.setMaterialRequests(MaterialRequest.getMaterialRequest(new ArrayList<MaterialRequest>(), String.valueOf(transactionId)));
+
+            String jsonData = new Gson().toJson(batchDemo);
+            System.out.println("vikaspatyaallll" + jsonData);
+            try {
+                String response = NetworkUtil.hitServer(url, jsonData);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            return null;
         }
     }
 }

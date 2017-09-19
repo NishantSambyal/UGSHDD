@@ -88,7 +88,6 @@ public class PendingCases extends AppCompatActivity implements InternalValues {
             }
         });
         toolbarTitle.setText("Pending cases");
-
         recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
@@ -289,7 +288,6 @@ public class PendingCases extends AppCompatActivity implements InternalValues {
     public void sendSMS(String no, String msg) {
         Intent intent = new Intent(getApplicationContext(), PendingCases.class);
         PendingIntent pi = PendingIntent.getActivity(getApplicationContext(), 0, intent, 0);
-
         //Get the SmsManager instance and call the sendTextMessage method to send message
         SmsManager sms = SmsManager.getDefault();
         sms.sendTextMessage(no, null, msg, pi, null);
